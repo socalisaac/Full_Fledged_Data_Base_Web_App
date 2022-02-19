@@ -17,14 +17,14 @@
     </main>
     <footer>
         <!-- This footer is on every page. Copyright info is common. -->
-        <p>&copy; 2022 Team 7, All Rights Reserved.</p>
+        <p>&copy; 2022 Team 7, All Rights Reservedzz.</p>
     </footer>
     <script>
         // Create a new AJAX request object
         const request = new XMLHttpRequest();
 
         // Setup the request with a method and URL
-        request.open("GET", "api/MatheoTest", true);
+        request.open("GET", "api/api-user.php", true);
 
         // Create a callback function that triggers when the request is done
         request.onload = () => {
