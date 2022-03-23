@@ -1,0 +1,38 @@
+<h1>Products Page</h1>
+<hr>
+<table class="standard-table">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Product Image</th>
+            <th>US Price</th>
+            <th>Euro Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#items}}
+        <tr>
+            <td>{{title}}</td>
+            <td><img src="{{full_image_url}}" class="tiny-thumb" alt="product: {{title}}"></td>
+            <td>{{{dollarPrice}}}</td>
+            <td>{{{euroPrice}}}</td>
+        </tr>
+        {{/items}}
+    </tbody>
+</table>
+<hr>
+<h2>Add Product</h2>
+<hr>
+<section class="mini-form">
+    <form data-action="addNewProduct">
+        <input type="hidden" id="id" value="null"/>
+        <label>Title:<input type="text" id="title" maxlength="100" size="30"></label>
+        <label>Price:<input type="text" id="price" maxlength="100" size="30"></label>
+        <label>Desc.:<input type="text" id="description" maxlength="100" size="30"></label>
+        <label>Image URL:<input type="text" id="image_url" maxlength="100" size="30"></label>
+        <label>Tags:<input type="text" id="tags" maxlength="100" size="30"></label>
+        <label>Limit:<input type="text" id="limit" maxlength="100" size="30"></label>
+        <hr/>
+        <button type="submit">Submit</button>
+    </form>
+</section>

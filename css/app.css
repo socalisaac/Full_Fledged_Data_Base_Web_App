@@ -1,0 +1,84 @@
+/* This is the global CSS file for the whole application */
+
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #479;
+    color: #FFF;
+    text-align: center;
+}
+
+main {
+    background-color: #EEE;
+    border-radius: 10px;
+    margin: 100px auto;
+    text-align: center;
+    padding: 10px;
+    max-width: 1000px;
+    color: #444;
+    box-shadow: 2px 2px 2px #FFF, inset 2px 2px 2px #235;
+}
+
+nav a {
+    margin: 5px;
+}
+
+nav a:link, nav a:visited {
+    color: #FFF;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.body-content {
+    display: block;
+    max-width: 800px;
+    min-height: 100px;
+    background-color: #DDD;
+    border-radius: 7px;
+    padding: 10px;
+    margin: 20px auto;
+    box-shadow: 0px 0px 15px black;
+}
+
+.modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: RGBA(0, 0, 0, 0.4);
+    z-index: 1000;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    min-width: 400px;
+    min-height: 400px;
+    background-color: #DDD;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 100px auto;
+    cursor: default !important;
+    box-shadow: 0px 0px 10px #000;
+}
+
+.hidden {
+    display: none;
+}
+
+label{
+    display:block;
+    text-align: right;
+}
+
+.mini-form{
+    width:400px;
+    margin: 5px auto;
+}
+
+.standard-table{
+    table-layout: fixed;
+    width:100%;
+}

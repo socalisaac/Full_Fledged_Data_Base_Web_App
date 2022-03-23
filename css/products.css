@@ -1,0 +1,50 @@
+#ProductInfo {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    text-align: center;
+    color: #FFF;
+}
+
+.product-card {
+    width: 180px;
+    background-color: #777;
+    border-radius: 6px;
+    margin: 5px;
+    color: #FFF;
+}
+
+.product-card strong {
+    display: block;
+    text-align: center;
+}
+
+.product-card img {
+    cursor: pointer;
+    max-width: 180px;
+    max-height: 180px;
+}
+
+.product-popup {
+    color: #444;
+}
+
+.product-popup img{
+    max-width: 500px;
+    max-height: 400px;
+}
+
+#AddProductForm form label {
+    display: block;
+    text-align: right;
+}
+
+#AddProductForm {
+    width: 420px;
+    margin: 10px auto;
+
+}
+
+img.tiny-thumb{
+    max-height: 40px;
+}
