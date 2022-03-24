@@ -11,7 +11,7 @@
  * Result: A generic result from a data operation
  * This basically just enforces the "Status" property. 
  */
-export class Result {
+ export class Result {
     constructor(data) {
         this.status = "UNKNOWN";
         Object.assign(this, data);
@@ -56,7 +56,7 @@ export class ItemList extends Result {
 
     remove(key, value){
         let filteredList = this.items.filter(item => {
-            if (item[key] == value) return false;
+            if (item[key] != value) return false;
         });
 
         this.items = filteredList;

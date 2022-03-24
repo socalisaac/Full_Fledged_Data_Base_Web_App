@@ -83,6 +83,7 @@ function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $re
         // );
 
         $params = array (
+            //':id' => $put['id'],
             ':title' => $post['title'],
             ':desc' => $post['description'],
             ':image' => $post['image_url'],

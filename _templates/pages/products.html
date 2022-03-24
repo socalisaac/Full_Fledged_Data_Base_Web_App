@@ -1,3 +1,4 @@
+
 <h1>Products Page</h1>
 <hr>
 <table class="standard-table">
@@ -17,7 +18,29 @@
             <td>{{{dollarPrice}}}</td>
             <td>{{{euroPrice}}}</td>
         </tr>
+        <tr>
+            <td colspan="4">
+                <hr>
+                <strong class="clickable" data-action="toggleUpdateForm" data-for="#update-form-{{id}}">Update Product</strong>
+                <strong class="clickable" data-action="deleteProduct" data-id="{{id}}">Delete Product</strong>
+                <hr>
+                <section class="mini-form hidden" id="update-form-{{id}}"> 
+                    <form data-action="updateProduct">
+                        <input type="hidden" id="id" value="{{id}}">
+                        <label>Title:<input value="{{title}}" placeholder="title" type="email" id="title" maxlength="100" size="30"></label>
+                        <label>Price:<input value="{{price}}" type="number" id="price" maxlength="100" size="30"></label>
+                        <label>Desc.:<input value="{{description}}" type="text" id="description" maxlength="100" size="30"></label>
+                        <label>Image URL:<input value="{{image_url}}" type="text" id="image_url" maxlength="100" size="30"></label>
+                        <label>Tags:<input value="{{tags}}" type="text" id="tags" maxlength="100" size="30"></label>
+                        <label>Limit:<input value="{{limit}}" type="text" required="" id="limit" maxlength="100" size="30"></label>
+                        <hr />
+                        <button type="submit">Submit</button>
+                    </form>
+                </section>
+            </td>
+        </tr>
         {{/items}}
+
     </tbody>
 </table>
 <hr>
@@ -25,14 +48,13 @@
 <hr>
 <section class="mini-form">
     <form data-action="addNewProduct">
-        <input type="hidden" id="id" value="null"/>
-        <label>Title:<input type="text" id="title" maxlength="100" size="30"></label>
+        <label>Title:<input placeholder="title" type="text" id="title" maxlength="100" size="30"></label>
         <label>Price:<input type="text" id="price" maxlength="100" size="30"></label>
         <label>Desc.:<input type="text" id="description" maxlength="100" size="30"></label>
         <label>Image URL:<input type="text" id="image_url" maxlength="100" size="30"></label>
         <label>Tags:<input type="text" id="tags" maxlength="100" size="30"></label>
         <label>Limit:<input type="text" id="limit" maxlength="100" size="30"></label>
-        <hr/>
+        <hr />
         <button type="submit">Submit</button>
     </form>
 </section>
