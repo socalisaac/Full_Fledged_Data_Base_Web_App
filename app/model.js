@@ -102,6 +102,7 @@ export class Model {
 
     async _requestJson(options, id) {
         let targetUrl = this.dataUrl + (id ? `/${id}` : "");
+        console.log(options)
         let request = await fetch(targetUrl, options);
         return await request.json();
     }

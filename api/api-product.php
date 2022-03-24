@@ -54,6 +54,61 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
 }
 
+function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
+{
+    #$perms = new Permissions(0, 0, 1);
+
+    try {
+        //$perms->verify($request->uri, $_SESSION['permissions']);
+        $db = $dataSource->PDO();
+
+        // $clientIP = $request->clientIP;
+
+        $post = $request->post;
+        
+        // if (strpos($post['image_url'], "http") !== false)
+        // {
+        //     $response->status = "FAIL: ILLEGAL IMAGE URL";
+        //     $response->outputJSON($post);
+        // }
+        
+        // $params = array (
+        //     ':title' => $post['title'],
+        //     ':desc' => $post['description'],
+        //     ':image' => $post['image_url'],
+        //     ':price' => $post['price'],
+        //     ':tags' => $post['tags'],
+        //     ':limit' => $post['limit'],
+        //     ':ip' => $clientIP
+        // );
+
+        $params = array (
+            ':title' => $post['title'],
+            ':desc' => $post['description'],
+            ':image' => $post['image_url'],
+            ':price' => $post['price'],
+            ':tags' => $post['tags'],
+            ':limit' => $post['limit']
+        );
+        
+        $result = [];
+
+        $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit)');
+        // $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit,:ip');
+
+        $statement->execute($params);
+        
+        $result = $statement->fetchAll();
+
+        $response->status = "OK";
+    } catch (Exception $error) {
+        $msg = $error->getMessage();
+        $result = ["error" => $error->GetMessage()];
+        $response->status = "FAIL: $msg";
+    }
+    $response->outputJSON($result);
+}
+
 function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
     #$perms = new Permissions(0, 0, 1);
@@ -127,48 +182,3 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
     $response->outputJSON($result);
 }
 
-function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
-{
-    #$perms = new Permissions(0, 0, 1);
-
-    try {
-        //$perms->verify($request->uri, $_SESSION['permissions']);
-        $db = $dataSource->PDO();
-
-        $clientIP = $request->clientIP;
-
-        $post = $request->post;
-        
-        if (strpos($post['image_url'], "http") !== false)
-        {
-            $response->status = "FAIL: ILLEGAL IMAGE URL";
-            $response->outputJSON($post);
-        }
-
-        
-        $params = array (
-            ':title' => $post['title'],
-            ':desc' => $post['description'],
-            ':image' => $post['image_url'],
-            ':price' => $post['price'],
-            ':tags' => $post['tags'],
-            ':limit' => $post['limit'],
-            ':ip' => $clientIP
-        );
-        
-        $result = [];
-
-        $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit,:ip');
-
-        $statement->execute($params);
-        
-        $result = $statement->fetchAll();
-
-        $response->status = "OK";
-    } catch (Exception $error) {
-        $msg = $error->getMessage();
-        $result = ["error" => $error->GetMessage()];
-        $response->status = "FAIL: $msg";
-    }
-    $response->outputJSON($result);
-}
