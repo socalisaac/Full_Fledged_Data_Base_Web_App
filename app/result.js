@@ -1,3 +1,4 @@
+
 /**
  * This module contains classes that represent results from a database operation. 
  * These could be tables, rows, views or any type of result from a stored procedure. 
@@ -11,7 +12,7 @@
  * Result: A generic result from a data operation
  * This basically just enforces the "Status" property. 
  */
-export class Result {
+ export class Result {
     constructor(data) {
         this.status = "UNKNOWN";
         Object.assign(this, data);
@@ -56,20 +57,14 @@ export class ItemList extends Result {
 
     remove(key, value){
         let filteredList = this.items.filter(item => {
-            if (item[key] == value) return false;
+            if (item[key] != value) return false;
         });
-
+            
         this.items = filteredList;
     }
 
     replace(key, value, newItem){
-        console.log("key" + key);
-        console.log("value" + value);
-        console.log("newItem" + newItem);
-        console.log("this.items[1]" + this.items[1])
-        
         this.items.forEach((item, index)=>{
-            console.log("item[key]" + item[key]);
             if(item[key] == value){
                 this.items[index] = newItem;
             }

@@ -54,36 +54,36 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
 }
 
+// Function that processes as "DELETE" request.
 function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    #$perms = new Permissions(0, 0, 1);
-
     try {
+
         $db = $dataSource->PDO();
 
         $get = $request->get;
 
         $recordId = $get['id'];
-
+        
         $result = ["not" => "changed"];
 
-        $deleteQuery = "CALL delete_product(?)"; 
-
-        $statement = $db->prepare($deleteQuery);
+        $statement = $db->prepare("CALL delete_product(?)");
 
         $statement->execute([$recordId]);
 
         $result = $statement->fetchAll();
 
-        $response->$statement = "OK";
+        $response->status = "OK";
 
-        if($result[0]["outcome"] != "SUCCESS"){
+        if ($result[0]["outcome"] != "SUCCESS") {
             $response->status = $result[0]["outcome"];
         }
 
-         $response-> outputJSON($result);
+        $response->outputJSON($result);
+
 
     } catch (Exception $error) {
+
         $result = null;
 
         $response->status = "FAIL: " . $error->getMessage();
