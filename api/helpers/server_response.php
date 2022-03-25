@@ -51,7 +51,7 @@ class ServerResponse
         if(is_object($output)){
             $output->status = $this->status;
         }
-        
+
         return $output;
     }
 

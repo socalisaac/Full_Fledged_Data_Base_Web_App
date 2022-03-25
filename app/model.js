@@ -113,7 +113,7 @@ export class Model {
         if (result.OK) {
             this.data = new ItemList(response);
         }
-        
+
         return result;
     }
 

@@ -31,4 +31,4 @@ if(!preg_match('/^[\w-]+$/', $page)){
        <p>&copy; <?php echo date("Y"); ?> Steven Cooper, All Rights Reserved.</p>
     </footer>
     <script type="module" src='_controllers/c_<?php echo ("$page"); ?>.js'></script>
-</body>
+</body> 

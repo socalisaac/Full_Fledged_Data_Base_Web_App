@@ -52,7 +52,7 @@ export class View {
 
     show(selector) {
         document.querySelectorAll(`${selector}`).forEach(e => {
-            e.classList.add("hidden");
+            e.classList.remove("hidden");
         })
     }
 

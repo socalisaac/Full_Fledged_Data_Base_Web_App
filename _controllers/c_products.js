@@ -40,7 +40,7 @@ products.onClick("toggleUpdateForm", (e) => {
 products.onClick("deleteProduct", async (e) => {
 
     let targetId = e.data.id;
-`   `
+
     let request = await products.model.delete(targetId);
 
     if(request.OK){
@@ -63,3 +63,4 @@ products.onSubmit("updateProduct", async (e) => {
     }
 
 });
+

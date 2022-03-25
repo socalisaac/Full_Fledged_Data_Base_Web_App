@@ -49,65 +49,9 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
     } catch (Exception $error) {
         $response->status = "FAIL: " . $error->getMessage();
     }
-    
+
     $response->outputJSON($result);
 
-}
-
-function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
-{
-    #$perms = new Permissions(0, 0, 1);
-
-    try {
-        //$perms->verify($request->uri, $_SESSION['permissions']);
-        $db = $dataSource->PDO();
-
-        // $clientIP = $request->clientIP;
-
-        $post = $request->post;
-        
-        // if (strpos($post['image_url'], "http") !== false)
-        // {
-        //     $response->status = "FAIL: ILLEGAL IMAGE URL";
-        //     $response->outputJSON($post);
-        // }
-        
-        // $params = array (
-        //     ':title' => $post['title'],
-        //     ':desc' => $post['description'],
-        //     ':image' => $post['image_url'],
-        //     ':price' => $post['price'],
-        //     ':tags' => $post['tags'],
-        //     ':limit' => $post['limit'],
-        //     ':ip' => $clientIP
-        // );
-
-        $params = array (
-            //':id' => $put['id'],
-            ':title' => $post['title'],
-            ':desc' => $post['description'],
-            ':image' => $post['image_url'],
-            ':price' => $post['price'],
-            ':tags' => $post['tags'],
-            ':limit' => $post['limit']
-        );
-        
-        $result = [];
-
-        $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit)');
-        // $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit,:ip');
-
-        $statement->execute($params);
-        
-        $result = $statement->fetchAll();
-
-        $response->status = "OK";
-    } catch (Exception $error) {
-        $msg = $error->getMessage();
-        $result = ["error" => $error->GetMessage()];
-        $response->status = "FAIL: $msg";
-    }
-    $response->outputJSON($result);
 }
 
 function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
@@ -138,29 +82,28 @@ function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $
         }
 
          $response-> outputJSON($result);
-        
+
     } catch (Exception $error) {
         $result = null;
-    
+
         $response->status = "FAIL: " . $error->getMessage();
 
         $response->outputJSON($result);
     }
 }
 
+// Function that processes as "PUT" request.
 function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    #$perms = new Permissions(0, 0, 1);
 
     try {
-        //$perms->verify($request->uri, $_SESSION['permissions']);
         $db = $dataSource->PDO();
 
         $clientIP = $request->clientIP;
         $result = null;
         $get = $request->get;
         $put = $request->put;
-        $params = array (
+        $params = array(
             ':id' => $get['id'],
             ':title' => $put['title'],
             ':desc' => $put['description'],
@@ -171,15 +114,72 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
             ':ip' => $clientIP
         );
 
-        $statement = $db->prepare('Call update_product(:id,:title,:desc,:image,:price,:tags,:limit,:ip');
+        $statement = $db->prepare('CALL update_product(:id,:title,:desc,:image,:price,:tags,:limit,:ip)');
+
         $statement->execute($params);
+
         $result = $statement->fetchAll();
-        $response->status = "OK - Remember, IP Addresses are Logged when updating content! ";
+
+        $response->status = "OK - Remember, IP Addresses are Logged when Updating Content!";
     } catch (Exception $error) {
         $result = ["error" => $error];
-        $response->status - "FAIL: ERROR";
 
+        $response->status - "FAIL: ERROR";
+    }
+
+    $response->outputJSON($result);
+}
+function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
+{
+    #$perms = new Permissions(0, 0, 1);
+
+    try {
+        //$perms->verify($request->uri, $_SESSION['permissions']);
+        $db = $dataSource->PDO();
+
+        // $clientIP = $request->clientIP;
+
+        $post = $request->post;
+
+        // if (strpos($post['image_url'], "http") !== false)
+        // {
+        //     $response->status = "FAIL: ILLEGAL IMAGE URL";
+        //     $response->outputJSON($post);
+        // }
+
+        // $params = array (
+        //     ':title' => $post['title'],
+        //     ':desc' => $post['description'],
+        //     ':image' => $post['image_url'],
+        //     ':price' => $post['price'],
+        //     ':tags' => $post['tags'],
+        //     ':limit' => $post['limit'],
+        //     ':ip' => $clientIP
+        // );
+
+        $params = array (
+            ':title' => $post['title'],
+            ':desc' => $post['description'],
+            ':image' => $post['image_url'],
+            ':price' => $post['price'],
+            ':tags' => $post['tags'],
+            ':limit' => $post['limit']
+        );
+
+        $result = [];
+
+        $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit)');
+        // $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit,:ip');
+
+        $statement->execute($params);
+
+        $result = $statement->fetchAll();
+
+        $response->status = "OK";
+    } catch (Exception $error) {
+        $msg = $error->getMessage();
+        $result = ["error" => $error->GetMessage()];
+        $response->status = "FAIL: $msg";
     }
     $response->outputJSON($result);
 }
-
