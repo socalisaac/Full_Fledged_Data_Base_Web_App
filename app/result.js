@@ -56,11 +56,18 @@ export class ItemList extends Result {
     }
 
     remove(key, value){
-        let filteredList = this.items.filter(item => {
-            if (item[key] != value) return false;
+        this.items.forEach((item, index)=>{
+            console.log("item[key] " + item[key])
+            console.log("value " + value)
+            if(item[key] == value){
+                console.log("FOUND THE ONE")
+                this.items.splice(index, 1); 
+                // this.items[index] = newItem;
+            }
         });
-            
-        this.items = filteredList;
+        
+        // let filteredList = this.items.filter(item => item[key] != value);
+        // this.items = filteredList;
     }
 
     replace(key, value, newItem){
