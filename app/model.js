@@ -1,3 +1,4 @@
+import { Product } from '../_objects/product.js';
 import { Item, ItemList, Result } from './result.js';
 
 const Settings = {
@@ -74,7 +75,18 @@ export class Model {
 
     _update(data) {
         let dataList = new ItemList(this.data, this.itemType);
-        dataList.replace("id", data.id, data);
+        
+        let updatedProduct;
+
+        if(!(data instanceof Product)){
+            updatedProduct = new Product(data);
+            updatedProduct.populateData(data);
+        }
+        else{
+            updatedProduct = data;
+        }
+
+        dataList.replace("id", data.id, updatedProduct);
         this.data = dataList;
     }
 

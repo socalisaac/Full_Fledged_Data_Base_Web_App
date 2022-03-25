@@ -63,7 +63,13 @@ export class ItemList extends Result {
     }
 
     replace(key, value, newItem){
+        console.log("key" + key);
+        console.log("value" + value);
+        console.log("newItem" + newItem);
+        console.log("this.items[1]" + this.items[1])
+        
         this.items.forEach((item, index)=>{
+            console.log("item[key]" + item[key]);
             if(item[key] == value){
                 this.items[index] = newItem;
             }

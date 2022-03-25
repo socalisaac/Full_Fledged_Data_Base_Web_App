@@ -99,22 +99,44 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
     try {
         $db = $dataSource->PDO();
 
-        $clientIP = $request->clientIP;
+        // $clientIP = $request->clientIP;
         $result = null;
         $get = $request->get;
         $put = $request->put;
+
+        // $params = array(
+        //     ':id' => $get['id'],
+        //     ':title' => $put['title'],
+        //     ':desc' => $put['description'],
+        //     ':image' => $put['image_url'],
+        //     ':price' => $put['price'],
+        //     ':tags' => $put['tags'],
+        //     ':limit' => $put['limit'],
+        //     ':ip' => $clientIP
+        // );
+
+        // $params = array(
+        //     ':id' => $get['id'],
+        //     ':title' => $put['title'],
+        //     ':desc' => $put['description'],
+        //     ':image' => $put['image_url'],
+        //     ':price' => $put['price'],
+        //     ':tags' => $put['tags'],
+        //     ':limit' => $put['limit']
+        // );
+
         $params = array(
-            ':id' => $get['id'],
+            ':id' => $put['id'],
             ':title' => $put['title'],
             ':desc' => $put['description'],
             ':image' => $put['image_url'],
             ':price' => $put['price'],
             ':tags' => $put['tags'],
-            ':limit' => $put['limit'],
-            ':ip' => $clientIP
+            ':limit' => $put['limit']
         );
 
-        $statement = $db->prepare('CALL update_product(:id,:title,:desc,:image,:price,:tags,:limit,:ip)');
+        // $statement = $db->prepare('CALL update_product(:id,:title,:desc,:image,:price,:tags,:limit,:ip)');
+        $statement = $db->prepare('CALL update_product(:id,:title,:desc,:image,:price,:tags,:limit)');
 
         $statement->execute($params);
 

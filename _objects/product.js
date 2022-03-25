@@ -18,6 +18,8 @@ export class Product extends Item {
         this.description = "";
         this.price = 0.00;
         this.image_url = "";
+        this.tags = "";
+        this.limit = 0;
 
         // Overrite above properties with values provided in constructor
         Object.assign(this, data);
@@ -40,5 +42,28 @@ export class Product extends Item {
             URL = `http://software.stevenleoncooper.com/CPSC431/000/${URL}`;
         }
         return URL;
+    }
+
+    // /**
+    //  * @param {{ id: any; title: string; description: string; price: number; image_url: string; tags: string; limit: number; }} data
+    //  */
+    // function populateData(data) {
+    //     this.id = data.id;
+    //     this.title = data.title;
+    //     this.description = data.description;
+    //     this.price = data.price;
+    //     this.image_url = data.image_url;
+    //     this.tags = data.tags;
+    //     this.limit = data.limit;
+    // }
+
+    populateData(data) {
+        this.id = data.id;
+        this.title = data.title;
+        this.description = data.description;
+        this.price = data.price;
+        this.image_url = data.image_url;
+        this.tags = data.tags;
+        this.limit = data.limit;
     }
 }

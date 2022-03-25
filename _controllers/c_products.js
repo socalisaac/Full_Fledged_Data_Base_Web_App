@@ -57,6 +57,8 @@ products.onSubmit("updateProduct", async (e) => {
 
     let request = await products.model.put(newProduct);
 
+    console.log(products.model.list);
+
     if (request.OK) {
         alert("It Worked!");
         products.view.render(products.model.list);
