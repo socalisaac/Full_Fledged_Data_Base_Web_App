@@ -53,6 +53,8 @@ products.onClick("deleteProduct", async (e) => {
 
 products.onSubmit("updateProduct", async (e) => {
 
+    console.log(e.formData)
+
     let newProduct = new Product(e.formData);
 
     let request = await products.model.put(newProduct);
