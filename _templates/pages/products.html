@@ -4,24 +4,30 @@
     <thead>
         <tr>
             <th>Product Name</th>
+            <th>Description</th>
             <th>Product Image</th>
             <th>US Price</th>
             <th>Euro Price</th>
+            <th>Tags</th>
+            <th>Limit</th>
         </tr>
     </thead>
     <tbody>
         {{#items}}
         <tr>
             <td>{{title}}</td>
+            <td>{{description}}</td>
             <td><img src="{{full_image_url}}" class="tiny-thumb" alt="product: {{title}}"></td>
             <td>{{{dollarPrice}}}</td>
             <td>{{{euroPrice}}}</td>
+            <td>{{tags}}</td>
+            <td>{{limit}}</td>
         </tr>
         <tr>
-            <td colspan="4">
+            <td colspan="7">
                 <hr>
-                <a strong class="clickable" data-action="toggleUpdateForm" data-for="#update-form-{{id}}">Update Product</strong> </a>
-                <a strong class="clickable" data-action="deleteProduct" data-id="{{id}}">Delete Product</strong> </a>
+                <a <strong class="clickable" data-action="toggleUpdateForm" data-for="#update-form-{{id}}">Update Product</strong> </a>
+                <a <strong class="clickable" data-action="deleteProduct" data-id="{{id}}">Delete Product</strong> </a>
                 <hr>
                 <section class="mini-form hidden" id="update-form-{{id}}"> 
                     <form data-action="updateProduct">
