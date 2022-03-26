@@ -48,3 +48,6 @@
 img.tiny-thumb{
     max-height: 40px;
 }
+a:hover {
+    background-color: yellow;
+}
