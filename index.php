@@ -21,6 +21,7 @@ if(!preg_match('/^[\w-]+$/', $page)){
         <nav>
             <a href="home" title="Home Page">Home Page</a>
             <a href="products" title="Product Listings">Products</a>
+            <a href="login" title="login">login</a>
         </nav>
     </header>
     <main>
