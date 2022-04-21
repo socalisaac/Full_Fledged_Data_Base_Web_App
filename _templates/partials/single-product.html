@@ -1,0 +1,28 @@
+<div class="product-popup">
+    <strong>{{title}}</strong><br>
+    <strong>{{{dollarPrice}}} ({{{euroPrice}}})</strong><br>
+    <img src="{{image_url}}" alt = "{{title}}"/><br>
+    <p>
+        {{description}}
+    </p>
+    <p>
+        <button class="delete-button" type="button" data-action="deleteProduct" data-id="{{id}}">
+            DELETE THIS PRODUCT FOREVER!
+        </button>
+    </p>
+    <hr>
+    <button type="button" data-action="toggleElement" data-for="#UpdateProductForm">Update Product</button>
+    <div id="UpdateProductForm" class="hidden detail-form">
+        <form data-action="updateProduct">
+            <input type="hidden" name="id" value="{{id}}"/>
+            <input type="hidden" name="tags" value="{{tags}}"/>
+            <input type="hidden" name="limit" value="{{limit}}"/>
+            <label>Title:<input type="text" name="title" maxlength="100" size="30" value="{{title}}"></label>
+            <label>Price:<input type="text" name="price" maxlength="100" size="30" value="{{price}}"></label>
+            <label>Desc.:<input type="text" name="description" maxlength="100" size="30" value="{{description}}"></label>
+            <label>Image URL:<input type="text" name="image_url" maxlength="100" size="30" value="{{image_url}}"></label>
+            <hr/>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<h1>Products</h1>
+
+<section class="body-content">
+    <button type="button" data-action="toggleElement" data-for="#AddProductForm">Add Product</button>
+    <div id="AddProductForm" class="hidden detail-form">
+        <form data-action="addNewProduct">
+            <input type="hidden" name="id" value="null"/>
+            <input type="hidden" name="tags" value="null"/>
+            <input type="hidden" name="limit" value="9"/>
+            <label>Title:<input type="text" name="title" maxlength="100" size="30"></label>
+            <label>Price:<input type="text" name="price" maxlength="100" size="30"></label>
+            <label>Desc.:<input type="text" name="description" maxlength="100" size="30"></label>
+            <label>Image URL:<input type="text" name="image_url" maxlength="100" size="30"></label>
+            <hr/>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div id="ProductInfo">
+        {{#items}}
+        <div class="product-card">
+            <strong>{{title}}</strong>
+            <strong>{{{price}}}</strong>
+            <img src="{{{image_url}}}" alt="{{title}}" data-action="viewProduct" data-id="{{id}}"
+                data-partial="single-product" />
+        </div>
+        {{/items}}
+    </div>
+</section>

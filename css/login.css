@@ -1,0 +1,16 @@
+form{
+    display:block;
+    max-width: 400px;
+    margin: 10px auto;
+
+}
+
+form label{
+    display:block;
+    text-align: right;
+    margin:5px;
+}
+
+label input{
+    width:200px;
+}
