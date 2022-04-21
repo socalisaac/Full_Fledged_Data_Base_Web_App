@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+$user = $_SESSION['user'] ?? ["user_id" => false, "visitor" => true];
+$username = $user['username'] ?? "";
+$userJson = json_encode($user);
+
 // Gets the requested page or a default value
 // Prevents malicious scripting by rejecting malformed requests
 $page = $_GET["page"] ?? "home";

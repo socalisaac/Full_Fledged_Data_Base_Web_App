@@ -44,6 +44,42 @@ export class View {
         document.querySelector(this.selector).innerHTML = html;
     }
 
+    /**
+     * Build the view HTML which can then be randered later.
+     * @param {object} modelData 
+     * @returns the View (for chaining) [view.build(data).inject(element, position);]
+     */
+    build(modelData) {
+        Object.assign(modelData, window.app);
+        this.html = mustache.render(this.template, modelData)
+        return this;
+    }
+
+    /**
+     * Render the current view HTML relative to an element using insertAdjascentHTML.
+     * @param {HTMLElement, string} element Element or CSS Selector for an Element
+     * @param {string} position "beforebegin", "afterbegin", "beforeend" or "afterend"
+     * @returns then element used for HTML instertion
+     */
+    inject(element, position) {
+        if (!element instanceof HTMLElement) {
+            element = document.querySelector(element);
+        }
+        element.insertAdjascentHTML(position, this.html);
+        return element
+    }
+
+    _adjustVisibility(selector, method) {
+        if (selector instanceof HTMLElement){
+            let fakeId = `A${Math.random().toString().slice(2)}`;
+            selector.id = selector.id || fakeId;
+            selector = `#${selector.id}`;
+        }
+        document.querySelectorAll(`${selector}`).forEach(e => {
+            e.classList[method]("hidden");
+        })
+    }
+
     toggle(selector) {
         document.querySelectorAll(`${selector}`).forEach(e => {
             e.classList.toggle("hidden");
@@ -61,6 +97,15 @@ export class View {
             e.classList.remove("hidden");
         })
     }
+
+    closeModal() {
+        let closeAction = new Event("closeModal");
+        document.body.dispatchEvent(closeAction);
+    }
+
+    // alert(data) {
+    //     if (typeof data )
+    // }
 }
 
 /**
