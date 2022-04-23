@@ -1,4 +1,5 @@
 <?php
+session_start();
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
@@ -57,103 +58,56 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 // Function that processes as "DELETE" request.
 function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    try {
-
-        $db = $dataSource->PDO();
-
-        $get = $request->get;
-
-        $recordId = $get['id'];
-        
-        $result = ["not" => "changed"];
-
-        $statement = $db->prepare("CALL delete_product(?)");
-
-        $statement->execute([$recordId]);
-
-        $result = $statement->fetchAll();
-
-        $response->status = "OK";
-
-        if ($result[0]["outcome"] != "SUCCESS") {
-            $response->status = $result[0]["outcome"];
-        }
-
-        $response->outputJSON($result);
-
-
-    } catch (Exception $error) {
-
-        $result = null;
-
-        $response->status = "FAIL: " . $error->getMessage();
-
-        $response->outputJSON($result);
-    }
+    session_destroy();
+    $response->status = "OK";
+    $response->outputJSON([]);
 }
 
 // Function that processes as "PUT" request.
 function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
+    $result = [];
 
     try {
+        $login = ["username" => $request->put['username'], "password" => $request->put['password']];
+                
         $db = $dataSource->PDO();
 
-        // $clientIP = $request->clientIP;
-        $result = null;
-        $get = $request->get;
-        $put = $request->put;
+        $statement = $db->prepare('CALL get_user_username(?)');
 
-        // $params = array(
-        //     ':id' => $get['id'],
-        //     ':title' => $put['title'],
-        //     ':desc' => $put['description'],
-        //     ':image' => $put['image_url'],
-        //     ':price' => $put['price'],
-        //     ':tags' => $put['tags'],
-        //     ':limit' => $put['limit'],
-        //     ':ip' => $clientIP
-        // );
+        $statement->execute([$login['username']]);
 
-        // $params = array(
-        //     ':id' => $get['id'],
-        //     ':title' => $put['title'],
-        //     ':desc' => $put['description'],
-        //     ':image' => $put['image_url'],
-        //     ':price' => $put['price'],
-        //     ':tags' => $put['tags'],
-        //     ':limit' => $put['limit']
-        // );
+        $userResult = $statement->fetchAll()[0];
+        $statement->nextRowset();
+        $permResult = $statement->fetchAll();
 
-        $params = array(
-            ':id' => $put['id'],
-            ':title' => $put['title'],
-            ':desc' => $put['description'],
-            ':image' => $put['image_url'],
-            ':price' => $put['price'],
-            ':tags' => $put['tags'],
-            ':limit' => $put['limit']
-        );
+        if (isset($userResult['error'])){
+            throw new Exception($userResult['error']);
+        }
 
-        // $statement = $db->prepare('CALL update_product(:id,:title,:desc,:image,:price,:tags,:limit,:ip)');
-        $statement = $db->prepare('CALL update_product(:id,:title,:desc,:image,:price,:tags,:limit)');
+        $success = password_verify($login['password'], $userResult['hash']);
 
-        $statement->execute($params);
+        if(!$success){
+            throw new Exception("Invalid Password");
+        }
 
-        $result = $statement->fetchAll();
+        $userResult[$userResult['role']] = true;
 
-        $response->status = "OK - Remember, IP Addresses are Logged when Updating Content!";
+        $_SESSION['user'] = $userResult;
+
+        $_SESSION['user']['permissions'] = $permResult;
+
+        $result = $_SESSION['user'];
+
+        $response->status = "OK";
     } catch (Exception $error) {
-        $result = ["error" => $error];
-
-        $response->status - "FAIL: ERROR";
+        $response->status = $error->getMessage();
     }
 
     $response->outputJSON($result);
 }
 function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    #$perms = new Permissions(0, 0, 1);
     $result = [];
 
     try {
@@ -161,36 +115,37 @@ function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $re
         $newUser = $request->post;
         $ps_hash = password_hash($newUser['password'], PASSWORD_DEFAULT);
 
-
-        //$perms->verify($request->uri, $_SESSION['permissions']);
-        
-
-
-        $post = $request->post;
-
         $params = array (
-            ':title' => $post['title'],
-            ':desc' => $post['description'],
-            ':image' => $post['image_url'],
-            ':price' => $post['price'],
-            ':tags' => $post['tags'],
-            ':limit' => $post['limit']
+            ':username' => $newUser['username'],
+            ':pw_hash' => $ps_hash,
+            ':first_name' => $newUser['first_name'],
+            ':last_name' => $newUser['last_name'],
+            ':email' => $newUser['email']
         );
 
         $db = $dataSource->PDO();
 
-        $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit)');
+        $statement = $db->prepare('Call post_new_user(:username,:pw_hash,:first_name,:last_name,:email)');
         // $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit,:ip');
 
         $statement->execute($params);
 
-        $result = $statement->fetchAll();
+        $result = $statement->fetchAll()[0];
 
-        $response->status = "OK";
+        $request->put = [
+            "username" => $result["username"],
+            "password" => $newUser['password']
+        ];
+
+        $db = null;
+
+        $statement = null;
+
+        PUT($request, $dataSource, $response);
+
     } catch (Exception $error) {
-        $msg = $error->getMessage();
-        $result = ["error" => $error->GetMessage()];
-        $response->status = "FAIL: $msg";
-    }
-    $response->outputJSON($result);
+       $response->status = $error->getMessage();
+
+       $response->outputJSON($result);
+    }    
 }

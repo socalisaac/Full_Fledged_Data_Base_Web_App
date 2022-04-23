@@ -22,12 +22,19 @@ if(!preg_match('/^[\w-]+$/', $page)){
     </style>
     <link class="page-css" id="css_<?php echo($page);?>" rel="stylesheet" href="css/<?php echo($page);?>.css"/>
 </head>
+
 <body>
     <header>
         <nav>
             <a href="home" title="Home Page">Home Page</a>
             <a href="products" title="Product Listings">Products</a>
-            <a href="login" title="login">login</a>
+            </div class = "login-status-nav">
+                <?php if ($user['user_id'] == false) { ?>
+                    <a href="login" title="Login or Sign Up">Login or Sign Up</a>
+                <?php } else { ?>
+                    <strong> Logged in as <?php echo ($username); ?> <a href='login?logout=1'>(Log Out)</a></strong>
+                <?php } ?>
+            </div>
         </nav>
     </header>
     <main>

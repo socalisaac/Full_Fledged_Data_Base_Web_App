@@ -3,7 +3,7 @@
 :root {
     --main-txt-clr: #FFF;
     --main-bg-color: #479;
-    --alt-bg-color:#EEE;
+    --alt-bg-color: #EEE;
     --alt-txt-clr: #222;
     --alt-bg-color: #EEE;
     --main-link-clr: #FFF;
@@ -13,7 +13,7 @@
     --box-shadow-clr: #000;
     --cancel-clr: #A00;
     --cancel-alt-clr: #DDD;
-  }
+}
 
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -22,7 +22,7 @@ body {
     text-align: center;
 }
 
-button{
+button {
     cursor: pointer;
 }
 
@@ -77,7 +77,7 @@ nav a:link, nav a:visited {
     min-width: 400px;
     min-height: 100px;
     background-color: var(--alt-bg-color);
-    color:var(--alt-txt-clr);
+    color: var(--alt-txt-clr);
     border-radius: 10px;
     padding: 10px;
     margin: 100px auto;
@@ -89,37 +89,52 @@ nav a:link, nav a:visited {
     display: none;
 }
 
-.modal.status-message{
-    color:var(--alt-txt-clr);
+.modal.status-message {
+    color: var(--alt-txt-clr);
 }
 
-.modal-x-separator{
-    margin-top:22px;    
+.modal-x-separator {
+    margin-top: 22px;
 }
 
-.close-modal-x{
+.close-modal-x {
     background-color: var(--cancel-alt-clr);
-    position:absolute;
-    top:6px;
-    right:7px;
+    position: absolute;
+    top: 6px;
+    right: 7px;
     border-radius: 8px;
 }
 
-.close-modal-x:hover{
+.close-modal-x:hover {
     background-color: var(--cancel-clr);
 }
 
-.label-wrapper.single label{
-    display:block;
+.label-wrapper.single label {
+    display: block;
     text-align: right;
-    width:400px;
-    margin:10px auto;
+    width: 400px;
+    margin: 10px auto;
 }
 
-.label-wrapper.single label input{
-    width:150px;
+.label-wrapper.single label input {
+    width: 150px;
 }
 
 .clickable {
-    cursor:pointer;
+    cursor: pointer;
+}
+
+[data-action='toggleElement'] {
+    cursor: pointer;
+}
+
+[data-action='toggleElement']:hover {
+    text-decoration: underline overline;
+}
+
+.login-status-nav{
+    position:fixed;
+    top:10px;
+    right: 10px;
+    text-align: right;
 }
