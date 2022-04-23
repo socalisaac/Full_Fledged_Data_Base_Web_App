@@ -11,11 +11,16 @@ $page = $_GET["page"] ?? "home";
 if(!preg_match('/^[\w-]+$/', $page)){
     http_response_code(400);
     exit("EROR: 400 - Bad Request");
-} 
+}
 ?>
 <!doctype html>
 <html lang="en">
 <head>
+    <script>
+        window.app = {
+            user: <?php echo ($userJson); ?>
+        }
+    </script>
     <title>CPSC431 Web App - MVC (<?php echo($page);?>)</title>
     <style>
         <?php include("css/app.css"); ?>

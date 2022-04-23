@@ -91,7 +91,7 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
             throw new Exception("Invalid Password");
         }
 
-        $userResult[$userResult['role']] = true;
+        // $userResult[$userResult['role']] = true;
 
         $_SESSION['user'] = $userResult;
 
@@ -131,6 +131,10 @@ function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $re
         $statement->execute($params);
 
         $result = $statement->fetchAll()[0];
+
+        if (isset($result['error'])){
+            throw new Exception($result['error']);
+        }
 
         $request->put = [
             "username" => $result["username"],

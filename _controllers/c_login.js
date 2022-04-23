@@ -36,6 +36,8 @@ login.onSubmit("userLogin", async (e) => {
 
     let result = await login.model.put(userInfo);
 
+    console.log(result)
+
     if (result.OK) {
         window.location = "home";
     } else {
