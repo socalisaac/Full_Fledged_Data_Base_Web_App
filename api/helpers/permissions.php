@@ -27,8 +27,8 @@ class Permissions
                 $mo = $perms['modify_others'];
 
                 if($vl < $this->view_list) continue;
-                if($vl < $this->view_others) continue;
-                if($vl < $this->modify_others) continue;
+                if($vo < $this->view_others) continue;
+                if($mo < $this->modify_others) continue;
 
                 $allow = true;
             }
