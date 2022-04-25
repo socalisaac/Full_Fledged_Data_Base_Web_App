@@ -1,11 +1,7 @@
 <?php
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-
 
 require("helpers/server_response.php");
-
+require("helpers/permissions.php");
 
 $request = new ClientRequest();
 $dataSource = new DataSource();
@@ -13,23 +9,11 @@ $response = new ServerResponse($request, $dataSource);
 
 $response->process();
 
-// This is the example default GET request that only reads the json.
-// Function that processes as "GET" request.  
-// function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
-// {
-//     // This trick is necessary since the json file is in a directly 1 folder up.
-//     $filePath = __DIR__.'/../_data/product.json';
-
-//     $result = $dataSource->JSON($filePath);
-
-//     $response->outputJSON($result);
-// }
-
-
 // Official GET request 
 function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    //$perms = new Permissions(1, 0, 0);
+    $perms = new Permissions(1, 0, 0);
+    
     $result = [];
 
     try {
@@ -104,27 +88,6 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
         $get = $request->get;
         $put = $request->put;
 
-        // $params = array(
-        //     ':id' => $get['id'],
-        //     ':title' => $put['title'],
-        //     ':desc' => $put['description'],
-        //     ':image' => $put['image_url'],
-        //     ':price' => $put['price'],
-        //     ':tags' => $put['tags'],
-        //     ':limit' => $put['limit'],
-        //     ':ip' => $clientIP
-        // );
-
-        // $params = array(
-        //     ':id' => $get['id'],
-        //     ':title' => $put['title'],
-        //     ':desc' => $put['description'],
-        //     ':image' => $put['image_url'],
-        //     ':price' => $put['price'],
-        //     ':tags' => $put['tags'],
-        //     ':limit' => $put['limit']
-        // );
-
         $params = array(
             ':id' => $put['id'],
             ':title' => $put['title'],
@@ -135,7 +98,6 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
             ':limit' => $put['limit']
         );
 
-        // $statement = $db->prepare('CALL update_product(:id,:title,:desc,:image,:price,:tags,:limit,:ip)');
         $statement = $db->prepare('CALL update_product(:id,:title,:desc,:image,:price,:tags,:limit)');
 
         $statement->execute($params);
@@ -157,27 +119,10 @@ function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $re
 
     try {
         //$perms->verify($request->uri, $_SESSION['permissions']);
+
         $db = $dataSource->PDO();
 
-        // $clientIP = $request->clientIP;
-
         $post = $request->post;
-
-        // if (strpos($post['image_url'], "http") !== false)
-        // {
-        //     $response->status = "FAIL: ILLEGAL IMAGE URL";
-        //     $response->outputJSON($post);
-        // }
-
-        // $params = array (
-        //     ':title' => $post['title'],
-        //     ':desc' => $post['description'],
-        //     ':image' => $post['image_url'],
-        //     ':price' => $post['price'],
-        //     ':tags' => $post['tags'],
-        //     ':limit' => $post['limit'],
-        //     ':ip' => $clientIP
-        // );
 
         $params = array (
             ':title' => $post['title'],
@@ -191,7 +136,6 @@ function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $re
         $result = [];
 
         $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit)');
-        // $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit,:ip');
 
         $statement->execute($params);
 
