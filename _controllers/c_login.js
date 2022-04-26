@@ -36,8 +36,6 @@ login.onSubmit("userLogin", async (e) => {
 
     let result = await login.model.put(userInfo);
 
-    console.log(result)
-
     if (result.OK) {
         window.location = "home";
     } else {
@@ -61,3 +59,4 @@ login.onSubmit("userSignup", async (e) => {
         await login.view.confirm(status.status);
     }
 });
+
