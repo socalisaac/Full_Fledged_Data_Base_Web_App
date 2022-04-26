@@ -1,41 +1,72 @@
-<h1>Login or Sign Up</h1>
-<p>
-  Use this form to log in to you account or sign up for a new account.
-</p>
-<hr>
-<h2>Log In</h2>
-<p>
-  Please enter your username and password
-</p>
-<form data-action = "userLogin">
-  <label>
-    Username: <input type="text" name="username" size = "10">
-  </label>
-  <label>
-    Password: <input type="password" name="password" size = "10">
-  </label>
-  <button type="submit"> Log In</button>
-</form>
-<hr>
-<h2 data-action="toggleElement" data-for="#reg_area">New User Registration</h2>
-<div id="reg_area" class="hidden"
-  <p>Use this form to sign up!</p>
-  <form data-action = "userSignup">
-    <label>
-      First Name: <input type="text" name = "first_name" size="10">
-    </label>
-    <label>
-      Last Name: <input type="text" name = "last_name" size="10">
-    </label>
-    <label>
-      Userame: <input type="text" name = "username" size="10">
-    </label>
-    <label>
-      Password: <input type="text" name = "password" size="10">
-    </label>
-    <label>
-      Email Address: <input type="text" name = "email" size="10">
-    </label>
-    <button type="submit">Submit Registration</button>
-  </form>
+
+
+<div class="container-fluid mt-5">
+  <div class="row no-gutter">
+    <!-- The image half -->
+    <div class="col-md-6 d-none d-md-flex bg-dark"></div>
+
+
+    <!-- The content half -->
+    <div class="col-md-6 bg-light">
+      <div class="login d-flex align-items-center py-5">
+
+        <!-- Demo content-->
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 col-xl-7 mx-auto">
+              <h3 class="display-4">Split page!</h3>
+              <p class="text-muted mb-4">Create a login split page using Bootstrap 4.</p>
+              <form>
+                <div class="form-group mb-3">
+                  <input id="inputEmail" type="email" placeholder="Email address" required="" autofocus=""
+                    class="form-control rounded-pill border-0 shadow-sm px-4">
+                </div>
+                <div class="form-group mb-3">
+                  <input id="inputPassword" type="password" placeholder="Password" required=""
+                    class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                </div>
+                <div class="custom-control custom-checkbox mb-3">
+                  <input id="customCheck1" type="checkbox" checked class="custom-control-input">
+                  <label for="customCheck1" class="custom-control-label">Remember password</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign in
+                </button>
+                
+              </form>
+              <h2>Or Sign Up Now</h2>
+              <p>
+                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  Register
+                </a>
+              </p>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body" style="width: 20rem;">
+                  <form data-action="userSignup">
+                    <div class="form-group mb-3">
+                      <input id="inputEmail" type="text" name="first_name" placeholder="First Name" required=""  class="form-control rounded-pill border-0 shadow-sm px-4">
+                    </div>
+                    <div class="form-group mb-3">
+                      <input id="inputPassword" type="text" name="last_name" placeholder="Last Name" required="" class="form-control rounded-pill border-0 shadow-sm px-4 ">
+                    </div>
+                    <div class="form-group mb-3">
+                      <input id="inputPassword" type="text" name="username" placeholder="Username" required="" class="form-control rounded-pill border-0 shadow-sm px-4 ">
+                    </div>
+                    <div class="form-group mb-3">
+                      <input id="inputPassword" type="text" name="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 ">
+                    </div>
+                    <div class="form-group mb-3">
+                      <input id="inputPassword" type="text" name="email" placeholder="Email Address" required="" class="form-control rounded-pill border-0 shadow-sm px-4">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Submit Registration</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End -->
+
+      </div>
+    </div><!-- End -->
+
+  </div>
 </div>

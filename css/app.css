@@ -141,15 +141,7 @@ nav a:link, nav a:visited {
 }
 */
 
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: rgb(134, 132, 132);
-    color: rgb(0, 0, 0);
-    text-align: center;
-}
+
 
 .nav-spacing {
     height: 64px;
@@ -158,15 +150,16 @@ nav a:link, nav a:visited {
 
 .main-content-home {
     margin-top: 240px;
-    height: 100%;
+    min-height: 100%;
 }
 
 html,
 body {
-    height: 100%;
+    min-height: 100%;
     font-family: 'Lato', sans-serif;
     font-family: 'Roboto', sans-serif;
     font-family: 'Varela Round', sans-serif;
+    overflow: auto;
 }
 
 .font {
@@ -176,11 +169,12 @@ body {
 }
 
 .main-page-content {
-    height: 100%;
+    min-height: 100%;
+    margin-top: 64px;
 }
 
 .main-content-product {
     margin-top: 64px;
-    height: 100%;
+    min-height: 100%;
 }
 

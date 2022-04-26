@@ -34,15 +34,18 @@ if (!preg_match('/^[\w-]+$/', $page)) {
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto&family=Varela+Round&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="nav-spacing navbar navbar-expand-md navbar-dark bg-dark">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <div class="navbar-collapse collapse w-100 order-1 order-md-0">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Logo Goes here</a>
-                        </li>
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                         <li class="nav-item">
                             <a class="nav-link" href="home" title="Home Page">Home Page</a>
                         </li>
@@ -52,22 +55,22 @@ if (!preg_match('/^[\w-]+$/', $page)) {
                         <li class="nav-item">
                             <a class="nav-link" href="users" title="Edit Users">Users</a>
                         </li>
-
+                        <?php if ($user['user_id'] == false) { ?>
+                            <a class="nav-link" href="login" title="Login or Sign Up">Login or Sign Up</a>
+                        <?php } else { ?>
+                            <strong> Logged in as <?php echo ($username); ?> <a class="nav-link" href='login?logout=1'>(Log Out)</a></strong>
+                        <?php } ?>
                     </ul>
+
+
                 </div>
-               
-            </div class="login-status-nav">
-            <?php if ($user['user_id'] == false) { ?>
-                    <a class="nav-link" href="login" title="Login or Sign Up">Login or Sign Up</a>
-            <?php } else { ?>
-                <strong> Logged in as <?php echo ($username); ?> <a class="nav-link" href='login?logout=1'>(Log Out)</a></strong>
-            <?php } ?>
-            </div>
             </div>
         </nav>
     </header>
     <main>
-        <div id="<?php echo ("view_$page") ?>">&nbsp;</div>
+    <section class="container main-page-content">
+            <div id="<?php echo ("view_$page") ?>">&nbsp;</div>
+        </section>
     </main>
     <footer class="footer mt-auto py-3 bg-light">
         <!-- This footer is on every page. Copyright info is common. -->
