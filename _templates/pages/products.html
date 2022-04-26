@@ -1,29 +1,75 @@
-<h1>Products</h1>
 
-<section class="body-content">
-    <button type="button" data-action="toggleElement" data-for="#AddProductForm">Add Product</button>
-    <div id="AddProductForm" class="hidden detail-form">
-        <form data-action="addNewProduct">
-            <input type="hidden" name="id" value="null"/>
-            <input type="hidden" name="tags" value="null"/>
-            <input type="hidden" name="limit" value="9"/>
-            <label>Title:<input type="text" name="title" maxlength="100" size="30"></label>
-            <label>Price:<input type="text" name="price" maxlength="100" size="30"></label>
-            <label>Desc.:<input type="text" name="description" maxlength="100" size="30"></label>
-            <label>Image URL:<input type="text" name="image_url" maxlength="100" size="30"></label>
-            <hr/>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
 
-    <div id="ProductInfo">
-        {{#items}}
-        <div class="product-card">
-            <strong>{{title}}</strong>
-            <strong>{{{dollarPrice}}}</strong>
-            <img src="{{{image_url}}}" alt="{{title}}" data-action="viewProduct" data-id="{{id}}"
-                data-partial="single-product" />
+<section class="main-content-product">
+    <h1>Products Page</h1>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add Item
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form data-action="addNewProduct">
+                        <input type="hidden" name="id" value="null"/>
+                        <input type="hidden" name="tags" value="null"/>
+                        <input type="hidden" name="limit" value="9"/>
+                        <label>Title:<input type="text" name="title" maxlength="100" size="30"></label>
+                        <label>Price:<input type="text" name="price" maxlength="100" size="30"></label>
+                        <label>Desc.:<input type="text" name="description" maxlength="100" size="30"></label>
+                        <label>Image URL:<input type="text" name="image_url" maxlength="100" size="30"></label>
+                        <hr/>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
         </div>
-        {{/items}}
     </div>
+    <hr>
+
+    <section class="mt-5 py-5">
+
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {{#items}}
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img src="{{image_url}}" class="tiny-thumb" alt="product: {{title}}">
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{title}}</h5>
+                                <!-- Product price-->
+                                <p>{{{dollarPrice}}}</p>
+                                
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to
+                                    Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/items}}
+            </div>
+        </div>
+
+
+    </section>
+
+  
 </section>
