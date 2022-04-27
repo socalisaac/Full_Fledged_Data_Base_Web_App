@@ -14,39 +14,45 @@ $response = new ServerResponse($request, $dataSource);
 
 $response->process();
 
-// This is the example default GET request that only reads the json.
-// Function that processes as "GET" request.  
-// function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
-// {
-//     // This trick is necessary since the json file is in a directly 1 folder up.
-//     $filePath = __DIR__.'/../_data/product.json';
-
-//     $result = $dataSource->JSON($filePath);
-
-//     $response->outputJSON($result);
-// }
-
-
 // Official GET request 
 function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    //$perms = new Permissions(1, 0, 0);
+    // $perms = new Permissions(0, 1, 0);
+
+    // $perms->verify($request->uri, $_SESSION[]['permissions']);
+
     $result = [];
 
     try {
         $db = $dataSource->PDO();
+
         $get = $request->get;
-        $singleQuery = "CALL get_product(?)";
-        $listQuery = "CALL get_product_list(?)";
+
+        // if($perms->verify($request->uri, $_SESSION['permissions'])){
+
+        // }
+
+        $singleQuery = "CALL get_user_by_id(?)";
+        $listQuery = "CALL get_user_list()";
 
         $query = isset($get['id']) ? $singleQuery : $listQuery;
-        $param = isset($get['id']) ? $get['id'] : ($get['sort_by'] ?? "title-asc");
+        
+        // echo $query;
 
-        $result = [];
         $statement = $db->prepare($query);
-        $statement->execute([$param]);
+
+        if(isset($get['id'])){
+            $param = $get['id'];
+            $statement->execute([$param]);
+        }else{
+            $statement->execute();
+        }
+
         $result = $statement->fetchAll();
+
         $response->status = "OK";
+
+
     } catch (Exception $error) {
         $response->status = "FAIL: " . $error->getMessage();
     }

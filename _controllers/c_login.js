@@ -54,7 +54,7 @@ login.onSubmit("userSignup", async (e) => {
 
     if (status.OK) {
         await login.view.confirm("Success! You will now be logged in.");
-        window.location = "products";
+        window.location = "home";
     } else {
         await login.view.confirm(status.status);
     }

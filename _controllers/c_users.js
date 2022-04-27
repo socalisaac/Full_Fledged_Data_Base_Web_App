@@ -5,13 +5,19 @@ const users = new Controller("users", User);
 
 // Initial Page Setup
 (async () => {
-    await users.view.downloadTemplate();
-    // await users.model.importData();
-    // let usersList = users.model.list;
-
-    // users.view.render(usersList);
-
-    users.view.render({});
+    if(window.app.user.user_id == false){
+        window.location = "login"
+    }
+    else
+    {
+        await users.view.downloadTemplate();
+        await users.model.importData();
+        let usersList = users.model.list;
+    
+        users.view.render(usersList);
+    }
+    
+    //users.view.render({});
 })();
 
 

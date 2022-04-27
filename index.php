@@ -33,14 +33,17 @@ if(!preg_match('/^[\w-]+$/', $page)){
         <nav>
             <a href="home" title="Home Page">Home Page</a>
             <a href="products" title="Product Listings">Products</a>
-<a href="users" title="Edit Users">Users</a>
-            </div class = "login-status-nav">
-                <?php if ($user['user_id'] == false) { ?>
+            <?php if ($user['user_id'] == false) { ?>    
+                </div class = "login-status-nav">
                     <a href="login" title="Login or Sign Up">Login or Sign Up</a>
-                <?php } else { ?>
+                </div>
+            <?php } else { ?>
+                <a href="users" title="Edit Users">Users</a>
+                </div class = "login-status-nav">
                     <strong> Logged in as <?php echo ($username); ?> <a href='login?logout=1'>(Log Out)</a></strong>
-                <?php } ?>
-            </div>
+                </div>
+            <?php } ?>
+           
         </nav>
     </header>
     <main>
