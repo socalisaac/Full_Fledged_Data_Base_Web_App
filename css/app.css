@@ -1,5 +1,6 @@
 /* This is the global CSS file for the whole application */
 /* As the file grows large, editing colors in 1 place is easier. */
+/*
 :root {
     --main-txt-clr: #FFF;
     --main-bg-color: #479;
@@ -138,3 +139,44 @@ nav a:link, nav a:visited {
     right: 10px;
     text-align: right;
 }
+*/
+
+.hidden {
+    display: none;
+}
+
+.nav-spacing {
+    height: 64px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.main-content-home {
+    margin-top: 240px;
+    min-height: 100%;
+}
+
+html,
+body {
+    min-height: 100%;
+    font-family: 'Lato', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Varela Round', sans-serif;
+    overflow: auto;
+}
+
+.font {
+    font-family: 'Lato', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Varela Round', sans-serif;
+}
+
+.main-page-content {
+    min-height: 100%;
+    margin-top: 64px;
+}
+
+.main-content-product {
+    margin-top: 64px;
+    min-height: 100%;
+}
+
