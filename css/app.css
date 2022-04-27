@@ -140,6 +140,22 @@ nav a:link, nav a:visited {
     text-align: right;
 }
 */
+:root {
+    --teal-50: #E6FFFA;
+    --teal-100: #B2F5EA;
+    --teal-200: #81E6D9;
+    --teal-300: #4FD1C5;
+    --teal-400: #38B2AC;
+    --teal-500: #319795;
+    --teal-600: #2C7A7B;
+    --teal-600: #285E61;
+    --teal-600: #234E52;
+    --teal-600: #1D4044;
+    --shadow-1: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    --shadow-2: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    --nav-shadow:  rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  
 
 .hidden {
     display: none;
@@ -158,16 +174,23 @@ nav a:link, nav a:visited {
 html,
 body {
     min-height: 100%;
-    font-family: 'Lato', sans-serif;
-    font-family: 'Roboto', sans-serif;
-    font-family: 'Varela Round', sans-serif;
+    font-family: 'Rubik', sans-serif;
     overflow: auto;
+    background-color: var(--teal-50);
 }
 
 .font {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Rubik', sans-serif;
+}
+
+.h-font {
     font-family: 'Roboto', sans-serif;
-    font-family: 'Varela Round', sans-serif;
+    font-family: 'Rubik', sans-serif;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Rubik', sans-serif;
 }
 
 .main-page-content {
@@ -179,4 +202,15 @@ body {
     margin-top: 64px;
     min-height: 100%;
 }
+
+.nav-color {
+    background-color: var(--teal-500);
+    box-shadow: var(--nav-shadow);
+}
+
+.nav-letter {
+    letter-spacing: 1px; 
+}
+
+
 

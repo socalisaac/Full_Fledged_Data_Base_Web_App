@@ -46,3 +46,34 @@
 
 }
 */
+:root {
+    --teal-50: #E6FFFA;
+    --teal-100: #B2F5EA;
+    --teal-200: #81E6D9;
+    --teal-300: #4FD1C5;
+    --teal-400: #38B2AC;
+    --teal-500: #319795;
+    --teal-600: #2C7A7B;
+    --teal-600: #285E61;
+    --teal-600: #234E52;
+    --teal-600: #1D4044;
+    --shadow-1: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    --shadow-2: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    --nav-shadow:  rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  
+.btn-primary {
+    background-color: var(--teal-400) !important;
+    border-color: var(--teal-200) !important;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff !important;
+    background-color: var(--teal-300)!important;
+    border-color: #285e8e; /*set the color you want here*/
+}
+
+.box-shadows {
+    box-shadow: var(--shadow-2);
+}
+
