@@ -141,7 +141,9 @@ nav a:link, nav a:visited {
 }
 */
 
-
+.hidden {
+    display: none;
+}
 
 .nav-spacing {
     height: 64px;

@@ -52,23 +52,29 @@ if (!preg_match('/^[\w-]+$/', $page)) {
                         <li class="nav-item">
                             <a class="nav-link" href="products" title="Products">Products</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="users" title="Edit Users">Users</a>
-                        </li>
+                    
                         <?php if ($user['user_id'] == false) { ?>
-                            <a class="nav-link" href="login" title="Login or Sign Up">Login or Sign Up</a>
+                            </div class="login-status-nav">
+                            
+                                <a href="login" title="Login or Sign Up">Login or Sign Up</a>
+                            </div>
                         <?php } else { ?>
-                            <strong> Logged in as <?php echo ($username); ?> <a class="nav-link" href='login?logout=1'>(Log Out)</a></strong>
+                            <li class="nav-item">
+                                <a class="nav-link" href="users" title="Edit Users">Users</a>
+                            </li>
+                            </div class="login-status-nav">
+                            <strong> Logged in as <?php echo ($username); ?> <a href='login?logout=1'>(Log Out)</a></strong>
+                            </div>
                         <?php } ?>
-                    </ul>
+        </ul>
 
 
-                </div>
-            </div>
+        </div>
+        </div>
         </nav>
     </header>
     <main>
-    <section class="container main-page-content">
+        <section class="container main-page-content">
             <div id="<?php echo ("view_$page") ?>">&nbsp;</div>
         </section>
     </main>
