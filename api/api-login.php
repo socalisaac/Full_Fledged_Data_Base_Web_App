@@ -91,7 +91,7 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
             throw new Exception("Invalid Password");
         }
 
-        // $userResult[$userResult['role']] = true;
+        $userResult[$userResult['role']] = true;
 
         $_SESSION['user'] = $userResult;
 
@@ -106,6 +106,8 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
     $response->outputJSON($result);
 }
+
+
 function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
     $result = [];

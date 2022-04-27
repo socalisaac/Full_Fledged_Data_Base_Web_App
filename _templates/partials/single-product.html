@@ -6,11 +6,14 @@
         {{description}}
     </p>
     <p>
+        {{#user.admin}}
         <button class="delete-button" type="button" data-action="deleteProduct" data-id="{{id}}">
             DELETE THIS PRODUCT FOREVER!
         </button>
+        {{/user.admin}}
     </p>
     <hr>
+    {{#user.admin}}
     <button type="button" data-action="toggleElement" data-for="#UpdateProductForm">Update Product</button>
     <div id="UpdateProductForm" class="hidden detail-form">
         <form data-action="updateProduct">
@@ -25,4 +28,5 @@
             <button type="submit">Submit</button>
         </form>
     </div>
+    {{/user.admin}}
 </div>

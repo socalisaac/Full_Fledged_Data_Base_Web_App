@@ -33,7 +33,6 @@ if (!preg_match('/^[\w-]+$/', $page)) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto&family=Varela+Round&display=swap" rel="stylesheet">
 </head>
-
 <body class="d-flex flex-column min-vh-100">
     <header>
 
