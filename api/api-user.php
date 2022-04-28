@@ -23,7 +23,7 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
     $result = [];
 
-    if(!$perms->verify($request->uri, $_SESSION['user']['permissions'])){
+    if(!$perms->verifyBool($request->uri, $_SESSION['user']['permissions'])){
 
         $request->get['id'] = $_SESSION['user']['user_id'];
 
@@ -53,7 +53,6 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
         $result = $statement->fetchAll();
 
         $response->status = "OK";
-
 
     } catch (Exception $error) {
         $response->status = "FAIL: " . $error->getMessage();

@@ -13,6 +13,30 @@ class Permissions
         $this->modify_others = $modify_others;
     }
 
+    public function verifyBool(string $uri, array $perm_list = [])
+    {
+        $allow = false;
+
+        foreach( $perm_list as $item => $perms){
+
+            $route = $perms['route'];
+
+            if(strpos($uri, $route)){
+                $vl = $perms['view_list'];
+                $vo = $perms['view_others'];
+                $mo = $perms['modify_others'];
+
+                if($vl < $this->view_list) continue;
+                if($vo < $this->view_others) continue;
+                if($mo < $this->modify_others) continue;
+
+                $allow = true;
+            }
+        }
+
+        return $allow;
+    }
+
     public function verify(string $uri, array $perm_list = [])
     {
         $allow = false;
@@ -34,10 +58,8 @@ class Permissions
             }
         }
 
-        // if ($allow == true) return $allow;
+        if ($allow == true) return $allow;
 
-        return $allow;
-
-        // throw new Exception("Permission Denied");
+        throw new Exception("Permission Denied");
     }
 }
