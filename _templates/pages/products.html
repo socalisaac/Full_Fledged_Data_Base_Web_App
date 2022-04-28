@@ -10,20 +10,33 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Input Item Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form data-action="addNewProduct">
-                        <input type="hidden" name="id" value="null"/>
-                        <input type="hidden" name="tags" value="null"/>
-                        <input type="hidden" name="limit" value="9"/>
-                        <label>Title:<input type="text" name="title" maxlength="100" size="30"></label>
-                        <label>Price:<input type="text" name="price" maxlength="100" size="30"></label>
-                        <label>Desc.:<input type="text" name="description" maxlength="100" size="30"></label>
-                        <label>Image URL:<input type="text" name="image_url" maxlength="100" size="30"></label>
-                        <hr/>
-                        <button data-bs-dismiss="modal" type="submit">Submit</button>
+                    <form class="row g-3" data-action="addNewProduct">
+                        <input type="hidden" name="id" value="null">
+                        <input type="hidden" name="tags" value="null">
+                        <input type="hidden" name="id" value="null">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-control" placeholder="Enter Title">
+                        </div>
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="text" class="form-control" placeholder="Enter Price">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" class="form-control" placeholder="Enter Description">
+                        </div>
+                        <div class="form-group">
+                            <label>Image URL</label>
+                            <input type="text" class="form-control" placeholder="Enter Image URL">
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary" data-bs-dismiss="modal" type="submit">Submit</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -39,15 +52,16 @@
                 <div class="col mb-5">
                     <div class="card h-100 box-shadows">
                         <!-- Product image-->
-                        <img src="{{image_url}}" data-action="viewProduct" class="tiny-thumb" alt="product: {{title}}" data-id="{{id}}" data-partial="single-product">
+                        <img src="{{image_url}}" data-action="viewProduct" class="tiny-thumb" alt="product: {{title}}"
+                            data-id="{{id}}" data-partial="single-product">
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
                                 <h5 class="fw-bolder">{{title}}</h5>
                                 <!-- Product price-->
-                                <p>{{{price}}}</p>
-                                
+                                <p>Price: ${{{price}}}</p>
+
                             </div>
                         </div>
                         <!-- Product actions-->
@@ -65,5 +79,5 @@
 
     </section>
 
-  
+
 </section>
