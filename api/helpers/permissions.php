@@ -9,7 +9,7 @@ class Permissions
     function __construct(int $view_list = 0, int $view_other = 0, int $modify_others = 0)
     {
         $this->view_list = $view_list;
-        $this->view_other = $view_other;
+        $this->view_others = $view_other;
         $this->modify_others = $modify_others;
     }
 
@@ -34,8 +34,10 @@ class Permissions
             }
         }
 
-        if ($allow == true) return $allow;
+        // if ($allow == true) return $allow;
 
-        throw new Exception("Permission Denied");
+        return $allow;
+
+        // throw new Exception("Permission Denied");
     }
 }

@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
@@ -6,6 +7,7 @@
 
 
 require("helpers/server_response.php");
+require("helpers/permissions.php");
 
 
 $request = new ClientRequest();
@@ -17,20 +19,20 @@ $response->process();
 // Official GET request 
 function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    // $perms = new Permissions(0, 1, 0);
-
-    // $perms->verify($request->uri, $_SESSION[]['permissions']);
+    $perms = new Permissions(1, 1, 1);
 
     $result = [];
+
+    if(!$perms->verify($request->uri, $_SESSION['user']['permissions'])){
+
+        $request->get['id'] = $_SESSION['user']['user_id'];
+
+    }
 
     try {
         $db = $dataSource->PDO();
 
         $get = $request->get;
-
-        // if($perms->verify($request->uri, $_SESSION['permissions'])){
-
-        // }
 
         $singleQuery = "CALL get_user_by_id(?)";
         $listQuery = "CALL get_user_list()";
@@ -111,39 +113,19 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
         $get = $request->get;
         $put = $request->put;
 
-        // $params = array(
-        //     ':id' => $get['id'],
-        //     ':title' => $put['title'],
-        //     ':desc' => $put['description'],
-        //     ':image' => $put['image_url'],
-        //     ':price' => $put['price'],
-        //     ':tags' => $put['tags'],
-        //     ':limit' => $put['limit'],
-        //     ':ip' => $clientIP
-        // );
+        $newUser = $request->post;
+        $ps_hash = password_hash($newUser['password'], PASSWORD_DEFAULT);
 
-        // $params = array(
-        //     ':id' => $get['id'],
-        //     ':title' => $put['title'],
-        //     ':desc' => $put['description'],
-        //     ':image' => $put['image_url'],
-        //     ':price' => $put['price'],
-        //     ':tags' => $put['tags'],
-        //     ':limit' => $put['limit']
-        // );
-
-        $params = array(
-            ':id' => $put['id'],
-            ':title' => $put['title'],
-            ':desc' => $put['description'],
-            ':image' => $put['image_url'],
-            ':price' => $put['price'],
-            ':tags' => $put['tags'],
-            ':limit' => $put['limit']
+        $params = array (
+            ':username' => $newUser['username'],
+            ':pw_hash' => $ps_hash,
+            ':first_name' => $newUser['first_name'],
+            ':last_name' => $newUser['last_name'],
+            ':email' => $newUser['email']
         );
 
         // $statement = $db->prepare('CALL update_product(:id,:title,:desc,:image,:price,:tags,:limit,:ip)');
-        $statement = $db->prepare('CALL update_product(:id,:title,:desc,:image,:price,:tags,:limit)');
+        $statement = $db->prepare('CALL update_user(:id,:title,:desc,:image,:price,:tags,:limit)');
 
         $statement->execute($params);
 
