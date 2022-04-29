@@ -135,7 +135,7 @@ function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $re
         $result = $statement->fetchAll()[0];
 
         if (isset($result['error'])){
-            throw new Exception($result['error']);
+            throw new Exception($result['detail']);
         }
 
         $request->put = [

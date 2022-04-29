@@ -1,33 +1,39 @@
-<div class="container-fluid">
+
 {{#user.user}}
-<h1>Uses this form to Veiw and edit your Information</h1>
+<h1 class="pt-3">Hello {{user.username}}, you are an USER</h1>
+<h4>Uses this form to veiw and edit your information</h4>
 {{/user.user}}
 
 {{#user.admin}}
-<h1>Uses this form to Veiw and edit your's and others Information</h1>
+<h1>Hello {{user.username}}, you are an ADMIN</h1>
+<h4 class="pt-3">Uses this form to veiw and edit your's and other's information</h4>
 {{/user.admin}}
 
 {{#items}}
 <P>
-  <form class="container" data-action="updateUser">
-    <h5 class="fw-bolder">{{username}}'s Information</h5>
+  <form data-action="updateUser" class="pt-5">
+    <h5 class="fw-bolder">{{username}}'s Information:</h5>
     <input type="hidden" name="id" value="{{id}}"/>
-    <label class="m-2">
+    <label>
       First Name: <input  type="text" name="first_name" placeholder="First Name" required="" value="{{first_name}}">
     </label>
-    <label class="m-2">
+    <label >
       Last Name: <input type="text" name="last_name" placeholder="Last Name" required="" value="{{last_name}}">
     </label>
-    <label class="m-2">
+    <label>
       Username: <input type="text" name="username" placeholder="Username" required="" value="{{username}}">
-    </lable>
-    <label class="m-2">
+    </label>
+    <label>
       Email: <input type="text" name="email" placeholder="Email Address" required="" value="{{email}}">
     </label>
+
+    <div class="pt-2">
+      <button class="btn btn-primary" type = "submit">Update User Info</button>
+      <button class="delete-button btn btn-danger justify-content-center" type="button" data-action="deleteUser" data-id="{{id}}">DELETE USER</button>
+    </div>
     
-    <button class="btn btn-primary m-2" type = "submit">Update User Info</button>
+
   </form>
-  
 </P>
 {{/items}}
-</div>
+

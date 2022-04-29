@@ -75,7 +75,7 @@ function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $
         
         $result = ["not" => "changed"];
 
-        $statement = $db->prepare("CALL delete_product(?)");
+        $statement = $db->prepare("CALL delete_user(?)");
 
         $statement->execute([$recordId]);
 
@@ -85,6 +85,10 @@ function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $
 
         if ($result[0]["outcome"] != "SUCCESS") {
             $response->status = $result[0]["outcome"];
+        }
+
+        if($get['id'] == $_SESSION['user']['user_id']){
+            session_destroy();
         }
 
         $response->outputJSON($result);
@@ -124,72 +128,24 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
         $statement->execute($params);
 
-        $result = $statement->fetchAll();
+        $result = $statement->fetchAll()[0];
+
+        if (isset($result['error'])){
+            throw new Exception($result['detail']);
+        }
 
         if($put['id'] == $_SESSION['user']['user_id']){
-            $_SESSION['user']['username'] = $result[0]['username'];
+            $_SESSION['user']['username'] = $result['username'];
         }
 
         $response->status = "OK";
     } catch (Exception $error) {
-        $result = ["error" => $error];
-
-        $response->status - "FAIL: ERROR";
+        $response->status = $error->getMessage();
     }
 
     $response->outputJSON($result);
 }
 function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    #$perms = new Permissions(0, 0, 1);
-
-    try {
-        //$perms->verify($request->uri, $_SESSION['permissions']);
-        $db = $dataSource->PDO();
-
-        // $clientIP = $request->clientIP;
-
-        $post = $request->post;
-
-        // if (strpos($post['image_url'], "http") !== false)
-        // {
-        //     $response->status = "FAIL: ILLEGAL IMAGE URL";
-        //     $response->outputJSON($post);
-        // }
-
-        // $params = array (
-        //     ':title' => $post['title'],
-        //     ':desc' => $post['description'],
-        //     ':image' => $post['image_url'],
-        //     ':price' => $post['price'],
-        //     ':tags' => $post['tags'],
-        //     ':limit' => $post['limit'],
-        //     ':ip' => $clientIP
-        // );
-
-        $params = array (
-            ':title' => $post['title'],
-            ':desc' => $post['description'],
-            ':image' => $post['image_url'],
-            ':price' => $post['price'],
-            ':tags' => $post['tags'],
-            ':limit' => $post['limit']
-        );
-
-        $result = [];
-
-        $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit)');
-        // $statement = $db->prepare('Call post_new_product(:title,:desc,:image,:price,:tags,:limit,:ip');
-
-        $statement->execute($params);
-
-        $result = $statement->fetchAll();
-
-        $response->status = "OK";
-    } catch (Exception $error) {
-        $msg = $error->getMessage();
-        $result = ["error" => $error->GetMessage()];
-        $response->status = "FAIL: $msg";
-    }
-    $response->outputJSON($result);
+    
 }

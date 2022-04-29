@@ -6,6 +6,7 @@ const users = new Controller("users", User);
 // Initial Page Setup
 (async () => {
     if(window.app.user.user_id == false){
+        await users.view.confirm("Please Login or Register to view the user page!");
         window.location = "login"
     }
     else
@@ -16,25 +17,9 @@ const users = new Controller("users", User);
     
         users.view.render(usersList);
     }
-    
-    //users.view.render({});
 })();
 
-
-// Add New Product Action (Create)
-users.onSubmit("addNewProduct", async (e) => {
-
-
-});
-
-// View Single Product Action (Read)
-users.onClick("viewProduct", async (e) => {
-
-
-
-});
-
-// Update Existing Product Action (Update)
+// Update Existing User Action (Update)
 users.onSubmit("updateUser", async (e) => {
 
     let goAhead = await users.view.confirmYesNo("Update User?");
@@ -51,14 +36,41 @@ users.onSubmit("updateUser", async (e) => {
         await users.view.confirm("User Updated!");
         users.view.render(users.model.list);
         window.location = "users"
-    } else {
+    } 
+    else 
+    {
         await users.view.confirm(request.status);
     }
 
 });
 
-// Delete Product Action (Delete)
-users.onClick("deleteProduct", async (e) => {
+// Delete User Action (Delete)
+users.onClick("deleteUser", async (e) => {
+    let goAhead = await users.view.confirmYesNo("Are you sure?");
 
+    if (goAhead === false) return false;
+
+    let eData = new EventData(e);
+
+    let targetId = eData.id;
+
+    let request = await users.model.delete(targetId);
+
+    if (request.OK) { 
+        if(eData.id == window.app.user.user_id){
+            await users.view.confirm("Your account has been Deleted, you will be logged out now!");
+            window.location = "home"
+        }
+        else
+        {
+            await users.view.confirm("Deleted!");
+            users.view.render(users.model.list);
+        }
+        
+       
+    } else {
+        await users.view.confirm(request.status);
+        users.view.render(users.model.list);
+    }
 
 });

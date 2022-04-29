@@ -3,14 +3,29 @@
 <section class="main-content-home container font">
     <div class="bg-light text-secondary mt-5 px-4 py-5 text-center align-items-center">
         <div class="py-5">
-            <h1 class="display-5 fw-bold text-black h-font">{{title}}</h1>
+
+            <h1 class="display-5 fw-bold text-black h-font">
+                {{#user.user}}
+                Welcome {{user.username}}! You are currently logged in as an USER
+                {{/user.user}}
+                
+                {{#user.admin}}
+                Welcome {{user.username}}! You are currently logged in as an ADMIN
+                {{/user.admin}}
+
+                {{#user.visitor}}
+                Hello stranger, please login or create an account
+                {{/user.visitor}}
+            </h1>
+
+            <h2 class="pt-5">{{title}}</h2>
+
             <div class="col-lg-6 mx-auto">
-                <p class="fs-5 mb-4">{{greeting}}</p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                    
                 </div>
                 <p>
-                    TeamMembers: {{TeamMembers}}
+                    Created by, {{TeamMembers}}
                 </p>
             </div>
         </div>
