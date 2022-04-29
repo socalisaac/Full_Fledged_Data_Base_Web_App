@@ -1,31 +1,51 @@
-<div class="product-popup">
-    <strong>{{title}}</strong><br>
-    <strong>{{{dollarPrice}}} ({{{euroPrice}}})</strong><br>
-    <img src="{{image_url}}" alt = "{{title}}"/><br>
-    <p>
-        {{description}}
+<div class="card">
+    <div class="container d-flex justify-content-center">
+        <strong>{{title}}</strong><br>
+    </div>
+    <div class="container d-flex justify-content-center">
+        <strong>{{{dollarPrice}}} ({{{euroPrice}}})</strong>
+    </div>
+    <br>
+    <div class="container">
+        <img class="card-img-top" src="{{image_url}}" alt="{{title}}" /><br>
+    </div>
+    <p class="p-3">
+        <strong>Description:</strong> <br />{{description}}
     </p>
     <p>
         {{#user.admin}}
-        <button class="delete-button" type="button" data-action="deleteProduct" data-id="{{id}}">
+        <div class="container d-flex justify-content-center">
+        <button class="delete-button btn btn-primary justify-content-center" type="button" data-action="deleteProduct" data-id="{{id}}">
             DELETE THIS PRODUCT FOREVER!
         </button>
+    </div>
         {{/user.admin}}
     </p>
     <hr>
     {{#user.admin}}
-    <button type="button" data-action="toggleElement" data-for="#UpdateProductForm">Update Product</button>
+    <button class="btn btn-primary" type="button" data-action="toggleElement" data-for="#UpdateProductForm">Update
+        Product</button>
     <div id="UpdateProductForm" class="hidden detail-form">
         <form data-action="updateProduct">
-            <input type="hidden" name="id" value="{{id}}"/>
-            <input type="hidden" name="tags" value="{{tags}}"/>
-            <input type="hidden" name="limit" value="{{limit}}"/>
-            <label>Title:<input type="text" name="title" maxlength="100" size="30" value="{{title}}"></label>
-            <label>Price:<input type="text" name="price" maxlength="100" size="30" value="{{price}}"></label>
-            <label>Desc.:<input type="text" name="description" maxlength="100" size="30" value="{{description}}"></label>
-            <label>Image URL:<input type="text" name="image_url" maxlength="100" size="30" value="{{image_url}}"></label>
-            <hr/>
-            <button type="submit">Submit</button>
+            <input type="hidden" name="id" value="{{id}}" />
+            <input type="hidden" name="tags" value="{{tags}}" />
+            <input type="hidden" name="limit" value="{{limit}}" />
+            <div>
+                <label class="p-2">Title:<input class="form-control" type="text" name="title" maxlength="100" size="30" value="{{title}}"></label>
+            </div>
+            <div>
+                <label class="p-2">Price:<input class="form-control" type="text" name="price" maxlength="100" size="30" value="{{price}}"></label>
+            </div>
+            <div>
+                <label class="p-2">Desc.:<input class="form-control" type="text" name="description" maxlength="100" size="30"
+                        value="{{description}}"></label>
+            </div>
+            <div>
+                <label class="p-2">Image URL:<input class="form-control" type="text" name="image_url" maxlength="100" size="30"
+                        value="{{image_url}}"></label>
+            </div>
+            <hr />
+            <button class="btn btn-primary" type="submit">Submit</button>
         </form>
     </div>
     {{/user.admin}}

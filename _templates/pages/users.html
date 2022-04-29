@@ -1,4 +1,4 @@
-
+<div class="container-fluid">
 {{#user.user}}
 <h1>Uses this form to Veiw and edit your Information</h1>
 {{/user.user}}
@@ -9,25 +9,25 @@
 
 {{#items}}
 <P>
-  <form data-action="updateUser">
+  <form class="container" data-action="updateUser">
     <h5 class="fw-bolder">{{username}}'s Information</h5>
     <input type="hidden" name="id" value="{{id}}"/>
-    <lable>
+    <label class="m-2">
       First Name: <input  type="text" name="first_name" placeholder="First Name" required="" value="{{first_name}}">
-    </lable>
-    <lable >
+    </label>
+    <label class="m-2">
       Last Name: <input type="text" name="last_name" placeholder="Last Name" required="" value="{{last_name}}">
-    </lable>
-    <lable>
+    </label>
+    <label class="m-2">
       Username: <input type="text" name="username" placeholder="Username" required="" value="{{username}}">
     </lable>
-    <lable>
+    <label class="m-2">
       Email: <input type="text" name="email" placeholder="Email Address" required="" value="{{email}}">
-    </lable>
+    </label>
     
-    <button type = "submit">Update User Info</button>
+    <button class="btn btn-primary m-2" type = "submit">Update User Info</button>
   </form>
   
 </P>
 {{/items}}
-
+</div>
