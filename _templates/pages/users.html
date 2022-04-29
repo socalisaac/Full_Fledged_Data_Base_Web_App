@@ -1,18 +1,33 @@
 
-
-<h1>Users Template</h1>
-
 {{#user.user}}
-<h1>Veiw User Info</h1>
+<h1>Uses this form to Veiw and edit your Information</h1>
 {{/user.user}}
 
 {{#user.admin}}
-<h1>Veiw and Edit User Info</h1>
+<h1>Uses this form to Veiw and edit your's and others Information</h1>
 {{/user.admin}}
 
 {{#items}}
 <P>
-  {{username}} | {{email}}
+  <form data-action="updateUser">
+    <h5 class="fw-bolder">{{username}}'s Information</h5>
+    <input type="hidden" name="id" value="{{id}}"/>
+    <lable>
+      First Name: <input  type="text" name="first_name" placeholder="First Name" required="" value="{{first_name}}">
+    </lable>
+    <lable >
+      Last Name: <input type="text" name="last_name" placeholder="Last Name" required="" value="{{last_name}}">
+    </lable>
+    <lable>
+      Username: <input type="text" name="username" placeholder="Username" required="" value="{{username}}">
+    </lable>
+    <lable>
+      Email: <input type="text" name="email" placeholder="Email Address" required="" value="{{email}}">
+    </lable>
+    
+    <button type = "submit">Update User Info</button>
+  </form>
+  
 </P>
 {{/items}}
 

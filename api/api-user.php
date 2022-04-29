@@ -109,28 +109,28 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
         // $clientIP = $request->clientIP;
         $result = null;
-        $get = $request->get;
         $put = $request->put;
 
-        $newUser = $request->post;
-        $ps_hash = password_hash($newUser['password'], PASSWORD_DEFAULT);
-
         $params = array (
-            ':username' => $newUser['username'],
-            ':pw_hash' => $ps_hash,
-            ':first_name' => $newUser['first_name'],
-            ':last_name' => $newUser['last_name'],
-            ':email' => $newUser['email']
+            ':id' => $put['id'],
+            ':username' => $put['username'],
+            ':first_name' => $put['first_name'],
+            ':last_name' => $put['last_name'],
+            ':email' => $put['email']
         );
 
         // $statement = $db->prepare('CALL update_product(:id,:title,:desc,:image,:price,:tags,:limit,:ip)');
-        $statement = $db->prepare('CALL update_user(:id,:title,:desc,:image,:price,:tags,:limit)');
+        $statement = $db->prepare('CALL update_user(:id, :username, :first_name, :last_name, :email)');
 
         $statement->execute($params);
 
         $result = $statement->fetchAll();
 
-        $response->status = "OK - Remember, IP Addresses are Logged when Updating Content!";
+        if($put['id'] == $_SESSION['user']['user_id']){
+            $_SESSION['user']['username'] = $result[0]['username'];
+        }
+
+        $response->status = "OK";
     } catch (Exception $error) {
         $result = ["error" => $error];
 
