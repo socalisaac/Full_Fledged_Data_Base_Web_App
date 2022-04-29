@@ -5,7 +5,6 @@ session_start();
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
 
-
 require("helpers/server_response.php");
 require("helpers/permissions.php");
 
@@ -15,6 +14,12 @@ $dataSource = new DataSource();
 $response = new ServerResponse($request, $dataSource);
 
 $response->process();
+
+$loggedInUser = $_SESSION['user'] ?? false;
+
+if($loggedInUser == false){
+    exit;
+}
 
 // Official GET request 
 function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
@@ -109,11 +114,21 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 {
 
     try {
+        
+        $result = null;
+        $put = $request->put;
+
+        if($put['id'] != $_SESSION['user']['user_id'])
+        {
+            $perms = new Permissions(1, 1, 1);
+
+            $perms->verify($request->uri, $_SESSION['user']['permissions'], "Must be admin to change other users!");
+        }
+            
         $db = $dataSource->PDO();
 
         // $clientIP = $request->clientIP;
-        $result = null;
-        $put = $request->put;
+       
 
         $params = array (
             ':id' => $put['id'],

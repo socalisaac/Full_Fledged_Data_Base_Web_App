@@ -13,21 +13,21 @@
         <strong>Description:</strong> <br />{{description}}
     </p>
     <p>
-        {{#user.admin}}
+        
         <div class="container d-flex justify-content-center">
         <button class="delete-button btn btn-danger justify-content-center" type="button" data-action="deleteProduct" data-id="{{id}}">DELETE THIS PRODUCT FOREVER!</button>
     </div>
-        {{/user.admin}}
+        
     </p>
     <hr>
-    {{#user.admin}}
+    
     <button class="btn btn-primary" type="button" data-action="toggleElement" data-for="#UpdateProductForm">Update
         Product</button>
     <div id="UpdateProductForm" class="hidden detail-form">
-        <form data-action="updateProduct">
+        <form data-action="updateProduct" style="height:300px;overflow:auto;">
             <input type="hidden" name="id" value="{{id}}" />
-            <input type="hidden" name="tags" value="{{tags}}" />
-            <input type="hidden" name="limit" value="{{limit}}" />
+            <!-- <input type="hidden" name="tags" value="{{tags}}" />
+            <input type="hidden" name="limit" value="{{limit}}" /> -->
             <div>
                 <label class="p-2">Title:<input class="form-control" type="text" name="title" maxlength="100" size="30" value="{{title}}"></label>
             </div>
@@ -42,9 +42,17 @@
                 <label class="p-2">Image URL:<input class="form-control" type="text" name="image_url" maxlength="100" size="30"
                         value="{{image_url}}"></label>
             </div>
+            <div>
+                <label class="p-2">Tags:<input class="form-control" type="text" name="image_url" maxlength="100" size="30"
+                        value="{{tags}}"></label>
+            </div>
+            <div>
+                <label class="p-2">Limit:<input class="form-control" type="text" name="image_url" maxlength="100" size="30"
+                        value="{{limit}}"></label>
+            </div>
             <hr />
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>
     </div>
-    {{/user.admin}}
+    
 </div>

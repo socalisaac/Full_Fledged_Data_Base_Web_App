@@ -37,7 +37,7 @@ class Permissions
         return $allow;
     }
 
-    public function verify(string $uri, array $perm_list = [])
+    public function verify(string $uri, array $perm_list = [], string $message)
     {
         $allow = false;
 
@@ -60,6 +60,8 @@ class Permissions
 
         if ($allow == true) return $allow;
 
-        throw new Exception("Permission Denied");
+        $errorMessage = "Permission Denied: " . $message;
+
+        throw new Exception($errorMessage);
     }
 }

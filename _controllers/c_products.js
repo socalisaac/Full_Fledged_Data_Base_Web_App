@@ -11,8 +11,15 @@ const products = new Controller("products", Product);
 
     let productList = products.model.list;
 
-    products.view.render(productList);
+    if(productList != "Huh?"){
+        products.view.render(productList);
 
+    }
+    else{
+        await products.view.confirm("Something wrong");
+    }
+
+    
 })();
 
 // Add New Product Action (Create)
@@ -27,6 +34,9 @@ products.onSubmit("addNewProduct", async (e) => {
     if (request.OK) {
         alert("It Worked!");
         products.view.render(products.model.list);
+    }
+    else{
+        await products.view.confirm(request.status);
     }
 });
 

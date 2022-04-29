@@ -40,6 +40,7 @@ users.onSubmit("updateUser", async (e) => {
     else 
     {
         await users.view.confirm(request.status);
+        users.view.render(users.model.list);
     }
 
 });
@@ -59,11 +60,11 @@ users.onClick("deleteUser", async (e) => {
     if (request.OK) { 
         if(eData.id == window.app.user.user_id){
             await users.view.confirm("Your account has been Deleted, you will be logged out now!");
-            window.location = "home"
+            window.location = "login?logged_out=1"
         }
         else
         {
-            await users.view.confirm("Deleted!");
+            await users.view.confirm("User has been Deleted!");
             users.view.render(users.model.list);
         }
         
