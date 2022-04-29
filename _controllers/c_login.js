@@ -24,9 +24,7 @@ const login = new Controller("login", Login);
 
     if(loggedOut){
         await login.view.confirm("You Have Been Logged Out!");
-        window.location = "login";
     }
-
 })();
 
 login.onSubmit("userLogin", async (e) => {
