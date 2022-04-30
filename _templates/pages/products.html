@@ -1,9 +1,7 @@
 <section class="main-content-product">
     <h1>Products Page</h1>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Add Item
-    </button>
+    
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -50,10 +48,14 @@
         </div>
     </div>
     <hr>
+    {{^user.visitor}}
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add Item
+    </button>
+    {{/user.visitor}}
 
     <section class="mt-5 py-5">
-
-        <div class="container px-4 px-lg-5 mt-5">
+        <div class="container px-4 px-lg-5 mt-5 {{#user.visitor}}fade-box{{/user.visitor}}">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 {{#items}}
                 <div class="col mb-5">
@@ -68,22 +70,24 @@
                                 <h5 class="fw-bolder">{{title}}</h5>
                                 <!-- Product price-->
                                 <p>Price: ${{{price}}}</p>
-
                             </div>
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to
+                            <!-- <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to
                                     Cart</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
                 {{/items}}
+
+                {{#user.visitor}}
+                <h2 class="login-view-more"><a href="login" class="view-more-button button nav-link" style="color:black;">Click here to login and view more!</a></h2>
+                {{/user.visitor}}
+
             </div>
         </div>
-
-
     </section>
 
 

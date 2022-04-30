@@ -13,18 +13,31 @@ $response->process();
 // Official GET request 
 function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    $perms = new Permissions(1, 0, 0);
+    // $perms = new Permissions(1, 0, 0);
     
     $result = [];
 
     try {
 
+        $loggedInUser = $_SESSION['user'] ?? false;
+        
         $db = $dataSource->PDO();
         $get = $request->get;
         $singleQuery = "CALL get_product(?)";
         $listQuery = "CALL get_product_list(?)";
+        $topSixListQuery = "CALL get_product_list_top_eight(?)";
 
-        $query = isset($get['id']) ? $singleQuery : $listQuery;
+        if(isset($get['id'])){
+            $query = $singleQuery;
+        }
+        elseif($loggedInUser == false){
+            $query = $topSixListQuery;
+        }
+        else{
+            $query = $listQuery;
+        }
+
+        // $query = isset($get['id']) ? $singleQuery : $listQuery;
         $param = isset($get['id']) ? $get['id'] : ($get['sort_by'] ?? "title-asc");
 
         $result = [];

@@ -81,6 +81,23 @@
     cursor: pointer;
 }
 
+.fade-box {
+max-height: 700px;
+position: relative;
+overflow: hidden;
+}
+
+.fade-box .login-view-more { 
+position: absolute; 
+bottom: 0; 
+left: 0;
+width: 100%; 
+text-align: center; 
+margin: 0; padding: 125px 0;
+    
+/* "transparent" only works here because == rgba(0,0,0,0) */
+background-image: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.75), white 40%);
+}
 
 
 
