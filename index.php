@@ -58,7 +58,7 @@ if (!preg_match('/^[\w-]+$/', $page)) {
                         <?php if ($user['user_id'] == false) { ?>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="login" title="Login or Sign Up">Login or Sign Up</a>
+                                <a class="nav-link login-status-nav" href="login" title="Login or Sign Up">Login or Sign Up</a>
                             </li>
 
                         <?php } else { ?>
@@ -68,7 +68,7 @@ if (!preg_match('/^[\w-]+$/', $page)) {
 
                             <li class="nav-item">
 
-                                <a class="nav-link d-felx" href='login?logout=1'><?php echo ($username); ?> Log Out <i class="fa-solid fa-right-from-bracket"></i></a>
+                                <a class="nav-link d-felx login-status-nav" href='login?logout=1'><?php echo ($username); ?> Log Out <i class="fa-solid fa-right-from-bracket"></i></a>
                             </li>
                         <?php } ?>
 

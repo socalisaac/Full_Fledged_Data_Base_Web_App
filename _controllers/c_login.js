@@ -6,24 +6,29 @@ const login = new Controller("login", Login);
 
 (async () => {
 
-    await login.view.downloadTemplate();
-
-    login.view.render({});
-
     const urlParams = new URLSearchParams(window.location.search);
-
     let logoutRequest = urlParams.get('logout') ?? false;
     let loggedOut = urlParams.get('logged_out') ?? false;
 
-    if (logoutRequest) {
+    if(window.app.user.user_id != false && logoutRequest == false){
+        await login.view.confirm("You are already logged in!")
+        window.location = "home";
+    }else{
 
-        let result = await login.model.delete("");
+        await login.view.downloadTemplate();
 
-        window.location = "login?logged_out=1";
-    }
+        login.view.render({});
 
-    if(loggedOut){
-        await login.view.confirm("You Have Been Logged Out!");
+        if (logoutRequest) {
+
+            let result = await login.model.delete("");
+
+            window.location = "login?logged_out=1";
+        }
+
+        if(loggedOut){
+            await login.view.confirm("You Have Been Logged Out!");
+        }
     }
 })();
 

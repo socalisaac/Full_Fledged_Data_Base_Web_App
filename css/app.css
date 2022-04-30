@@ -133,13 +133,15 @@ nav a:link, nav a:visited {
     text-decoration: underline overline;
 }
 
+
+*/
 .login-status-nav{
     position:fixed;
     top:10px;
     right: 10px;
     text-align: right;
 }
-*/
+
 :root {
     --teal-50: #E6FFFA;
     --teal-100: #B2F5EA;

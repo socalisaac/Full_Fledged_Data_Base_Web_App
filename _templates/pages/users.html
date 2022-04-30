@@ -16,18 +16,25 @@
   <form data-action="updateUser" class="pt-5">
     <h5 class="fw-bolder">{{username}}'s Information:</h5>
     <input type="hidden" name="id" value="{{id}}"/>
-    <label>
-      First Name: <input  type="text" name="first_name" placeholder="First Name" required="" value="{{first_name}}">
-    </label>
-    <label >
-      Last Name: <input type="text" name="last_name" placeholder="Last Name" required="" value="{{last_name}}">
-    </label>
-    <label>
-      Username: <input type="text" name="username" placeholder="Username" required="" value="{{username}}">
-    </label>
-    <label>
-      Email: <input type="text" name="email" placeholder="Email Address" required="" value="{{email}}">
-    </label>
+    <div>
+      <label>
+        First Name: <input  type="text" name="first_name" placeholder="First Name" required="" value="{{first_name}}">
+      </label>
+      <label >
+        Last Name: <input type="text" name="last_name" placeholder="Last Name" required="" value="{{last_name}}">
+      </label>
+      <label>
+        Username: <input type="text" name="username" placeholder="Username" required="" value="{{username}}">
+      </label>
+    </div>
+    <div class="pt-2"> 
+      <label>
+        Email: <input type="text" name="email" placeholder="Email Address" required="" value="{{email}}">
+      </label>
+      <label>
+        Address: <input type="text" name="email" placeholder="Address" required="" value="{{address}}">
+      </label>
+    </div>
 
     <div class="pt-2">
       <button class="btn btn-primary" type = "submit">Update User Info</button>
