@@ -124,9 +124,6 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
             
         $db = $dataSource->PDO();
 
-        // $clientIP = $request->clientIP;
-       
-
         $params = array (
             ':id' => $put['id'],
             ':username' => $put['username'],
