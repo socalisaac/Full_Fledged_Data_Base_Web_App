@@ -135,7 +135,6 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
             ':email' => $put['email']
         );
 
-        // $statement = $db->prepare('CALL update_product(:id,:title,:desc,:image,:price,:tags,:limit,:ip)');
         $statement = $db->prepare('CALL update_user(:id, :username, :first_name, :last_name, :email)');
 
         $statement->execute($params);
