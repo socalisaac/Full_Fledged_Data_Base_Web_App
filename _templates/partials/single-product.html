@@ -12,7 +12,7 @@
     <p class="p-3">
         <strong>Description:</strong> <br />{{description}}
     </p>
-    {{^user.visitor}}
+    {{#user.admin}}
     <p>
         
         <div class="container d-flex justify-content-center">
@@ -53,6 +53,6 @@
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>
     </div>
-    {{/user.visitor}}
+    {{/user.admin}}
     
 </div>

@@ -11,9 +11,10 @@ const products = new Controller("products", Product);
 
     let productList = products.model.list;
 
-    if(productList != "Huh?"){
-        products.view.render(productList);
+    products.view.render(productList);
 
+    if(productList != "Huh?"){
+        
     }
     else{
         await products.view.confirm("Something wrong");

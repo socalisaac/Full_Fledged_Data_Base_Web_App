@@ -48,11 +48,16 @@
         </div>
     </div>
     <hr>
-    {{^user.visitor}}
+    
+    {{^user.admin}}
+    <h4>You must be logged in as an ADMIN to add, update, and delete products</h4>
+    {{/user.admin}}
+
+    {{#user.admin}}
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Add Item
     </button>
-    {{/user.visitor}}
+    {{/user.admin}}
 
     <section class="mt-5 py-5">
         <div class="container px-4 px-lg-5 mt-5 {{#user.visitor}}fade-box{{/user.visitor}}">
