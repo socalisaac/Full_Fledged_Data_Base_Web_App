@@ -23,8 +23,6 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
     $result = $dataSource->JSON($filePath, false); // Use true for lists, false for singeltons. 
 
-    //exit(print_r($result));
-
     $response->status = "OK";
 
     $response->outputJSON($result);

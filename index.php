@@ -68,7 +68,7 @@ if (!preg_match('/^[\w-]+$/', $page)) {
 
                             <li class="nav-item">
 
-                                <a class="nav-link d-felx login-status-nav" href='login?logout=1'><?php echo ($username); ?> Log Out <i class="fa-solid fa-right-from-bracket"></i></a>
+                                <a class="nav-link login-status-nav" href='login?logout=1'><?php echo ($username); ?> Log Out <i class="fa-solid fa-right-from-bracket"></i></a>
                             </li>
                         <?php } ?>
 

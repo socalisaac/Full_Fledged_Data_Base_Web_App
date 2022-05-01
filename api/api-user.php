@@ -43,8 +43,6 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
         $listQuery = "CALL get_user_list()";
 
         $query = isset($get['id']) ? $singleQuery : $listQuery;
-        
-        // echo $query;
 
         $statement = $db->prepare($query);
 
@@ -112,7 +110,6 @@ function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $
 // Function that processes as "PUT" request.
 function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-
     try {
         
         $result = null;
@@ -160,6 +157,7 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
     $response->outputJSON($result);
 }
+
 function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
     

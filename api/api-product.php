@@ -13,8 +13,6 @@ $response->process();
 // Official GET request 
 function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    // $perms = new Permissions(1, 0, 0);
-    
     $result = [];
 
     try {
@@ -27,6 +25,7 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
         $listQuery = "CALL get_product_list(?)";
         $topSixListQuery = "CALL get_product_list_top_eight(?)";
 
+        #Permissions
         if(isset($get['id'])){
             $query = $singleQuery;
         }
@@ -37,7 +36,6 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
             $query = $listQuery;
         }
 
-        // $query = isset($get['id']) ? $singleQuery : $listQuery;
         $param = isset($get['id']) ? $get['id'] : ($get['sort_by'] ?? "title-asc");
 
         $result = [];

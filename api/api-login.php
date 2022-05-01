@@ -14,19 +14,6 @@ $response = new ServerResponse($request, $dataSource);
 
 $response->process();
 
-// This is the example default GET request that only reads the json.
-// Function that processes as "GET" request.  
-// function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
-// {
-//     // This trick is necessary since the json file is in a directly 1 folder up.
-//     $filePath = __DIR__.'/../_data/product.json';
-
-//     $result = $dataSource->JSON($filePath);
-
-//     $response->outputJSON($result);
-// }
-
-
 // Official GET request 
 function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
@@ -107,7 +94,7 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
     $response->outputJSON($result);
 }
 
-
+// Function that processes as "POST" request.
 function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
     $result = [];
