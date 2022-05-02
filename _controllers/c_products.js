@@ -26,14 +26,12 @@ const products = new Controller("products", Product);
 // Add New Product Action (Create)
 products.onSubmit("addNewProduct", async (e) => {
     
-    
-
     let goAhead = await products.view.confirmYesNo("Are you sure?");
 
     if (goAhead === false) return false;
 
     let eData = new EventData(e);
-    console.log(e.detail)
+
     let newProduct = new Product(eData.formData);
 
     let request = await products.model.post(newProduct);
