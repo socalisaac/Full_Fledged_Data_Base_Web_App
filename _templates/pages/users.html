@@ -16,15 +16,15 @@
 
     <div class="pe-4" style="display:inline-block;vertical-align:top;">
       <div style="width:100px; height: 100px;">
+
       {{#picture}}
-      
       <img src="{{picture}}" class="img-thumbnail float-left" alt="...">
       {{/picture}}
-    
+
       {{^picture}}
       <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" class="img-thumbnail float-left" alt="...">
-      
       {{/picture}}
+      
     </div>
       </div>
       <div class="mt-4" style="display:inline-block;">
@@ -34,13 +34,7 @@
 
   </div>
   <form data-action="updateUser" class=" row g-1">
-
-
-
-
     <input type="hidden" name="id" value="{{id}}" />
-
-
     <div class="col-lg">
 
       <label class="form-label">
