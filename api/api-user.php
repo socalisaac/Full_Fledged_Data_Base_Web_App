@@ -129,10 +129,12 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
             ':username' => $put['username'],
             ':first_name' => $put['first_name'],
             ':last_name' => $put['last_name'],
-            ':email' => $put['email']
+            ':email' => $put['email'],
+            ':address' => $put['address'],
+            ':picture' => $put['picture']
         );
 
-        $statement = $db->prepare('CALL update_user(:id, :username, :first_name, :last_name, :email)');
+        $statement = $db->prepare('CALL update_user(:id, :username, :first_name, :last_name, :email, :address, :picture)');
 
         $statement->execute($params);
 

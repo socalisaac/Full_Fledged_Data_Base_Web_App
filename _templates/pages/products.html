@@ -9,7 +9,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Input Item Data</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="row g-3" data-action="addNewProduct">
@@ -21,7 +20,7 @@
                         </div>
                         <div class="form-group">
                             <label>Price</label>
-                            <input type="text" class="form-control" placeholder="Enter Price" name="price">
+                            <input type="number" step="0.01" class="form-control" placeholder="Enter Price" name="price" value="0">
                         </div>
                         <div class="form-group">
                             <label>Description</label>
@@ -37,10 +36,12 @@
                         </div>
                         <div class="form-group">
                             <label>Limit</label>
-                            <input type="text" class="form-control" placeholder="Enter Quantity" name="limit">
+                            <input type="number" class="form-control" placeholder="Enter Quantity" name="limit" value="0">
                         </div>
                         <div class="col-12">
+                            <div class="modal-footer">
                             <button class="btn btn-primary" data-bs-dismiss="modal" type="submit">Submit</button>
+                        </div>
                         </div>
                     </form>
                 </div>
@@ -65,9 +66,14 @@
                 {{#items}}
                 <div class="col mb-5">
                     <div class="card h-100 box-shadows">
-                        <!-- Product image-->
+                       {{#image_url}}
                         <img src="{{image_url}}" data-action="viewProduct" class="tiny-thumb cursor" alt="product: {{title}}"
                             data-id="{{id}}" data-partial="single-product">
+                        {{/image_url}}
+                        {{^image_url}}
+                        <img src="https://www.opelgtsource.com/assets/default_product.png" data-action="viewProduct" class="tiny-thumb cursor" alt="product: {{title}}"
+                            data-id="{{id}}" data-partial="single-product">
+                        {{/image_url}}
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
@@ -88,7 +94,7 @@
                 {{/items}}
 
                 {{#user.visitor}}
-                <h2 class="login-view-more"><a href="login" class="view-more-button button nav-link" style="color:black;">Click here to login and view more!</a></h2>
+                <h2 class="login-view-more"><a href="login" class="view-more-button button nav-link mt-5" style="color:black;">Click here to login and view more!</a></h2>
                 {{/user.visitor}}
 
             </div>

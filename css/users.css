@@ -8,3 +8,7 @@
   background-color: var(--teal-300)!important;
   border-color: #285e8e; /*set the color you want here*/
 }
+
+#col-override {
+  flex: auto
+}

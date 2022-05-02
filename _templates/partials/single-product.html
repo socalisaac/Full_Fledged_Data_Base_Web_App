@@ -6,9 +6,14 @@
         <strong>{{{dollarPrice}}} ({{{euroPrice}}})</strong>
     </div>
     <br>
-    <div class="container">
-        <img class="card-img-top" src="{{image_url}}" alt="{{title}}" /><br>
-    </div>
+    {{#image_url}}
+    <img src="{{image_url}}" data-action="viewProduct" class="tiny-thumb cursor" alt="product: {{title}}"
+        data-id="{{id}}" data-partial="single-product">
+    {{/image_url}}
+    {{^image_url}}
+    <img src="https://www.opelgtsource.com/assets/default_product.png" data-action="viewProduct" class="tiny-thumb cursor" alt="product: {{title}}"
+        data-id="{{id}}" data-partial="single-product">
+    {{/image_url}}
     <p class="p-3">
         <strong>Description:</strong> <br />{{description}}
     </p>
@@ -31,7 +36,7 @@
                 <label class="p-2">Title:<input class="form-control" type="text" name="title" maxlength="100" size="30" value="{{title}}"></label>
             </div>
             <div>
-                <label class="p-2">Price:<input class="form-control" type="text" name="price" maxlength="100" size="30" value="{{price}}"></label>
+                <label class="p-2">Price:<input class="form-control" type="number" name="price" maxlength="100" size="30" value="{{price}}"></label>
             </div>
             <div>
                 <label class="p-2">Desc.:<input class="form-control" type="text" name="description" maxlength="100" size="30"
@@ -42,12 +47,12 @@
                         value="{{image_url}}"></label>
             </div>
             <div>
-                <label class="p-2">Tags:<input class="form-control" type="text" name="image_url" maxlength="100" size="30"
+                <label class="p-2">Tags:<input class="form-control" type="text" name="tags" maxlength="100" size="30"
                         value="{{tags}}"></label>
             </div>
             <div>
-                <label class="p-2">Limit:<input class="form-control" type="text" name="image_url" maxlength="100" size="30"
-                        value="{{limit}}"></label>
+                <label class="p-2">Limit:<input class="form-control" type="number" name="limit" maxlength="100" size="30"
+                        value="{{limit}}" required></label>
             </div>
             <hr />
             <button class="btn btn-primary" type="submit">Submit</button>
