@@ -15,7 +15,7 @@ $response = new ServerResponse($request, $dataSource);
 
 $response->process();
 
-$loggedInUser = $_SESSION['user'] ?? false;
+$loggedInUser = $_SESSION['team_007_user'] ?? false;
 
 if($loggedInUser == false){
     exit;
@@ -28,9 +28,9 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
     $result = [];
 
-    if(!$perms->verifyBool($request->uri, $_SESSION['user']['permissions'])){
+    if(!$perms->verifyBool($request->uri, $_SESSION['team_007_user']['permissions'])){
 
-        $request->get['id'] = $_SESSION['user']['user_id'];
+        $request->get['id'] = $_SESSION['team_007_user']['user_id'];
 
     }
 
@@ -90,7 +90,7 @@ function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $
             $response->status = $result[0]["outcome"];
         }
 
-        if($get['id'] == $_SESSION['user']['user_id']){
+        if($get['id'] == $_SESSION['team_007_user']['user_id']){
             session_destroy();
         }
 
@@ -115,11 +115,11 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
         $result = null;
         $put = $request->put;
 
-        if($put['id'] != $_SESSION['user']['user_id'])
+        if($put['id'] != $_SESSION['team_007_user']['user_id'])
         {
             $perms = new Permissions(1, 1, 1);
 
-            $perms->verify($request->uri, $_SESSION['user']['permissions'], "Must be admin to change other users!");
+            $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be admin to change other users!");
         }
             
         $db = $dataSource->PDO();
@@ -144,8 +144,8 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
             throw new Exception($result['detail']);
         }
 
-        if($put['id'] == $_SESSION['user']['user_id']){
-            $_SESSION['user']['username'] = $result['username'];
+        if($put['id'] == $_SESSION['team_007_user']['user_id']){
+            $_SESSION['team_007_user']['username'] = $result['username'];
         }
 
         $response->status = "OK";

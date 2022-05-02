@@ -80,11 +80,11 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
         $userResult[$userResult['role']] = true;
 
-        $_SESSION['user'] = $userResult;
+        $_SESSION['team_007_user'] = $userResult;
 
-        $_SESSION['user']['permissions'] = $permResult;
+        $_SESSION['team_007_user']['permissions'] = $permResult;
 
-        $result = $_SESSION['user'];
+        $result = $_SESSION['team_007_user'];
 
         $response->status = "OK";
     } catch (Exception $error) {

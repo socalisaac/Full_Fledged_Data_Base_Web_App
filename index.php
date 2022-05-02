@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$user = $_SESSION['user'] ?? ["user_id" => false, "visitor" => true];
+$user = $_SESSION['team_007_user'] ?? ["user_id" => false, "visitor" => true];
 $username = $user['username'] ?? "";
 $userJson = json_encode($user);
 

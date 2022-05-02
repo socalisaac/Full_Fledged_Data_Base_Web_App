@@ -17,7 +17,7 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
     try {
 
-        $loggedInUser = $_SESSION['user'] ?? false;
+        $loggedInUser = $_SESSION['team_007_user'] ?? false;
         
         $db = $dataSource->PDO();
         $get = $request->get;
@@ -60,10 +60,10 @@ function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $
 
     try {
 
-        $loggedInUser = $_SESSION['user'] ?? false;
+        $loggedInUser = $_SESSION['team_007_user'] ?? false;
 
         if($loggedInUser != false){
-            $perms->verify($request->uri, $_SESSION['user']['permissions'], "Must be an Admin to delete an item");
+            $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be an Admin to delete an item");
 
             $db = $dataSource->PDO();
         }
@@ -113,10 +113,10 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
     try {
 
-        $loggedInUser = $_SESSION['user'] ?? false;
+        $loggedInUser = $_SESSION['team_007_user'] ?? false;
 
         if($loggedInUser != false){
-            $perms->verify($request->uri, $_SESSION['user']['permissions'], "Must be an Admin to update an item");
+            $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be an Admin to update an item");
 
             $db = $dataSource->PDO();
         }
@@ -164,10 +164,10 @@ function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $re
     $result = [];
 
     try {
-        $loggedInUser = $_SESSION['user'] ?? false;
+        $loggedInUser = $_SESSION['team_007_user'] ?? false;
 
         if($loggedInUser != false){
-            $perms->verify($request->uri, $_SESSION['user']['permissions'], "Must be an Admin to create a new item");
+            $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be an Admin to create a new item");
 
             $db = $dataSource->PDO();
         }
