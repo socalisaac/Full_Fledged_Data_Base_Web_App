@@ -226,6 +226,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-y: scroll;
 }
 
 .modal-content {
@@ -240,6 +241,7 @@ h1 {
     margin: 100px auto;
     cursor: default !important;
     box-shadow: 0px 0px 10px var(--box-shadow-clr);
+    overflow-y: scroll;
 }
 
 
