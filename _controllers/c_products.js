@@ -30,7 +30,6 @@ products.onSubmit("uploadNewImage", async (e) => {
 
     var input = formData.form.querySelector('input[type="file"]')
   
-
     var data = new FormData()
     data.append('file', input.files[0])
     data.append('user', 'team007')

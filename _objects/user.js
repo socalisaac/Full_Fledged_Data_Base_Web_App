@@ -20,7 +20,7 @@ export class User extends Item {
         this.first_name = "";
         this.last_name = "";
         this.address = "";
-        this.profile_image = "";
+        this.picture = "";
 
         Object.assign(this, data);
     }

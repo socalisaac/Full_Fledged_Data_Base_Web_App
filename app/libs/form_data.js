@@ -3,7 +3,14 @@
  * You can use this to convert your form input to JSON and use it as "data"
  * for the Request.js module or anything else. 
  */
- export class FormData {
+
+/**
+ * 2022 Note: This is older code that replaces existing functionality in 
+ * FormData. Consider just using the built-in FormData object which
+ * has wide support in everything except Internet Explorer. 
+ */
+
+export class FormData {
     /**
      * Create form data from a <form> elementl. 
      * @param {HTMLElement} form - Should be a form element but an ID query selector works too. 

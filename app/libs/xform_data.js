@@ -2,7 +2,7 @@
  * An extension of the FormData object with some convenience features. 
  */
 
- export class xFormData {
+export class xFormData {
     /**
      * Create form data from a <form> elementl. 
      * @param {HTMLElement} form - Should be a form element but an ID query selector works too. 

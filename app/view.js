@@ -145,3 +145,4 @@ export class PartialView extends View {
         Object.assign(this, settings);
     }
 }
+

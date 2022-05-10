@@ -19,6 +19,54 @@ const users = new Controller("users", User);
     }
 })();
 
+users.onSubmit("uploadNewImage", async (e) => {
+
+    let eData = new EventData(e);
+
+    let formData = eData.formData;
+
+    var input = formData.form.querySelector('input[type="file"]');
+  
+    var data = new FormData();
+    data.append('file', input.files[0]);
+    data.append('user', 'team007');
+
+    let upload = await fetch('api/image', {
+        method: 'POST',
+        body: data
+    });
+
+    let result = await upload.json();
+
+    if (result.URL) {
+
+        let newUser = new User(formData);
+
+        newUser.picture = result.URL;
+
+        console.log(result.URL);
+        console.log("picture", newUser.picture);
+
+        console.log(newUser);
+
+        let request = await users.model.put(newUser);
+
+        console.log("MADE IT!")
+
+        if (request.OK) {
+            await users.view.confirm("User Updated!");
+            users.view.render(users.model.list);
+            window.location = "users"
+        } 
+        else 
+        {
+            await users.view.confirm(request.status);
+            users.view.render(users.model.list);
+        }
+
+    }
+});
+
 // Update Existing User Action (Update)
 users.onSubmit("updateUser", async (e) => {
 

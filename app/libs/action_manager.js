@@ -80,3 +80,4 @@ export class ActionManager {
         this.on(type, name, callback, true);
     }
 }
+

@@ -33,6 +33,18 @@
  
 
   </div>
+  <form data-action="uploadNewImage" class="p-3">
+    <input type="hidden" name="id" value="{{id}}" />
+    <input type="hidden" name="first_name" value="{{first_name}}" />
+    <input type="hidden" name="last_name" value="{{last_name}}" />
+    <input type="hidden" name="username" value="{{username}}" />
+    <input type="hidden" name="email" value="{{email}}" />
+    <input type="hidden" name="address" value="{{address}}" />
+    <input type="file" id="image_file" class="form-control"  name="picture"/>
+    <hr />
+    <button class="btn btn-primary p-2" type="submit">Upload New Image</button>
+  </form>
+
   <form data-action="updateUser" class=" row g-1">
     <input type="hidden" name="id" value="{{id}}" />
     <div class="col-lg">

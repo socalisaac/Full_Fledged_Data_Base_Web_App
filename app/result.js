@@ -11,7 +11,7 @@
  * Result: A generic result from a data operation
  * This basically just enforces the "Status" property. 
  */
- export class Result {
+export class Result {
     constructor(data) {
         this.status = "UNKNOWN";
         Object.assign(this, data);
