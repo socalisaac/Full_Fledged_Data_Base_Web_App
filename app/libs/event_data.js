@@ -1,4 +1,4 @@
-import { FormData } from './form_data.js';
+import { xFormData } from './xform_data.js';
 /**
  * A convenience wrapper to streamline working with event data. 
  * The default event object does a lot. With this class you can do more
@@ -22,7 +22,7 @@ export class EventData {
         this.sourceElement = document.body;
         this.forElement = document.body;
         this.forElementList = document.querySelectorAll("body");
-        this.formData = new FormData();
+        this.formData = new xFormData();
         this.customData = event.detail;
 
         // Attempt to get actual values
@@ -31,7 +31,7 @@ export class EventData {
         let srcData = eventSource.dataset;
         let forElementList = document.querySelectorAll(forElement);
 
-        let formData = new FormData(eventSource);
+        let formData = new xFormData(eventSource);
 
         // Setup Event Data Object
         let eData = {
@@ -39,7 +39,7 @@ export class EventData {
             event: event,
             forElement: forElementList[0] ?? this.forElement,
             forElementList: forElementList ?? this.forElementList,
-            formData: formData.export()
+            formData: formData
         };
 
         // Integrate wrapper values & dataset into Event Data Object

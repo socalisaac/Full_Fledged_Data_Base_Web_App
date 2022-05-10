@@ -27,8 +27,20 @@
     <hr>
     <button class="btn btn-primary" type="button" data-action="toggleElement" data-for="#UpdateProductForm">Update
         Product</button>
-    <div id="UpdateProductForm" class="hidden detail-form">
-        <form data-action="updateProduct" style="height:300px;overflow:auto;">
+    <div id="UpdateProductForm" class="hidden detail-form" style="height:300px;overflow:auto;">
+        <form data-action="uploadNewImage" class="p-3">
+            <input type="hidden" name="id" value="{{id}}" />
+            <input type="hidden" name="title" value="{{title}}" />
+            <input type="hidden" name="price" value="{{price}}" />
+            <input type="hidden" name="description" value="{{description}}" />
+            <input type="hidden" name="tags" value="{{tags}}" />
+            <input type="hidden" name="limit" value="{{limit}}" />
+            <input type="file" id="image_file" class="form-control"  name="file"/>
+            <hr />
+            <button class="btn btn-primary p-2" type="submit">Upload New Image</button>
+        </form>
+
+        <form data-action="updateProduct" >
             <input type="hidden" name="id" value="{{id}}" />
             <!-- <input type="hidden" name="tags" value="{{tags}}" />
             <input type="hidden" name="limit" value="{{limit}}" /> -->
@@ -36,7 +48,7 @@
                 <label class="p-2">Title:<input class="form-control" type="text" name="title" maxlength="100" size="30" value="{{title}}"></label>
             </div>
             <div>
-                <label class="p-2">Price:<input class="form-control" type="number" step="0.01" name="price" maxlength="100" size="30" value="{{price}}"></label>
+                <label class="p-2">Price:<input class="form-control" type="text" name="price" maxlength="100" size="30" value="{{price}}"></label>
             </div>
             <div>
                 <label class="p-2">Desc.:<input class="form-control" type="text" name="description" maxlength="100" size="30"
@@ -51,7 +63,7 @@
                         value="{{tags}}"></label>
             </div>
             <div>
-                <label class="p-2">Limit:<input class="form-control" type="number" name="limit" maxlength="100" size="30"
+                <label class="p-2">Limit:<input class="form-control" type="text" name="limit" maxlength="100" size="30"
                         value="{{limit}}" required></label>
             </div>
             <hr />

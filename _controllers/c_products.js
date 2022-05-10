@@ -8,20 +8,57 @@ const products = new Controller("products", Product);
 
     await products.view.downloadTemplate();
     await products.model.importData();
-
     let productList = products.model.list;
 
-    products.view.render(productList);
+    if (!productList.OK) {
+        await products.view.confirm(productList.status);
 
-    if(productList != "Huh?"){
-        
+        if (productList.status.includes("MUST LOG IN")) {
+            window.location = "login?gobackto=products";
+        }
+    } else {
+        products.view.render(productList);
     }
-    else{
-        await products.view.confirm("Something wrong");
-    }
-
     
 })();
+
+products.onSubmit("uploadNewImage", async (e) => {
+
+    let eData = new EventData(e);
+
+    let formData = eData.formData;
+
+    var input = formData.form.querySelector('input[type="file"]')
+  
+
+    var data = new FormData()
+    data.append('file', input.files[0])
+    data.append('user', 'team007')
+
+    let upload = await fetch('api/image', {
+        method: 'POST',
+        body: data
+    });
+
+    let result = await upload.json();
+
+    if (result.URL) {
+
+        let newProduct = new Product(formData);
+
+        newProduct.image_url = result.URL;
+
+        let request = await products.model.put(newProduct);
+
+        if (request.OK) {
+            await products.view.confirm("Product Updated!");
+            products.view.render(products.model.list);
+        } else {
+            await products.view.confirm(request.status);
+        }
+
+    }
+});
 
 // Add New Product Action (Create)
 products.onSubmit("addNewProduct", async (e) => {

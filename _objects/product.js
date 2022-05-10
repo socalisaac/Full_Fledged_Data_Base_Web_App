@@ -37,7 +37,7 @@ export class Product extends Item {
     get full_image_url() {
         let URL = this.image_url ?? "";
         if (URL[0] == "a") {
-            URL = `http://software.stevenleoncooper.com/CPSC431/000/${URL}`;
+            URL = `http://software.stevenleoncooper.com/CPSC431/007/${URL}`;
         }
         return URL;
     }
