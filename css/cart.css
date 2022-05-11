@@ -1,0 +1,14 @@
+.btn-primary {
+    background-color: var(--teal-400) !important;
+    border-color: var(--teal-200) !important;
+  }
+  
+  .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff !important;
+    background-color: var(--teal-300)!important;
+    border-color: #285e8e; /*set the color you want here*/
+  }
+  
+  #col-override {
+    flex: auto
+  }

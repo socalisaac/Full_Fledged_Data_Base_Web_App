@@ -65,7 +65,10 @@ if (!preg_match('/^[\w-]+$/', $page)) {
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link" href="cart" title="View Cart">View Cart</a>
+                            </li>
 
+                            <li class="nav-item">
                                 <a class="nav-link login-status-nav" href='login?logout=1'><?php echo ($username); ?> Log Out <i class="fa-solid fa-right-from-bracket"></i></a>
                             </li>
                         <?php } ?>

@@ -1,0 +1,60 @@
+{{#user.user}}
+<h1 class="pt-3">Hello {{user.username}}, you are a USER</h1>
+{{/user.user}}
+
+{{#user.admin}}
+<h1 class="pt-3">Hello {{user.username}}, you are an ADMIN</h1>
+{{/user.admin}}
+
+<hr>
+<h4>This is your shopping cart</h4>
+
+{{^empty}}
+<button class="btn btn-primary" type="button" data-action="checkOut" data-id="{{user.user_id}}">Check Out</button>
+<button class="delete-button btn btn-danger justify-content-center" type="button" data-action="clearCart" data-id="{{user.user_id}}">Clear Cart</button>
+{{/empty}}
+
+{{^items}}
+<button class="btn btn-primary" type="button" data-action="checkOut" data-id="{{user.user_id}}">Check Out</button>
+<button class="delete-button btn btn-danger justify-content-center" type="button" data-action="clearCart" data-id="{{user.user_id}}">Clear Cart</button>
+{{/items}}
+
+{{#empty}}
+    <h4 class="pt-5 pb-3">Shopping cart empty ¯\_(ツ)_/¯</h4>
+{{/empty}}
+
+{{^empty}}
+    {{^items}}
+    <h4 class="pt-5 pb-3">Shopping cart empty ¯\_(ツ)_/¯</h4>
+    {{/items}}
+
+    {{#items}}
+    <p>
+        
+
+        {{#id}}
+        <div class="pt-5 pb-3" >
+
+            <div class="pe-4" style="display:inline-block;vertical-align:top;">
+            <div style="width:100px; height: 100px;">
+
+            {{#image_url}}
+            <img src="{{image_url}}" class="img-thumbnail float-left" alt="...">
+            {{/image_url}}
+
+            {{^image_url}}
+            <img src="https://www.opelgtsource.com/assets/default_product.png" class="img-thumbnail float-left" alt="...">
+            {{/image_url}}
+            
+            </div>
+            
+            <div class="mt-4" style="display:inline-block;">
+                <h5 class="fw-bolder">Title: {{title}}</h5>
+                <h5 class="fw-bolder">Price: ${{price}}</h5>
+            </div>
+            <button class="delete-button btn btn-danger" type="button" data-action="deleteItem" data-id="{{id}}">Delete Item</button>
+        </div>
+        {{/id}}
+    </p>
+    {{/items}}
+{{/empty}}

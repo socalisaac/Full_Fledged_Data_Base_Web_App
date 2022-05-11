@@ -99,9 +99,17 @@ margin: 0; padding: 75px 0;
 background-image: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.75), white 40%);
 }
 
+/* Centered text */
+.centeredText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background:rgba(255,255,255,.5);
+    color: white;
+  }
 
-
-
-
-
-
+.containerTextImg {
+    position: relative;
+    text-align: center;
+}

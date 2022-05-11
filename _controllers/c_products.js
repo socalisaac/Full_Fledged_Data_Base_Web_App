@@ -1,7 +1,10 @@
 import { Controller, PartialView, EventData } from '../app/controller.js';
 import { Product } from '../_objects/product.js';
+import { Cart } from '../_objects/cart.js';
+import { Result } from '../app/result.js';
 
 const products = new Controller("products", Product);
+const cart = new Controller("cart", Cart);
 
 // Initial Page Setup
 (async () => {
@@ -13,9 +16,9 @@ const products = new Controller("products", Product);
     if (!productList.OK) {
         await products.view.confirm(productList.status);
 
-        if (productList.status.includes("MUST LOG IN")) {
-            window.location = "login?gobackto=products";
-        }
+        // if (productList.status.includes("MUST LOG IN")) {
+        //     window.location = "login?gobackto=products";
+        // }
     } else {
         products.view.render(productList);
     }
@@ -100,6 +103,27 @@ products.onClick("viewProduct", async (e) => {
         html: html
     });
 
+});
+
+// Add Single Product To Cart
+products.onSubmit("addToCart", async (e) => {
+    
+    let goAhead = await products.view.confirmYesNo("Are you sure?");
+
+    if (goAhead === false) return false;
+
+    let eData = new EventData(e);
+
+    let product = new Product(eData.formData);
+
+    let request = await cart.model.post(product);
+
+    if (request.OK) {
+        await products.view.confirm("Item Added to Cart!");
+    }
+    else{
+        await products.view.confirm(request.status);
+    }
 });
 
 // Update Existing Product Action (Update)
