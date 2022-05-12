@@ -81,20 +81,15 @@
                                 <h5 class="fw-bolder">{{title}}</h5>
                                 <!-- Product price-->
                                 <p>Price: ${{{price}}}</p>
+                                {{^user.visitor}}
                                 <form data-action="addToCart">
                                     <input type="hidden" name="id" value="{{id}}" />
-                                    <input type="hidden" name="title" value="{{title}}" />
-                                    <input type="hidden" name="price" value="{{price}}" />
-                                    <input type="hidden" name="description" value="{{description}}" />
-                                    <input type="hidden" name="tags" value="{{tags}}" />
-                                    <input type="hidden" name="limit" value="{{limit}}" />
-                                    <input type="hidden" name="image_url" value="{{image_url}}" />
                                     <button type="submit" class="btn btn-primary">
                                         Add To Cart
                                     </button>
                                 </form>
+                                {{/user.visitor}}
                             </div>
-                            
                         </div>
                         
                         <!-- Product actions-->

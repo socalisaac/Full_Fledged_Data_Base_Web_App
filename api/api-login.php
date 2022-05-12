@@ -14,33 +14,33 @@ $response = new ServerResponse($request, $dataSource);
 
 $response->process();
 
-// Official GET request 
-function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
-{
-    //$perms = new Permissions(1, 0, 0);
-    $result = [];
+// // Official GET request 
+// function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
+// {
+//     //$perms = new Permissions(1, 0, 0);
+//     $result = [];
 
-    try {
-        $db = $dataSource->PDO();
-        $get = $request->get;
-        $singleQuery = "CALL get_product(?)";
-        $listQuery = "CALL get_product_list(?)";
+//     try {
+//         $db = $dataSource->PDO();
+//         $get = $request->get;
+//         $singleQuery = "CALL get_product(?)";
+//         $listQuery = "CALL get_product_list(?)";
 
-        $query = isset($get['id']) ? $singleQuery : $listQuery;
-        $param = isset($get['id']) ? $get['id'] : ($get['sort_by'] ?? "title-asc");
+//         $query = isset($get['id']) ? $singleQuery : $listQuery;
+//         $param = isset($get['id']) ? $get['id'] : ($get['sort_by'] ?? "title-asc");
 
-        $result = [];
-        $statement = $db->prepare($query);
-        $statement->execute([$param]);
-        $result = $statement->fetchAll();
-        $response->status = "OK";
-    } catch (Exception $error) {
-        $response->status = "FAIL: " . $error->getMessage();
-    }
+//         $result = [];
+//         $statement = $db->prepare($query);
+//         $statement->execute([$param]);
+//         $result = $statement->fetchAll();
+//         $response->status = "OK";
+//     } catch (Exception $error) {
+//         $response->status = "FAIL: " . $error->getMessage();
+//     }
 
-    $response->outputJSON($result);
+//     $response->outputJSON($result);
 
-}
+// }
 
 // Function that processes as "DELETE" request.
 function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $response)

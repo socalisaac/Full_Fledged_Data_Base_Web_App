@@ -158,5 +158,41 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
 function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    
+    try {
+        
+        $result = null;
+        $put = $request->put;
+
+        if($put['id'] != $_SESSION['team_007_user']['user_id'])
+        {
+            $perms = new Permissions(1, 1, 1);
+
+            $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be admin to change other users!");
+        }
+        
+        $ps_hash = password_hash($put['password'], PASSWORD_DEFAULT);
+
+        $db = $dataSource->PDO();
+
+        $params = array (
+            ':id' => $put['id'],
+            ':ps_hash' => $ps_hash
+        );
+
+        $statement = $db->prepare('CALL update_user_password(:id, :ps_hash)');
+
+        $statement->execute($params);
+
+        $result = $statement->fetchAll()[0];
+
+        if (isset($result['error'])){
+            throw new Exception($result['detail']);
+        }
+
+        $response->status = "OK";
+    } catch (Exception $error) {
+        $response->status = $error->getMessage();
+    }
+
+    $response->outputJSON($result);
 }

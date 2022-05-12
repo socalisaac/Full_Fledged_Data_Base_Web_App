@@ -93,6 +93,32 @@ users.onSubmit("updateUser", async (e) => {
 
 });
 
+// Update Existing User Action (Update)
+users.onSubmit("updatePassword", async (e) => {
+
+    let goAhead = await users.view.confirmYesNo("Update Password?");
+
+    if (goAhead === false) return false;
+
+    let eData = new EventData(e);
+
+    let newUser = new User(eData.formData);
+
+    let request = await users.model.post(newUser);
+
+    if (request.OK) {
+        await users.view.confirm("User Password Updated!");
+        users.view.render(users.model.list);
+        window.location = "users"
+    } 
+    else 
+    {
+        await users.view.confirm(request.status);
+        users.view.render(users.model.list);
+    }
+
+});
+
 // Delete User Action (Delete)
 users.onClick("deleteUser", async (e) => {
     let goAhead = await users.view.confirmYesNo("Are you sure?");

@@ -11,9 +11,10 @@
 {{/user.admin}}
 
 {{#items}}
-<p>
-  <div class="pt-5 pb-3" >
 
+<p>
+  <div class="pt-5" >
+    <hr />
     <div class="pe-4" style="display:inline-block;vertical-align:top;">
       <div style="width:100px; height: 100px;">
 
@@ -31,72 +32,95 @@
         <h5 class="fw-bolder float-left">{{username}}'s Information:</h5>
       </div>
  
-
   </div>
-  <form data-action="uploadNewImage" class="p-3">
-    <input type="hidden" name="id" value="{{id}}" />
-    <input type="hidden" name="first_name" value="{{first_name}}" />
-    <input type="hidden" name="last_name" value="{{last_name}}" />
-    <input type="hidden" name="username" value="{{username}}" />
-    <input type="hidden" name="email" value="{{email}}" />
-    <input type="hidden" name="address" value="{{address}}" />
-    <input type="file" id="image_file" class="form-control"  name="picture"/>
+
+  <div class="pt-3">
+    <form data-action="uploadNewImage" class="row g-1">
+      <input type="hidden" name="id" value="{{id}}" />
+      <input type="hidden" name="first_name" value="{{first_name}}" />
+      <input type="hidden" name="last_name" value="{{last_name}}" />
+      <input type="hidden" name="username" value="{{username}}" />
+      <input type="hidden" name="email" value="{{email}}" />
+      <input type="hidden" name="address" value="{{address}}" />
+      <div class="col-lg">
+        <label class="form-label">
+          <input type="file" class="form-control"  name="picture"/>
+        </label>
+        <button class="btn btn-primary" type="submit">Upload New Image</button>
+      </div>
+    </form>
+  </div>
+  
+  <div class="pt-2">
+    {{#user.admin}}
+      <form data-action="updatePassword" class="row g-1">
+        <input type="hidden" name="id" value="{{id}}" />
+
+        <div class="col-lg">
+          <label class="form-label">
+            New Password: <input type="password" name="password" placeholder="Password" required="" class="form-control">
+          </label>
+          <button class="btn btn-primary p-2" type="submit">Update {{username}}'s Password</button>
+        </div>
+
+      </form>
+    {{/user.admin}}
+  </div>
+  
+  <div class="pt-2">
+    <form data-action="updateUser" class=" row g-1">
+      <input type="hidden" name="id" value="{{id}}" />
+
+      <div class="col-lg">
+        <label class="form-label">
+          First Name: <input type="text" name="first_name" placeholder="First Name" required="" value="{{first_name}}"
+            class="form-control">
+        </label>
+      </div>
+
+      <div class="col-lg">
+        <label class="form-label">
+          Last Name: <input type="text" name="last_name" placeholder="Last Name" required="" value="{{last_name}}"
+            class="form-control">
+        </label>
+      </div>
+
+      {{#user.admin}}
+      <div class="col-lg">
+        <label class="form-label">
+          Username: <input type="text" name="username" placeholder="Username" required="" value="{{username}}"
+            class="form-control">
+        </label>
+      </div>
+      {{/user.admin}}
+
+      <div class="col-lg">
+        <label class="form-label">
+          Email: <input type="email" name="email" placeholder="Email Address" required="" value="{{email}}"
+            class="form-control">
+        </label>
+      </div>
+
+      <div class="col-lg">
+        <label class="form-label">
+          Address: <input type="text" name="address" placeholder="Address" value="{{address}}" class="form-control">
+        </label>
+      </div>
+
+      <div class="col-lg">
+        <label class="form-label">
+          Image URL: <input type="text" name="picture" placeholder="Address" value="{{picture}}" class="form-control">
+        </label>
+      </div>
+
+      <div class="pt-2">
+        <button class="btn btn-primary my-2 me-1" type="submit">Update User Info</button>
+        <button class="delete-button btn btn-danger justify-content-center" type="button" data-action="deleteUser"
+          data-id="{{id}}">DELETE USER</button>
+      </div>
+    </form>
     <hr />
-    <button class="btn btn-primary p-2" type="submit">Upload New Image</button>
-  </form>
-
-  <form data-action="updateUser" class=" row g-1">
-    <input type="hidden" name="id" value="{{id}}" />
-    <div class="col-lg">
-
-      <label class="form-label">
-        First Name: <input type="text" name="first_name" placeholder="First Name" required="" value="{{first_name}}"
-          class="form-control">
-      </label>
-
-    </div>
-    <div class="col-lg">
-      <label class="form-label">
-        Last Name: <input type="text" name="last_name" placeholder="Last Name" required="" value="{{last_name}}"
-          class="form-control">
-      </label>
-    </div>
-    <div class="col-lg">
-      <label class="form-label">
-        Username: <input type="text" name="username" placeholder="Username" required="" value="{{username}}"
-          class="form-control">
-      </label>
-    </div>
-
-    <div class="col-lg">
-      <label class="form-label">
-        Email: <input type="text" name="email" placeholder="Email Address" required="" value="{{email}}"
-          class="form-control">
-      </label>
-    </div>
-    <div class="col-lg">
-      <label class="form-label">
-        Address: <input type="text" name="address" placeholder="Address" value="{{address}}" class="form-control">
-      </label>
-    </div>
-    <div class="col-lg">
-      <label class="form-label">
-        Image URL: <input type="text" name="picture" placeholder="Address" value="{{picture}}" class="form-control">
-      </label>
-    </div>
-
-
-
-
-    <div class="pt-2">
-      <button class="btn btn-primary my-2 me-1" type="submit">Update User Info</button>
-      <button class="delete-button btn btn-danger justify-content-center" type="button" data-action="deleteUser"
-        data-id="{{id}}">DELETE USER</button>
-    </div>
-    </div>
-    </div>
-
-
-  </form>
+  </div>
 </p>
 {{/items}}
+
