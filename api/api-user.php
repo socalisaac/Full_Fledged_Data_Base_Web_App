@@ -121,12 +121,19 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
             $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be admin to change other users!");
         }
+
+        if($_SESSION['team_007_user']['role'] == "user"){
+            $user_name = $_SESSION['team_007_user']['username'];
+        }
+        else{
+            $user_name = $put['username'];
+        }
             
         $db = $dataSource->PDO();
 
         $params = array (
             ':id' => $put['id'],
-            ':username' => $put['username'],
+            ':username' => $user_name,
             ':first_name' => $put['first_name'],
             ':last_name' => $put['last_name'],
             ':email' => $put['email'],
