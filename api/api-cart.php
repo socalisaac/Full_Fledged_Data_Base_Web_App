@@ -18,17 +18,22 @@ $response->process();
 $loggedInUser = $_SESSION['team_007_user'] ?? false;
 
 if($loggedInUser == false){
+    $response->status = "FAIL: Must be logged in";
     exit;
 }
 
 // Official GET request 
 function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    $perms = new Permissions(1, 1, 1);
-
-    $result = [];
+     $result = [];
 
     try {
+
+        $loggedInUser = $_SESSION['team_007_user'] ?? false;
+
+        if($loggedInUser == false){
+            throw new Exception("Must be logged in to view cart");
+        }
         
         $request->get['id'] = $_SESSION['team_007_user']['user_id'];
 
@@ -59,22 +64,9 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 // Function that processes as "DELETE" request.
 function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    // $perms = new Permissions(0, 0, 1);
-
     $result = [];
 
     try {
-
-        // $loggedInUser = $_SESSION['team_007_user'] ?? false;
-
-        // if($loggedInUser != false){
-        //     $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be an Admin to delete an item");
-
-        //     $db = $dataSource->PDO();
-        // }
-        // else{
-        //     throw new Exception("Permission Denied: Must be logged in");
-        // }
 
         $db = $dataSource->PDO();
 
@@ -114,69 +106,14 @@ function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $
 // Function that processes as "PUT" request.
 function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    try {
-        
-        $result = null;
-        $put = $request->put;
-
-        if($put['id'] != $_SESSION['team_007_user']['user_id'])
-        {
-            $perms = new Permissions(1, 1, 1);
-
-            $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be admin to change other users!");
-        }
-            
-        $db = $dataSource->PDO();
-
-        $params = array (
-            ':id' => $_SESSION['team_007_user']['user_id'],
-            ':username' => $put['username'],
-            ':first_name' => $put['first_name'],
-            ':last_name' => $put['last_name'],
-            ':email' => $put['email'],
-            ':address' => $put['address'],
-            ':picture' => $put['picture']
-        );
-
-        $statement = $db->prepare('CALL update_user(:id, :username, :first_name, :last_name, :email, :address, :picture)');
-
-        $statement->execute($params);
-
-        $result = $statement->fetchAll()[0];
-
-        if (isset($result['error'])){
-            throw new Exception($result['detail']);
-        }
-
-        if($put['id'] == $_SESSION['team_007_user']['user_id']){
-            $_SESSION['team_007_user']['username'] = $result['username'];
-        }
-
-        $response->status = "OK";
-    } catch (Exception $error) {
-        $response->status = $error->getMessage();
-    }
-
-    $response->outputJSON($result);
+    
 }
 
 function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    // $perms = new Permissions(0, 0, 1);
-
     $result = [];
 
     try {
-        // $loggedInUser = $_SESSION['team_007_user'] ?? false;
-
-        // if($loggedInUser != false){
-        //     $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be an Admin to create a new item");
-
-        //     $db = $dataSource->PDO();
-        // }
-        // else{
-        //     throw new Exception("Permission Denied: Must be logged in");
-        // }
 
         $db = $dataSource->PDO();
            
@@ -186,14 +123,6 @@ function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $re
             ':user_id' => $_SESSION['team_007_user']['user_id'],
             ':product_id' => $post['id']
         );
-
-        // ,
-        //     ':title' => $post['title'],
-        //     ':desc' => $post['description'],
-        //     ':image' => $post['image_url'],
-        //     ':price' => $post['price'],
-        //     ':tags' => $post['tags'],
-        //     ':limit' => $post['limit']
 
         $result = [];
 

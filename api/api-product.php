@@ -23,14 +23,14 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
         $get = $request->get;
         $singleQuery = "CALL get_product(?)";
         $listQuery = "CALL get_product_list(?)";
-        $topSixListQuery = "CALL get_product_list_top_eight(?)";
+        $topeigthListQuery = "CALL get_product_list_top_eight(?)";
 
         #Permissions
         if(isset($get['id'])){
             $query = $singleQuery;
         }
         elseif($loggedInUser == false){
-            $query = $topSixListQuery;
+            $query = $topeigthListQuery;
         }
         else{
             $query = $listQuery;
@@ -54,22 +54,15 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 // Function that processes as "DELETE" request.
 function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    $perms = new Permissions(0, 0, 1);
-
     $result = [];
 
     try {
 
-        $loggedInUser = $_SESSION['team_007_user'] ?? false;
+        if(($_SESSION['team_007_user']['user_id'] == false) or ($_SESSION['team_007_user']['role'] != "admin")){
 
-        if($loggedInUser != false){
-            $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be an Admin to delete an item");
+            throw new Exception("Must be an ADMIN to update items");
+        }
 
-            $db = $dataSource->PDO();
-        }
-        else{
-            throw new Exception("Permission Denied: Must be logged in");
-        }
         $db = $dataSource->PDO();
 
         $get = $request->get;
@@ -96,10 +89,6 @@ function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $
     } catch (Exception $error) {
         $response->status = "FAIL: " . $error->getMessage();
 
-        // $result = null;
-
-        // $response->status = "FAIL: " . $error->getMessage();
-
         $response->outputJSON($result);
     }
 }
@@ -107,26 +96,18 @@ function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $
 // Function that processes as "PUT" request.
 function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    $perms = new Permissions(0, 0, 1);
 
     $result = [];
 
     try {
 
-        $loggedInUser = $_SESSION['team_007_user'] ?? false;
+        if(($_SESSION['team_007_user']['user_id'] == false) or ($_SESSION['team_007_user']['role'] != "admin")){
 
-        if($loggedInUser != false){
-            $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be an Admin to update an item");
-
-            $db = $dataSource->PDO();
-        }
-        else{
-            throw new Exception("Permission Denied: Must be logged in");
+            throw new Exception("Must be an ADMIN to update items");
         }
 
         $db = $dataSource->PDO();
 
-        // $clientIP = $request->clientIP;
         $result = null;
         $get = $request->get;
         $put = $request->put;
@@ -147,34 +128,29 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 
         $result = $statement->fetchAll();
 
-        $response->status = "OK - Remember, IP Addresses are Logged when Updating Content!";
+        $response->status = "OK";
+
     } catch (Exception $error) {
         $response->status = "FAIL: " . $error->getMessage();
-        // $result = ["error" => $error];
-
-        // $response->status - "FAIL: ERROR";
     }
 
     $response->outputJSON($result);
 }
+
+
 function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    $perms = new Permissions(0, 0, 1);
-
     $result = [];
 
     try {
-        $loggedInUser = $_SESSION['team_007_user'] ?? false;
 
-        if($loggedInUser != false){
-            $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be an Admin to create a new item");
+        if(($_SESSION['team_007_user']['user_id'] == false) or ($_SESSION['team_007_user']['role'] != "admin")){
 
-            $db = $dataSource->PDO();
+            throw new Exception("Must be an ADMIN to add items");
         }
-        else{
-            throw new Exception("Permission Denied: Must be logged in");
-        }
-           
+
+        $db = $dataSource->PDO();
+
         $post = $request->post;
 
         $params = array (
@@ -197,9 +173,6 @@ function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $re
         $response->status = "OK";
     } catch (Exception $error) {
         $response->status = "FAIL: " . $error->getMessage();
-        // $msg = $error->getMessage();
-        // $result = ["error" => $error->GetMessage()];
-        // $response->status = "FAIL: $msg";
     }
     $response->outputJSON($result);
 }

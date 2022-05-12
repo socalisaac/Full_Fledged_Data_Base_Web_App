@@ -18,17 +18,16 @@ $response->process();
 $loggedInUser = $_SESSION['team_007_user'] ?? false;
 
 if($loggedInUser == false){
+    $response->status = "FAIL: Must be logged in";
     exit;
 }
 
 // Official GET request 
 function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    $perms = new Permissions(1, 1, 1);
-
     $result = [];
 
-    if(!$perms->verifyBool($request->uri, $_SESSION['team_007_user']['permissions'])){
+    if(($_SESSION['team_007_user']['role'] != "admin")){
 
         $request->get['id'] = $_SESSION['team_007_user']['user_id'];
 
@@ -68,13 +67,16 @@ function GET(ClientRequest $request, DataSource $dataSource, ServerResponse $res
 // Function that processes as "DELETE" request.
 function DELETE(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
-    try {
-
+    try {  
         $db = $dataSource->PDO();
 
         $get = $request->get;
 
         $recordId = $get['id'];
+
+        if(($_SESSION['team_007_user']['role'] != "admin") and ($_SESSION['team_007_user']['user_id'] != $recordId)){
+            throw new Exception("Only ADMINS can delete user other then them selves");
+        }        
         
         $result = ["not" => "changed"];
 
@@ -115,11 +117,9 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
         $result = null;
         $put = $request->put;
 
-        if($put['id'] != $_SESSION['team_007_user']['user_id'])
+        if(($_SESSION['team_007_user']['role'] != "admin") and ($put['id'] != $_SESSION['team_007_user']['user_id']))
         {
-            $perms = new Permissions(1, 1, 1);
-
-            $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be admin to change other users!");
+            throw new Exception("Only ADMINS can update users other then them selves");
         }
 
         if($_SESSION['team_007_user']['role'] == "user"){
@@ -163,6 +163,7 @@ function PUT(ClientRequest $request, DataSource $dataSource, ServerResponse $res
     $response->outputJSON($result);
 }
 
+//POST Is being used to update a users password
 function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $response)
 {
     try {
@@ -170,11 +171,9 @@ function POST(ClientRequest $request, DataSource $dataSource, ServerResponse $re
         $result = null;
         $put = $request->put;
 
-        if($put['id'] != $_SESSION['team_007_user']['user_id'])
+        if(($_SESSION['team_007_user']['role'] != "admin") and ($put['id'] != $_SESSION['team_007_user']['user_id']))
         {
-            $perms = new Permissions(1, 1, 1);
-
-            $perms->verify($request->uri, $_SESSION['team_007_user']['permissions'], "Must be admin to change other users!");
+            throw new Exception("Only ADMINS can update user's passwords");
         }
         
         $ps_hash = password_hash($put['password'], PASSWORD_DEFAULT);
