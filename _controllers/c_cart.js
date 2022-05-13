@@ -38,6 +38,10 @@ cart.onClick("deleteItem", async (e) => {
     let request = await cart.model.delete(targetId);
 
     if (request.OK) { 
+
+        await cart.view.downloadTemplate();
+        await cart.model.importData();
+        
         await cart.view.confirm("Item has been DELETED!");
         cart.view.render(cart.model.list);
     } else {
