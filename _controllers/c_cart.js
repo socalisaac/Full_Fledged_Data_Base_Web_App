@@ -38,7 +38,7 @@ cart.onClick("deleteItem", async (e) => {
     let request = await cart.model.delete(targetId);
 
     if (request.OK) { 
-        await cart.view.confirm("Item has been Deleted!");
+        await cart.view.confirm("Item has been DELETED!");
         cart.view.render(cart.model.list);
     } else {
         await cart.view.confirm(request.status);
@@ -59,7 +59,7 @@ cart.onClick("clearCart", async (e) => {
     let request = await cart.model.delete(targetId);
 
     if (request.OK) { 
-        await cart.view.confirm("All Items has been Cleared From Your Cart!");
+        await cart.view.confirm("Item(s) have been CLEARED from your cart!");
 
         await cart.view.downloadTemplate();
         await cart.model.importData();
@@ -114,7 +114,7 @@ cart.onClick("checkOut", async (e) => {
         let request = await cart.model.delete(targetId);
 
         if (request.OK) { 
-            await cart.view.confirm("Thank you for Shopping with us! Your cart will be emptied.");
+            await cart.view.confirm("Thank you for shopping with us! Your cart will be emptied.");
 
             await cart.view.downloadTemplate();
             await cart.model.importData();
