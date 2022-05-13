@@ -7,7 +7,7 @@
 {{/user.admin}}
 
 <hr>
-<h4>This is your shopping cart</h4>
+<h2>This is your shopping cart</h4>
 
 {{^empty}}
 <button class="btn btn-primary" type="button" data-action="checkOut" data-id="{{user.user_id}}">Check Out</button>
@@ -20,12 +20,12 @@
 {{/items}}
 
 {{#empty}}
-    <h4 class="pt-5 pb-3">Shopping cart empty ¯\_(ツ)_/¯</h4>
+    <h2 class="pt-5 pb-3">Shopping cart empty ¯\_(ツ)_/¯</h4>
 {{/empty}}
 
 {{^empty}}
     {{^items}}
-    <h4 class="pt-5 pb-3">Shopping cart empty ¯\_(ツ)_/¯</h4>
+    <h2 class="pt-5 pb-3">Shopping cart empty ¯\_(ツ)_/¯</h4>
     {{/items}}
 
     {{#items}}

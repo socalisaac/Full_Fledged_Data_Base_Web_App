@@ -8,7 +8,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Input Item Data</h5>
+                    <h2 class="modal-title" id="exampleModalLabel">Input Item Data</h2>
                 </div>
                 <div class="modal-body">
                     <form class="row g-3" data-action="addNewProduct">
@@ -51,7 +51,7 @@
     <hr>
     
     {{^user.admin}}
-    <h4>You must be logged in as an ADMIN to add, update, and delete products</h4>
+    <h2>You must be logged in as an ADMIN to add, update, and delete products</h2>
     {{/user.admin}}
 
     {{#user.admin}}
@@ -100,7 +100,7 @@
                 {{/items}}
 
                 {{#user.visitor}}
-                <h3 class="login-view-more"><a href="login" class="view-more-button button nav-link mt-5" style="color:black;">Click here to login and view more!</a></h3>
+                <h2 class="login-view-more"><a href="login" class="view-more-button button nav-link mt-5" style="color:black;">Click here to login and view more!</a></h2>
                 {{/user.visitor}}
 
             </div>
