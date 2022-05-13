@@ -73,31 +73,57 @@ cart.onClick("clearCart", async (e) => {
 });
 
 // Check Out (Buy Items)
-// cart.onClick("checkOut", async (e) => {
-//     let goAhead = await cart.view.confirmYesNo("Are you sure?");
+cart.onClick("checkOut", async (e) => {
+    let goAhead = await cart.view.confirmYesNo("Are you sure you want to check out? Your cart will be emptied!");
 
-//     if (goAhead === false) return false;
+    if (goAhead === false) return false;
 
-//     let eData = new EventData(e);
+    let eData = new EventData(e);
 
-//     let targetId = eData.id;
+    let targetId = eData.id;
 
-//     let request = await cart.model.delete(targetId);
+    await cart.model.importData();
 
-//     if (request.OK) { 
-//         if(eData.id == window.app.user.user_id){
-//             await cart.view.confirm("Your account has been Deleted, you will be logged out now!");
-//             window.location = "login?logged_out=1"
-//         }
-//         else
-//         {
-//             await cart.view.confirm("User has been Deleted!");
-//             cart.view.render(cart.model.list);
-//         }
+    let cartList = cart.model.list;
+
+    // We only need 1 PartialView at a time
+    cart.partial = cart.partial ?? new PartialView("receipt");
+
+    // Only download the template once
+    if (!cart.partial.html) await cart.partial.downloadTemplate();
+
+    if (!cartList.OK) {
+        await cart.view.confirm(cartList.status);
+
+    } else {
+
+        cartList.totalCost = 0;
+
+        cartList.items.forEach(x => cartList.totalCost += parseFloat(x.totalPrice));
+
+        cartList.totalCost = cartList.totalCost.toFixed(2);
+
+        let html = cart.partial.build(cartList).html;
+
+        await cart.view.confirm({
+            html: html
+        });
+
+        cart.view.render(cart.model.list);
+
+        let request = await cart.model.delete(targetId);
+
+        if (request.OK) { 
+            await cart.view.confirm("Thank you for Shopping With Us! Your cart will be emptied.");
+
+            await cart.view.downloadTemplate();
+            await cart.model.importData();
+            let itemsList = cart.model.list;
         
-       
-//     } else {
-//         await cart.view.confirm(request.status);
-//         cart.view.render(cart.model.list);
-//     }
-// });
+            cart.view.render(itemsList);
+        } else {
+            await cart.view.confirm(request.status);
+            cart.view.render(cart.model.list);
+        }
+    }
+});

@@ -11,9 +11,21 @@ export class Cart extends Item {
 
         // Define properties and default values
         this.product_id = "";
-        this.quantity = 0;
+        this.price = 0;
 
         // Overrite above properties with values provided in constructor
         Object.assign(this, data);
+    }
+
+    get _price(){
+        return parseFloat(this.price);
+    }
+
+    set _price(value){
+        this.price = parseFLoat(value);
+    }
+
+    get totalPrice(){
+        return (this._price).toFixed(2);
     }
 }

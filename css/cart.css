@@ -1,14 +1,55 @@
 .btn-primary {
     background-color: var(--teal-400) !important;
     border-color: var(--teal-200) !important;
-  }
+}
   
-  .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     color: #fff !important;
     background-color: var(--teal-300)!important;
-    border-color: #285e8e; /*set the color you want here*/
-  }
+    border-color: #285e8e; 
+} */
   
-  #col-override {
+#col-override {
     flex: auto
-  }
+}
+
+/* Shopping Cart
+
+table.shopping-cart {
+  table-layout: fixed;
+  width: 100%;
+  margin: 2px;
+  border-collapse: collapse;
+}
+
+table.shopping-cart td,
+table.shopping-cart th {
+  padding: 3px;
+  border: 1px solid black;
+}
+
+table.receipt{
+  table-layout:fixed;
+  width:100%;
+  margin:2px;
+}
+table.receipt td, table.receipt.th{
+  padding:4px;
+  text-align: left;
+}
+
+.total-price{
+
+  text-align: center;
+}
+
+.total-cost{
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.full-receipt{
+  min-width:800px;
+  min-height: 600px;
+} */

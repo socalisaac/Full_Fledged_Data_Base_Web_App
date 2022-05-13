@@ -1,0 +1,27 @@
+<div class="full-receipt">
+    <button style="position:absolute; top:2px; right:3px;" onclick="javascript:window.print()" class="btn-print">Print</button>
+<h1>Your Receipt</h1>
+
+<table class="receipt">
+    <thead>
+        <tr>
+            <th colspan="2">Product</th>
+            <th colspan="2">Price</th>
+            <!-- <th>Total</th> -->
+        </tr>
+    </thead>
+    <tbody>
+        {{#items}}
+        <tr>
+            <td colspan="2">{{title}}</td>
+            <td colspan="2">${{price}}</td>
+            <!-- <td class="receipt-item-price">$<span class='receipt-item-price'>{{totalPrice}}</span></td> -->
+        </tr>
+        {{/items}}
+        <tr>
+            <th colspan="2">TOTAL PAID:</th>
+            <td colspan="2">$<span class="receipt-total-cost">{{totalCost}}</span></td>
+        </tr>
+    </tbody>
+</table>
+</div>
