@@ -7,11 +7,11 @@
     </div>
     <br>
     {{#image_url}}
-    <img src="{{image_url}}" data-action="viewProduct" class="tiny-thumb cursor" alt="product: {{title}}"
+    <img src="{{image_url}}" class="tiny-thumb" alt="product: {{title}}"
         data-id="{{id}}" data-partial="single-product">
     {{/image_url}}
     {{^image_url}}
-    <img src="https://www.opelgtsource.com/assets/default_product.png" data-action="viewProduct" class="tiny-thumb cursor" alt="product: {{title}}"
+    <img src="assets/uploads/default_product.png" class="tiny-thumb" alt="product: {{title}}"
         data-id="{{id}}" data-partial="single-product">
     {{/image_url}}
     <p class="p-3">

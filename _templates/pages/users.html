@@ -23,7 +23,7 @@
       {{/picture}}
 
       {{^picture}}
-      <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" class="img-thumbnail float-left" alt="...">
+      <img src="assets/uploads/Default_User_Img.png" class="img-thumbnail float-left" alt="...">
       {{/picture}}
       
     </div>
@@ -34,7 +34,7 @@
  
   </div>
 
-  <div class="pt-3">
+  <div class="pt-4">
     <form data-action="uploadNewImage" class="row g-1">
       <input type="hidden" name="id" value="{{id}}" />
       <input type="hidden" name="first_name" value="{{first_name}}" />
@@ -44,7 +44,7 @@
       <input type="hidden" name="address" value="{{address}}" />
       <div class="col-lg">
         <label class="form-label">
-          <input type="file" class="form-control"  name="picture"/>
+          New Image Upload: <input type="file" required="" class="form-control"  name="picture"/>
         </label>
         <button class="btn btn-primary" type="submit">Upload New Image</button>
       </div>
