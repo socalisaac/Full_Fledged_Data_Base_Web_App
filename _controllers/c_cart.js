@@ -114,7 +114,7 @@ cart.onClick("checkOut", async (e) => {
         let request = await cart.model.delete(targetId);
 
         if (request.OK) { 
-            await cart.view.confirm("Thank you for Shopping With Us! Your cart will be emptied.");
+            await cart.view.confirm("Thank you for Shopping with us! Your cart will be emptied.");
 
             await cart.view.downloadTemplate();
             await cart.model.importData();
