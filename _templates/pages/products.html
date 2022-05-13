@@ -49,10 +49,13 @@
         </div>
     </div>
     <hr>
-    
-    {{^user.admin}}
+    {{#user.visitor}}
+    <h2>You must be logged in to add items to your cart</h2>
+    {{/user.visitor}}
+
+    {{#user.user}}
     <h2>You must be logged in as an ADMIN to add, update, and delete products</h2>
-    {{/user.admin}}
+    {{/user.user}}
 
     {{#user.admin}}
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
