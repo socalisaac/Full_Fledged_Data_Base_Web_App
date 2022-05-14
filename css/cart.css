@@ -13,43 +13,10 @@
     flex: auto
 }
 
-/* Shopping Cart
-
-table.shopping-cart {
-  table-layout: fixed;
-  width: 100%;
-  margin: 2px;
-  border-collapse: collapse;
+.receipt-table{
+  width:1000%
 }
 
-table.shopping-cart td,
-table.shopping-cart th {
-  padding: 3px;
-  border: 1px solid black;
+.receipt-col{
+  width:50%
 }
-
-table.receipt{
-  table-layout:fixed;
-  width:100%;
-  margin:2px;
-}
-table.receipt td, table.receipt.th{
-  padding:4px;
-  text-align: left;
-}
-
-.total-price{
-
-  text-align: center;
-}
-
-.total-cost{
-  text-align: center;
-  font-weight: bold;
-  font-size: 24px;
-}
-
-.full-receipt{
-  min-width:800px;
-  min-height: 600px;
-} */

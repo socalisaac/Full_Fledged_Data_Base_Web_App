@@ -16,7 +16,21 @@ const cart = new Controller("cart", Cart);
 
         let itemsList = cart.model.list;
 
+        console.log(itemsList)
+
         if (itemsList.OK){
+
+            let goodList = true;
+
+            for(let i = 0; i < itemsList.items.length; i++){
+                if(itemsList.items[i].id == null){
+                    goodList = false;
+                }
+            }
+
+            if(!goodList){
+                itemsList.items = [];
+            }
 
             itemsList.totalCost = 0;
 
@@ -52,7 +66,9 @@ cart.onClick("deleteItem", async (e) => {
     if (request.OK) {
         await cart.view.downloadTemplate();
         await cart.model.importData();
+        // let newItemsList = cart.model.list;
         cart.view.render(itemsList);
+        console.log(itemsList);
         await cart.view.confirm("Item has been DELETED!");
     } else {
         cart.view.render(cart.model.list);
@@ -75,8 +91,20 @@ cart.onClick("clearCart", async (e) => {
     if (request.OK) { 
         await cart.view.downloadTemplate();
         await cart.model.importData();
-            
+
         let itemsList = cart.model.list;
+
+        let goodList = true;
+
+        for(let i = 0; i < itemsList.items.length; i++){
+            if(itemsList.items[i].id == null){
+                goodList = false;
+            }
+        }
+
+        if(!goodList){
+            itemsList.items = [];
+        }
 
         itemsList.totalCost = 0;
 
@@ -125,6 +153,18 @@ cart.onClick("checkOut", async (e) => {
         await cart.view.downloadTemplate();
         await cart.model.importData();
         let itemsList = cart.model.list;
+
+        let goodList = true;
+
+        for(let i = 0; i < itemsList.items.length; i++){
+            if(itemsList.items[i].id == null){
+                goodList = false;
+            }
+        }
+
+        if(!goodList){
+            itemsList.items = [];
+        }
 
         itemsList.totalCost = 0;
 

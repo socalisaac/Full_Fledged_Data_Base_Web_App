@@ -1,26 +1,35 @@
 <div class="full-receipt justify-content-center">
     <button style="position:absolute; top:2px; right:3px;" onclick="javascript:window.print()" class="btn-print">Print</button>
 <h1>Your Receipt</h1>
-
-<table class="receipt">
+<hr />
+<table style="width:100%;">
     <thead>
         <tr>
-            <th colspan="2">Product</th>
-            <th colspan="2">Price</th>
+            <th colspan="2" style="width:60%;">Product</th>
+            <th colspan="2" style="width:30%;">Price</th>
             <!-- <th>Total</th> -->
         </tr>
     </thead>
     <tbody>
         {{#items}}
         <tr>
-            <td colspan="2">{{title}}</td>
-            <td colspan="2">${{price}}</td>
+            <td colspan="2" style="width:60%;">{{title}}</td>
+            <td colspan="2" style="width:30%;">${{price}}</td>
         </tr>
         {{/items}}
+        
+  
+    </tbody>
+
+</table>
+<hr />
+<table style="width:100%;">
+    <tbody>
         <tr>
-            <th colspan="2">TOTAL PAID:</th>
-            <td colspan="2">$<span class="receipt-total-cost">{{totalCost}}</span></td>
+            <th colspan="2" style="width:60%;">TOTAL PAID:</th>
+            <td colspan="2" style="width:30%;">$<span class="receipt-total-cost">{{totalCost}}</span></td>
         </tr>
     </tbody>
 </table>
+
 </div>
