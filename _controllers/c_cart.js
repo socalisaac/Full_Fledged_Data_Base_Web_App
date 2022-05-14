@@ -16,10 +16,14 @@ const cart = new Controller("cart", Cart);
 
         let itemsList = cart.model.list;
 
-        if (!itemsList.OK) {
-            await products.view.confirm(productList.status);
-        }
-        else{
+        if (itemsList.OK){
+
+            itemsList.totalCost = 0;
+
+            itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
+    
+            itemsList.totalCost = itemsList.totalCost.toFixed(2);
+
             cart.view.render(itemsList);
         }
     }
@@ -37,14 +41,24 @@ cart.onClick("deleteItem", async (e) => {
 
     let request = await cart.model.delete(targetId);
 
+    let itemsList = cart.model.list;
+
+    itemsList.totalCost = 0;
+
+    itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
+
+    itemsList.totalCost = itemsList.totalCost.toFixed(2);
+
     if (request.OK) { 
 
         await cart.view.downloadTemplate();
         await cart.model.importData();
-        
+
         await cart.view.confirm("Item has been DELETED!");
-        cart.view.render(cart.model.list);
+
+        cart.view.render(itemsList);
     } else {
+        
         await cart.view.confirm(request.status);
         cart.view.render(cart.model.list);
     }
@@ -67,12 +81,28 @@ cart.onClick("clearCart", async (e) => {
 
         await cart.view.downloadTemplate();
         await cart.model.importData();
+            
         let itemsList = cart.model.list;
+
+        itemsList.totalCost = 0;
+
+        itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
+
+        itemsList.totalCost = itemsList.totalCost.toFixed(2);
     
         cart.view.render(itemsList);
     } else {
+
+        let itemsList = cart.model.list;
+
+        itemsList.totalCost = 0;
+
+        itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
+
+        itemsList.totalCost = itemsList.totalCost.toFixed(2);
+
         await cart.view.confirm(request.status);
-        cart.view.render(cart.model.list);
+        cart.view.render(itemsList);
     }
 });
 
@@ -113,8 +143,6 @@ cart.onClick("checkOut", async (e) => {
             html: html
         });
 
-        cart.view.render(cart.model.list);
-
         let request = await cart.model.delete(targetId);
 
         if (request.OK) { 
@@ -123,11 +151,26 @@ cart.onClick("checkOut", async (e) => {
             await cart.view.downloadTemplate();
             await cart.model.importData();
             let itemsList = cart.model.list;
+
+            itemsList.totalCost = 0;
+    
+            itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
+    
+            itemsList.totalCost = itemsList.totalCost.toFixed(2);
         
             cart.view.render(itemsList);
         } else {
+
+            let itemsList = cart.model.list;
+
+            itemsList.totalCost = 0;
+    
+            itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
+    
+            itemsList.totalCost = itemsList.totalCost.toFixed(2);
+
             await cart.view.confirm(request.status);
-            cart.view.render(cart.model.list);
+            cart.view.render(itemsList);
         }
     }
 });
