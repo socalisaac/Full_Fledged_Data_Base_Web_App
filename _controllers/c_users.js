@@ -44,19 +44,12 @@ users.onSubmit("uploadNewImage", async (e) => {
 
         newUser.picture = result.URL;
 
-        console.log(result.URL);
-        console.log("picture", newUser.picture);
-
-        console.log(newUser);
-
         let request = await users.model.put(newUser);
 
-        console.log("MADE IT!")
-
         if (request.OK) {
-            await users.view.confirm("User Updated!");
+            await users.model.importData();
             users.view.render(users.model.list);
-            window.location = "users"
+            await users.view.confirm("User Updated!");
         } 
         else 
         {
@@ -82,8 +75,10 @@ users.onSubmit("updateUser", async (e) => {
 
     if (request.OK) {
         await users.view.confirm("User Updated!");
+        await users.model.importData();
         users.view.render(users.model.list);
         window.location = "users"
+        
     } 
     else 
     {
@@ -107,9 +102,9 @@ users.onSubmit("updatePassword", async (e) => {
     let request = await users.model.post(newUser);
 
     if (request.OK) {
-        await users.view.confirm("User Password Updated!");
+        await users.model.importData();
         users.view.render(users.model.list);
-        window.location = "users"
+        await users.view.confirm("User Password Updated!");
     } 
     else 
     {
@@ -138,8 +133,9 @@ users.onClick("deleteUser", async (e) => {
         }
         else
         {
-            await users.view.confirm("User has been Deleted!");
+            await users.model.importData();
             users.view.render(users.model.list);
+            await users.view.confirm("User has been Deleted!");
         }
         
        

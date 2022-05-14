@@ -49,18 +49,14 @@ cart.onClick("deleteItem", async (e) => {
 
     itemsList.totalCost = itemsList.totalCost.toFixed(2);
 
-    if (request.OK) { 
-
+    if (request.OK) {
         await cart.view.downloadTemplate();
         await cart.model.importData();
-
-        await cart.view.confirm("Item has been DELETED!");
-
         cart.view.render(itemsList);
+        await cart.view.confirm("Item has been DELETED!");
     } else {
-        
-        await cart.view.confirm(request.status);
         cart.view.render(cart.model.list);
+        await cart.view.confirm(request.status);
     }
 });
 
@@ -77,8 +73,6 @@ cart.onClick("clearCart", async (e) => {
     let request = await cart.model.delete(targetId);
 
     if (request.OK) { 
-        await cart.view.confirm("Item(s) have been CLEARED from your cart!");
-
         await cart.view.downloadTemplate();
         await cart.model.importData();
             
@@ -91,6 +85,8 @@ cart.onClick("clearCart", async (e) => {
         itemsList.totalCost = itemsList.totalCost.toFixed(2);
     
         cart.view.render(itemsList);
+
+        await cart.view.confirm("Item(s) have been CLEARED from your cart!");
     } else {
 
         let itemsList = cart.model.list;
@@ -109,9 +105,49 @@ cart.onClick("clearCart", async (e) => {
 // Check Out (Buy Items)
 cart.onClick("checkOut", async (e) => {
 
+    let goAhead = await cart.view.confirmYesNo("Are you sure you would like to your complete order?");
+
+    if (goAhead === false) return false;
+
     await cart.model.importData();
 
     let cartList = cart.model.list;
+
+    // Empty Cart
+    let eData = new EventData(e);
+
+    let targetId = eData.id;
+
+    let request = await cart.model.delete(targetId);
+
+    if (request.OK) {
+        
+        await cart.view.downloadTemplate();
+        await cart.model.importData();
+        let itemsList = cart.model.list;
+
+        itemsList.totalCost = 0;
+
+        itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
+
+        itemsList.totalCost = itemsList.totalCost.toFixed(2);
+
+        cart.view.render(itemsList);
+        
+        await cart.view.confirm("Thank you for shopping with us! Your cart will be emptied and you can print your receipt on the next popup window.");
+    } else {
+
+        let itemsList = cart.model.list;
+
+        itemsList.totalCost = 0;
+
+        itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
+
+        itemsList.totalCost = itemsList.totalCost.toFixed(2);
+
+        await cart.view.confirm(request.status);
+        cart.view.render(itemsList);
+    }
 
     // We only need 1 PartialView at a time
     cart.partial = cart.partial ?? new PartialView("receipt");
@@ -136,49 +172,4 @@ cart.onClick("checkOut", async (e) => {
             html: html
         });
     }
-});
-
-// Delete All Items From Cart
-cart.onClick("confirmOrder", async (e) => {
-    let eData = new EventData(e);
-
-    let targetId = eData.id;
-
-    let request = await cart.model.delete(targetId);
-
-    if (request.OK) {
-        
-        await cart.view.downloadTemplate();
-        await cart.model.importData();
-        let itemsList = cart.model.list;
-
-        itemsList.totalCost = 0;
-
-        itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
-
-        itemsList.totalCost = itemsList.totalCost.toFixed(2);
-
-        cart.view.render(itemsList);
-        
-        await cart.view.confirm("Thank you for shopping with us! Your cart is empty.");
-    } else {
-
-        let itemsList = cart.model.list;
-
-        itemsList.totalCost = 0;
-
-        itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
-
-        itemsList.totalCost = itemsList.totalCost.toFixed(2);
-
-        await cart.view.confirm(request.status);
-        cart.view.render(itemsList);
-    }
-});
-
-// Delete All Items From Cart
-cart.onClick("cancelOrder", async (e) => {
-
-    await cart.view.confirm("Order Canceled");
-
 });

@@ -18,10 +18,9 @@ export class Modal {
 
         document.addEventListener("closeModal", this._removeModal, { once: true });
 
-
         // Default templates for modal window content wrappers
         this.wrappers.generic = `
-        <div class='modal-wrapper'>
+        <div class='modal-wrapper cursor'>
             <div class='modal-content'>
             {{#title}}
                 <strong>{{title}}</strong>
@@ -41,7 +40,7 @@ export class Modal {
             {{/title}}
                 {{{html}}}
                 <hr>
-                <button type='button' id='modal-ok'>{{^ok}}OK{{/ok}}{{ok}}</button>
+                <button type='button' class="btn btn-primary" id='modal-ok'>{{^ok}}OK{{/ok}}{{ok}}</button>
             </div>
         </div>
         `;
@@ -55,8 +54,8 @@ export class Modal {
             {{/title}}
                 {{{html}}}
                 <hr>
-                <button type='button' id='modal-yes'>{{^yes}}YES{{/yes}}{{yes}}</button>
-                <button type='button' id='modal-no'>{{^no}}NO{{/no}}{{no}}</button>
+                <button type='button' class="btn btn-primary" id='modal-yes'>{{^yes}}YES{{/yes}}{{yes}}</button>
+                <button type='button' class="delete-button btn btn-danger" id='modal-no'>{{^no}}NO{{/no}}{{no}}</button>
             </div>
         </div>
         `;
@@ -96,11 +95,6 @@ export class Modal {
     _injectHTML() {
         let self = this;
         document.body.insertAdjacentHTML("afterbegin", this.html);
-        document.querySelector(".modal-wrapper").addEventListener("click", (e) => {
-            if (e.target.matches(".modal-wrapper")) {
-                self.close();
-            }
-        });
     }
 
     _removeModal() {
@@ -114,10 +108,18 @@ export class Modal {
     }
 
     show(data) {
-
+        let self = this;
         this.template = this.wrappers.generic;
         this.html = this._render(this.template, data);
         this._injectHTML();
+        return new Promise((resolve) => {
+            document.querySelector(".modal-wrapper").addEventListener("click", (e) => {
+                if (e.target.matches(".modal-wrapper")) {
+                    self.close();
+                    resolve(true);
+                }            
+            });
+        });
     }
 
     /**
@@ -138,27 +140,6 @@ export class Modal {
             });
         });
     }
-
-        /**
-     * Display an asynchronous confirmation alert. Holds up processing until dismissed. 
-     * @param {object} data data with "html" property for content ("ok" optional button value). 
-     * @returns true (always returns true, use async to wait for input)
-     */
-         async autoConfirm(data) {
-            let self = this;
-            this.template = this.wrappers.ok;
-            this.html = this._render(this.template, data);
-            this._injectHTML();
-            return new Promise((resolve) => {
-                document.querySelector("#modal-ok").addEventListener("click", (e) => {
-                    self.close();
-                    resolve(true);
-                    
-                });
-
-                resolve(true);
-            });
-        }
 
     /**
      * Displays an asynchronous confirmation alert with yes/no options. Holds up processing until decided.

@@ -85,11 +85,15 @@ h1 {
     right: 0;
     background-color: RGBA(0, 0, 0, 0.4);
     z-index: 1000;
-    cursor: pointer;
+    cursor: default;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow-y: scroll;
+}
+
+.cursor {
+    cursor: pointer;
 }
 
 .modal-content {

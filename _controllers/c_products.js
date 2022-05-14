@@ -1,7 +1,6 @@
 import { Controller, PartialView, EventData } from '../app/controller.js';
 import { Product } from '../_objects/product.js';
 import { Cart } from '../_objects/cart.js';
-import { Result } from '../app/result.js';
 
 const products = new Controller("products", Product);
 const cart = new Controller("cart", Cart);
@@ -15,10 +14,6 @@ const cart = new Controller("cart", Cart);
 
     if (!productList.OK) {
         await products.view.confirm(productList.status);
-
-        // if (productList.status.includes("MUST LOG IN")) {
-        //     window.location = "login?gobackto=products";
-        // }
     } else {
         products.view.render(productList);
     }
@@ -65,9 +60,9 @@ products.onSubmit("uploadNewImage", async (e) => {
 // Add New Product Action (Create)
 products.onSubmit("addNewProduct", async (e) => {
     
-    let goAhead = await products.view.confirmYesNo("Are you sure?");
+    // let goAhead = await products.view.confirmYesNo("Are you sure?");
 
-    if (goAhead === false) return false;
+    // if (goAhead === false) return false;
 
     let eData = new EventData(e);
 
@@ -76,8 +71,8 @@ products.onSubmit("addNewProduct", async (e) => {
     let request = await products.model.post(newProduct);
 
     if (request.OK) {
-        alert("It Worked!");
         products.view.render(products.model.list);
+        await products.view.confirm("New Item Added!");
     }
     else{
         await products.view.confirm(request.status);
@@ -140,8 +135,8 @@ products.onSubmit("updateProduct", async (e) => {
     let request = await products.model.put(newProduct);
 
     if (request.OK) {
-        await products.view.confirm("Product Updated!");
         products.view.render(products.model.list);
+        await products.view.confirm("Product Updated!");
     } else {
         await products.view.confirm(request.status);
     }
@@ -162,8 +157,8 @@ products.onClick("deleteProduct", async (e) => {
     let request = await products.model.delete(targetId);
 
     if (request.OK) {
-        await products.view.confirm("Deleted!");
         products.view.render(products.model.list);
+        await products.view.confirm("Deleted!");
     } else {
         await products.view.confirm(request.status);
     }
