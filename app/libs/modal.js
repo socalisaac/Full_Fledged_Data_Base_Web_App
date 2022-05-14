@@ -139,6 +139,27 @@ export class Modal {
         });
     }
 
+        /**
+     * Display an asynchronous confirmation alert. Holds up processing until dismissed. 
+     * @param {object} data data with "html" property for content ("ok" optional button value). 
+     * @returns true (always returns true, use async to wait for input)
+     */
+         async autoConfirm(data) {
+            let self = this;
+            this.template = this.wrappers.ok;
+            this.html = this._render(this.template, data);
+            this._injectHTML();
+            return new Promise((resolve) => {
+                document.querySelector("#modal-ok").addEventListener("click", (e) => {
+                    self.close();
+                    resolve(true);
+                    
+                });
+
+                resolve(true);
+            });
+        }
+
     /**
      * Displays an asynchronous confirmation alert with yes/no options. Holds up processing until decided.
      * @param {object} data with "html" property for content ("yes" and "no" optiononal button values)

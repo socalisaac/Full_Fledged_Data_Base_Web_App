@@ -1,4 +1,4 @@
-<div class="full-receipt">
+<div class="full-receipt justify-content-center">
     <button style="position:absolute; top:2px; right:3px;" onclick="javascript:window.print()" class="btn-print">Print</button>
 <h1>Your Receipt</h1>
 
@@ -24,4 +24,6 @@
         </tr>
     </tbody>
 </table>
+<button type="button" data-action="confirmOrder"  data-id="{{user.user_id}}" class="btn btn-primary">Confirm Order</button>
+<button type="button" data-action="cancelOrder" class="delete-button btn btn-danger">Cancel Order</button>
 </div>

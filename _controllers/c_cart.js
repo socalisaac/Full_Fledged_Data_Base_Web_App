@@ -108,13 +108,6 @@ cart.onClick("clearCart", async (e) => {
 
 // Check Out (Buy Items)
 cart.onClick("checkOut", async (e) => {
-    let goAhead = await cart.view.confirmYesNo("Are you sure you want to check out? Your cart will be emptied!");
-
-    if (goAhead === false) return false;
-
-    let eData = new EventData(e);
-
-    let targetId = eData.id;
 
     await cart.model.importData();
 
@@ -139,38 +132,53 @@ cart.onClick("checkOut", async (e) => {
 
         let html = cart.partial.build(cartList).html;
 
-        await cart.view.confirm({
+        cart.view.alert({
             html: html
         });
-
-        let request = await cart.model.delete(targetId);
-
-        if (request.OK) { 
-            await cart.view.confirm("Thank you for shopping with us! Your cart will be emptied.");
-
-            await cart.view.downloadTemplate();
-            await cart.model.importData();
-            let itemsList = cart.model.list;
-
-            itemsList.totalCost = 0;
-    
-            itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
-    
-            itemsList.totalCost = itemsList.totalCost.toFixed(2);
-        
-            cart.view.render(itemsList);
-        } else {
-
-            let itemsList = cart.model.list;
-
-            itemsList.totalCost = 0;
-    
-            itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
-    
-            itemsList.totalCost = itemsList.totalCost.toFixed(2);
-
-            await cart.view.confirm(request.status);
-            cart.view.render(itemsList);
-        }
     }
+});
+
+// Delete All Items From Cart
+cart.onClick("confirmOrder", async (e) => {
+    let eData = new EventData(e);
+
+    let targetId = eData.id;
+
+    let request = await cart.model.delete(targetId);
+
+    if (request.OK) {
+        
+        await cart.view.downloadTemplate();
+        await cart.model.importData();
+        let itemsList = cart.model.list;
+
+        itemsList.totalCost = 0;
+
+        itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
+
+        itemsList.totalCost = itemsList.totalCost.toFixed(2);
+
+        cart.view.render(itemsList);
+        
+        await cart.view.confirm("Thank you for shopping with us! Your cart is empty.");
+    } else {
+
+        let itemsList = cart.model.list;
+
+        itemsList.totalCost = 0;
+
+        itemsList.items.forEach(x => itemsList.totalCost += parseFloat(x.totalPrice));
+
+        itemsList.totalCost = itemsList.totalCost.toFixed(2);
+
+        await cart.view.confirm(request.status);
+        cart.view.render(itemsList);
+    }
+});
+
+// Delete All Items From Cart
+cart.onClick("cancelOrder", async (e) => {
+
+    await cart.view.confirm("Order Canceled");
+
 });
