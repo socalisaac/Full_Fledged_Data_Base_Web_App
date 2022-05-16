@@ -51,6 +51,7 @@ margin: 0; padding: 75px 0;
 background-image: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.75), white 40%);
 }
 
+
 /* Centered text */
 .centeredText {
     position: absolute;
