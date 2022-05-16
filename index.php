@@ -42,7 +42,7 @@ if (!preg_match('/^[\w-]+$/', $page)) {
         <nav class="navbar navbar-expand-lg navbar-dark nav-color font nav-shadow">
             <div class="container-fluid">
                 <a class="navbar-brand" href="home">Team 7</a>
-                
+
                 <div class="navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-letter fw-bold">
 
@@ -52,14 +52,7 @@ if (!preg_match('/^[\w-]+$/', $page)) {
                         <li class="nav-item">
                             <a class="nav-link" href="products" title="Products">Products</a>
                         </li>
-
-                        <?php if ($user['user_id'] == false) { ?>
-
-                            <li class="nav-item">
-                                <a class="nav-link login-status-nav" href="login" title="Login or Sign Up">Login or Sign Up</a>
-                            </li>
-
-                        <?php } else { ?>
+                        <?php if (!($user['user_id'] == false)) { ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="users" title="Edit Users">Users</a>
                             </li>
@@ -68,12 +61,30 @@ if (!preg_match('/^[\w-]+$/', $page)) {
                                 <a class="nav-link" href="cart" title="View Cart">View Cart</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link login-status-nav" href='login?logout=1'><?php echo ($username); ?> Log Out <i class="fa-solid fa-right-from-bracket"></i></a>
+
+                        <?php }?>
+
+
+
+                    </ul>
+                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0 nav-letter fw-bold">
+
+                        <?php if ($user['user_id'] == false) { ?>
+
+                            <li class="nav-item ml-auto" style="text-align: end;">
+                                <a class="nav-link login-status-nav ml-auto" href="login" title="Login or Sign Up">Login or Sign Up</a>
+                            </li>
+
+                        <?php } else { ?>
+
+
+                            <li class="nav-item ml-auto">
+                                <a class="nav-link login-status-nav ml-auto" href='login?logout=1'><?php echo ($username); ?> Log Out <i class="fa-solid fa-right-from-bracket"></i></a>
                             </li>
                         <?php } ?>
 
                     </ul>
+
 
 
                 </div>

@@ -1,8 +1,10 @@
 .login-status-nav{
-    position:fixed;
-    top:10px;
-    right: 10px;
+    position:relative;
     text-align: right;
+}
+
+.right-align {
+    text-align: end;
 }
 
 :root {
@@ -110,6 +112,26 @@ h1 {
     box-shadow: 0px 0px 10px var(--box-shadow-clr);
     overflow-y: scroll;
 }
+
+.nav-link {
+    color: #ffffff !important;
+    border-radius: 10px;
+}
+
+.nav-link:hover {
+    color: #ffffff !important;
+    background-color: var(--teal-400) !important;
+    
+}
+
+
+.nav-letter-color {
+    background-color: var(--teal-900) !important;
+}
+
+
+
+
 
 
 

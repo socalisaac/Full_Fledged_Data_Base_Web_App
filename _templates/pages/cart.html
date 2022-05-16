@@ -2,61 +2,81 @@
 <hr />
 
 {{#items.length}}
-    <button class="btn btn-primary" type="button" data-action="checkOut" data-id="{{user.user_id}}">Check Out</button>
-    <button class="delete-button btn btn-danger justify-content-center" type="button" data-action="clearCart" data-id="{{user.user_id}}">Clear Cart</button>
+<button class="btn btn-primary" type="button" data-action="checkOut" data-id="{{user.user_id}}">Check Out</button>
+<button class="delete-button btn btn-danger justify-content-center" type="button" data-action="clearCart"
+    data-id="{{user.user_id}}">Clear Cart</button>
 {{/items.length}}
 
 {{^items.length}}
-    <h2 class="">Shopping cart empty ¯\_(ツ)_/¯</h2>
+<h2 class="">Shopping cart empty ¯\_(ツ)_/¯</h2>
 {{/items.length}}
 
 {{#items.length}}
-<table style="width:100%;">
-    
-    <hr>
-    <thead>
-        <tr>
-            <th colspan="4" style="width:10%; padding: 0 15px;"></th>
-            <th colspan="4" style="width:5%; padding: 0 15px;"></th>
-            <th colspan="4" style="width:40%; padding: 0 15px;"><h2 class="fw-bolder">Product</h2></th>
-            <th colspan="4" style="width:20%; padding: 0 15px;"><h2 class="fw-bolder">Price</h2></th>
+<div class="container mt-5">
+    <table class="table table-sm" style="border-color:white;">
+
+
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">
+                    <h2 class="fw-bolder">Product</h2>
+                </th>
+                <th scope="col">
+                    <h2 class="fw-bolder">Price</h2>
+                </th>
+            </tr>
+        </thead>
+
+
+
+        {{/items.length}}
+
+
+        {{#items}}
+        <tbody scope="row">
+            <tr>
+                <td><button class="delete-button btn btn-danger" type="button" data-action="deleteItem"
+                        data-id="{{id}}">Delete Item</button></td>
+                <td>
+                    {{#image_url}}
+                    <img src="{{image_url}}" class="img-thumbnail float-left" alt="..." style="height: 75px; width: 75px;">
+                    {{/image_url}}
+
+                    {{^image_url}}
+                    <img src="assets/uploads/default_product.png" class="img-thumbnail float-left" alt="..." style="height: 75px; width: 75px;">
+                    {{/image_url}}
+                </td>
+
+                <td>
+                    <p class="fw-bolder fs-2">{{title}}</p>
+                </td>
+                <td >
+                    <p class="fw-bolder fs-2">${{price}}</p>
+                </td>
+            </tr>
+        </tbody>
+        {{/items}}
+
+
+        {{#items.length}}
+
+
+
+        <tbody>
+            <tr>
+            <th></th>
+            <th></th>
+            <th>
+                <p class="fw-bolder fs-2 me-3" style="text-align: end;">Total Cost:</p>
+            </th>
+            <th>
+                <p id="final-cost" class="fw-bolder fs-2" >${{totalCost}}</p>
+            </th>
         </tr>
-    </thead>
-   
-</table>
-<hr>
-{{/items.length}}
+        </tbody>
 
-<table style="width:100%;">
-    {{#items}}
-    <tbody>
-        <td colspan="4" style="width:10%; padding: 0 15px;"><button class="delete-button btn btn-danger" type="button" data-action="deleteItem" data-id="{{id}}">Delete Item</button></td>
-        <td colspan="4" style="width:5%; padding: 0 15px;">
-            {{#image_url}}
-            <img src="{{image_url}}" class="img-thumbnail float-left" alt="...">
-            {{/image_url}}
-
-            {{^image_url}}
-            <img src="assets/uploads/default_product.png" class="img-thumbnail float-left" alt="...">
-            {{/image_url}}
-        </td>
-
-        <td colspan="4" style="width:40%; padding: 0 15px;"><h3 class="fw-bolder">{{title}}</h3></td>
-        <td colspan="4" style="width:20%; padding: 0 15px;"><h3 class="fw-bolder">${{price}}</h3></td>
-    </tbody>
-    {{/items}}
-</table>
-
-{{#items.length}}
-<hr />
-<table style="width:100%;">
-    
-    <tbody>
-        <td colspan="4" style="width:10%; padding: 0 15px;"></td>
-        <td colspan="4" style="width:5%; padding: 0 15px;"></td>
-        <td colspan="4" style="width:40%; padding: 0 15px; text-align: end;"><h3 class="fw-bolder">Total Cost:</h3></td>
-        <td colspan="4" style="width:20%; padding: 0 15px;"><h3 class="fw-bolder">${{totalCost}}</h3></td>
-    </tbody>
-    
-</table>
+    </table>
+</div>
 {{/items.length}}
