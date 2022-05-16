@@ -16,8 +16,6 @@ const cart = new Controller("cart", Cart);
 
         let itemsList = cart.model.list;
 
-        console.log(itemsList)
-
         if (itemsList.OK){
 
             let goodList = true;
@@ -68,7 +66,6 @@ cart.onClick("deleteItem", async (e) => {
         await cart.model.importData();
         // let newItemsList = cart.model.list;
         cart.view.render(itemsList);
-        console.log(itemsList);
         await cart.view.confirm("Item has been DELETED!");
     } else {
         cart.view.render(cart.model.list);
