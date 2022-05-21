@@ -1,0 +1,6 @@
+CREATE TABLE `role` (
+  `id` varchar(36) NOT NULL,
+  `level` int(11) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Defines actor roles for the application.';

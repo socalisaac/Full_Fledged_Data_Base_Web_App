@@ -1,0 +1,21 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `user_upgrade_role`(
+	IN _id VARCHAR(36)
+)
+BEGIN
+
+IF EXISTS(SELECT * FROM user where id = _id) THEN
+
+	
+	UPDATE `sagebrus_CPSC431_007`.`user`
+	SET `role` = (SELECT `id` FROM `role` WHERE `level` = 3)
+	WHERE id = _id;
+    
+	CALL get_user_id(_id);
+
+ELSE
+	SELECT _id as `outcome`;
+END IF;
+
+END$$
+DELIMITER ;

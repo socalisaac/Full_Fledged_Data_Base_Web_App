@@ -1,0 +1,32 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `post_new_user`(
+
+	IN _username VARCHAR(100),
+    IN _pass VARCHAR(255),
+    IN _first VARCHAR(128),
+    IN _last VARCHAR(128),
+    IN _email VARCHAR(255)
+    
+)
+BEGIN
+
+IF EXISTS (SELECT * FROM `user` WHERE `username` = _username) THEN
+	SELECT 'FAIL: Username Taken' as `detail`, 'username_taken' as `error`;
+ELSEIF EXISTS(SELECT * FROM `user` WHERE `email` = _email) THEN
+	SELECT 'FAIL: Email Already Registered' as `detail`, 'email_taken' as `error`;
+ELSE 
+	SET @uuid = UUID();
+    SET @currentTime = SYSDATE();
+    
+	INSERT INTO `user`
+	(`id`, `created`, `first_name`, `last_name`, `email`,
+	`picture`, `address`, `username`, `role`,`password`)
+	VALUES
+	(@uuid, @currentTime, _first, _last, _email,
+	null, null,_username, (SELECT `id` FROM `role` WHERE `level` = 2), _pass);
+    
+    SELECT * FROM `user` WHERE `username` = _username;
+END IF;
+
+END$$
+DELIMITER ;

@@ -1,0 +1,18 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `delete_cart_item`(
+	IN _delete_id VARCHAR(36)
+)
+BEGIN
+
+IF EXISTS (SELECT * FROM shopping_cart WHERE id = _delete_id) THEN
+
+	SET SQL_SAFE_UPDATES = 0;
+	
+    DELETE FROM shopping_cart WHERE `id` = _delete_id;
+    
+    SELECT 'SUCCESS' as `outcome`, _delete_id as `id` , _delete_id as `deleted`;
+ELSE
+	SELECT 'FAIL: Item does not exist' as `outcome`;
+    END IF;
+    END$$
+DELIMITER ;

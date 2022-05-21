@@ -1,0 +1,14 @@
+CREATE TABLE `productnew` (
+  `id` varchar(36) NOT NULL,
+  `created` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `title` varchar(128) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `price` decimal(6,2) DEFAULT NULL,
+  `tags` varchar(512) DEFAULT NULL,
+  `limit` int(11) DEFAULT NULL,
+  `protected` tinyint(4) NOT NULL DEFAULT '0',
+  `creator_ip` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index2` (`created`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Table for imaginary product listings. ';

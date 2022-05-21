@@ -1,0 +1,15 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `get_user_permissions`(
+IN  _user_id VARCHAR(36)
+)
+BEGIN
+
+SET @role_id = (SELECT `role` FROM `user` WHERE `user`.id = _user_id);
+
+	SELECT r.name as `role`, a.route, r2a.view_list, r2a.view_others, r2a.modify_others
+	FROM role as r
+	JOIN role2api as r2a ON r.id = r2a.role_id
+	JOIN api as a ON r2a.api_id = a.id
+    WHERE r.id = @role_id;
+END$$
+DELIMITER ;

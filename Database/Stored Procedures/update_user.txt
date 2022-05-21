@@ -1,0 +1,34 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `update_user`(
+	IN _id VARCHAR(36),
+    IN _username VARCHAR(100),
+	IN _first_name VARCHAR(128),
+    IN _last_name VARCHAR(128),
+    IN _email VARCHAR(255),
+	IN _address VARCHAR(255),
+    IN _picture VARCHAR(255)
+)
+BEGIN
+
+IF EXISTS(SELECT * FROM user where id = _id) THEN
+
+	IF EXISTS (SELECT * FROM `user` WHERE `username` = _username and `id` != _id) THEN
+		SELECT 'FAIL: Username Taken' as `detail`, 'username_taken' as `error`;
+	ELSEIF EXISTS(SELECT * FROM `user` WHERE `email` = _email and `id` != _id) THEN
+		SELECT 'FAIL: Email Already Registered' as `detail`, 'email_taken' as `error`;
+	ELSE 
+		UPDATE `sagebrus_CPSC431_007`.`user`
+		SET `first_name` = _first_name, `last_name` = _last_name,
+			`email` = _email, `username` = _username,
+            `address` = _address, `picture` = _picture
+		WHERE id = _id;
+
+		SELECT * FROM `user` WHERE `id` = _id;
+	END IF;
+
+ELSE
+	SELECT _id as `outcome`;
+END IF;
+
+END$$
+DELIMITER ;

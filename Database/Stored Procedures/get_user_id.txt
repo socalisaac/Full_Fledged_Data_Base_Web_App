@@ -1,0 +1,35 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `get_user_id`(
+IN _id VARCHAR(36)
+)
+BEGIN
+
+#SELECT u.id as `user_id`, u.username, u.`password` as `hash`
+#FROM user as u
+#WHERE username = _username;
+
+IF(NOT EXISTS(SELECT `username` FROM user WHERE user.`id` = _id)) THEN
+
+	SELECT "ERROR: Username Not Found" as `error`;
+    SELECT "ERROR: No Permissions Found" as `error`;
+    
+ELSE
+
+	SELECT u.id as `user_id`, u.username, u.`password` as `hash`, r.name as `role`, r.id as `role_id`, r.level as `access`
+	INTO @user_id, @username, @pw_hash, @user_role, @role_id, @access
+	FROM user as u
+	JOIN role as r ON u.`role` = r.id
+	WHERE u.id = _id;
+
+	SELECT @user_id as `user_id`,
+		   @username as `username`, 
+		   @pw_hash as `hash`, 
+		   @user_role as `role`,
+		   @access as `access`;
+
+	CALL get_user_permissions(@user_id);
+
+END IF;
+
+END$$
+DELIMITER ;

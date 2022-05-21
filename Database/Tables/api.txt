@@ -1,0 +1,5 @@
+CREATE TABLE `api` (
+  `id` varchar(36) NOT NULL,
+  `route` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='API routes';

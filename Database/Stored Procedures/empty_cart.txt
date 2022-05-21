@@ -1,0 +1,17 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `empty_cart`(
+	IN _delete_id VARCHAR(36)
+)
+BEGIN
+
+IF EXISTS (SELECT * FROM shopping_cart WHERE user_id = _delete_id) THEN
+	
+    DELETE FROM shopping_cart
+    WHERE `user_id` = _delete_id;
+    
+    SELECT 'SUCCESS' as `outcome`, _delete_id as `id` , _delete_id as `deleted`;
+ELSE
+	SELECT 'FAIL: Cart is already empty' as `outcome`;
+    END IF;
+    END$$
+DELIMITER ;

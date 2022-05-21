@@ -1,0 +1,14 @@
+CREATE TABLE `role2api` (
+  `id` varchar(36) NOT NULL,
+  `role_id` varchar(36) DEFAULT NULL,
+  `api_id` varchar(36) DEFAULT NULL,
+  `view_list` tinyint(4) DEFAULT NULL,
+  `view_others` tinyint(4) DEFAULT NULL,
+  `modify_others` tinyint(4) DEFAULT NULL,
+  `created` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
+  PRIMARY KEY (`id`),
+  KEY `role_FK_idx` (`role_id`),
+  KEY `api_FK_idx` (`api_id`),
+  CONSTRAINT `api_FK` FOREIGN KEY (`api_id`) REFERENCES `api` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `role_FK` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Associates roles to API routes';

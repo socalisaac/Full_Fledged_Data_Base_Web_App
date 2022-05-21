@@ -1,0 +1,20 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `get_product_list`(
+	IN SortBy VARCHAR(50)
+)
+BEGIN
+SELECT `id`, `description`, `title`,`image_url`,`price`, `tags`, `limit`,`created` as `added`
+FROM product
+ORDER BY
+	CASE SortBy
+		WHEN 'title-asc' THEN title
+        WHEN 'created-asc' THEN created
+        ELSE '' END
+	ASC,
+    CASE SortBy
+		WHEN 'title-desc' THEN title
+        WHEN 'created-asc' THEN created 
+        ELSE '' END
+	DESC;
+END$$
+DELIMITER ;

@@ -1,0 +1,42 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `update_product`(
+	IN _id VARCHAR(36),
+    IN _title varchar(128),
+    IN _description varchar(255),
+    IN _image_url varchar(255),
+    IN _price varchar(512),
+    IN _tags varchar(512),
+    IN _limit varchar(512)
+)
+BEGIN
+
+IF EXISTS(SELECT * FROM product where id = _id) THEN
+
+if(_limit = "") THEN
+	set _limit = 0;
+END IF;
+
+if(_price = "") THEN
+	set _price = 0;
+END IF;
+
+UPDATE `sagebrus_CPSC431_007`.`product`
+SET `title` = _title, `description` = _description,
+	`image_url` = _image_url, `price` = CONVERT(_price, DECIMAL(10,2)),
+    `tags` = _tags, `limit` = CONVERT(_limit, UNSIGNED) 
+WHERE id = _id;
+
+/*INSERT INTO `sagebrus_CPSC431_007`.`update_audit`
+(`id`,`timestamp`,`editor_ip`,`changes`,`record_id`)
+VALUES (null,null,_ip,CONCAT_WS('|', _title,_description,_image_url,_price,_tags),_id);*/
+
+SELECT `id`,`created`,`title`,`description`,`image_url`,`price`,`tags`,`limit`, "OK" as `status`
+FROM `sagebrus_CPSC431_007`.`product`
+WHERE ID = _id;
+
+ELSE
+SELECT _id as `outcome`;
+END IF;
+
+END$$
+DELIMITER ;

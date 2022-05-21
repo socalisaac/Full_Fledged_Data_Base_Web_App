@@ -1,0 +1,9 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `get_all_permissions`()
+BEGIN
+	SELECT r.name as `role`, a.route, r2a.view_list, r2a.view_others, r2a.modify_others
+	FROM role as r
+	JOIN role2api as r2a ON r.id = r2a.role_id
+	JOIN api as a ON r2a.api_id = a.id;
+END$$
+DELIMITER ;

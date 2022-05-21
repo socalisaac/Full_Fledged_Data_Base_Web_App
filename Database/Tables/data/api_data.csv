@@ -1,0 +1,5 @@
+id,route
+0fc763ee-c58e-11ec-8e94-56000233e9ec,api/product
+0fe0cc48-c58e-11ec-8e94-56000233e9ec,api/login
+0ffa67aa-c58e-11ec-8e94-56000233e9ec,api/user
+10140e9c-c58e-11ec-8e94-56000233e9ec,api/permission

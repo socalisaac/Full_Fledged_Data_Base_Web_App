@@ -1,0 +1,29 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `post_new_product`(
+IN _title varchar(128),
+IN _description varchar(255),
+IN _image_url varchar(255),
+IN _price varchar(512),
+IN _tags varchar(512),
+IN _limit varchar(512)
+)
+BEGIN
+SET @uuid = UUID();
+
+if(_limit = "") THEN
+	set _limit = 0;
+END IF;
+
+if(_price = "") THEN
+	set _price = 0;
+END IF;
+
+INSERT INTO `sagebrus_CPSC431_007` . `product`
+(`id`,`created`,`title`,`description`,`image_url`, `price`, `tags`, `limit`)
+VALUES
+(@uuid,null,_title,_description,_image_url,CONVERT(_price, DECIMAL(10,2)),_tags,CONVERT(_limit, UNSIGNED));
+
+SELECT * FROM `sagebrus_CPSC431_007` . `product` WHERE id = @uuid;
+
+END$$
+DELIMITER ;

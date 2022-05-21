@@ -1,0 +1,11 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `view_role2api_names`()
+BEGIN
+
+select ra.id as id, r.name as role, a.route as route, ra.view_list, ra.view_others, ra.modify_others
+From role2api as ra
+join role as r on r.id = ra.role_id
+join api as a on a.id = ra.api_id;
+
+END$$
+DELIMITER ;

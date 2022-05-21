@@ -1,0 +1,18 @@
+DELIMITER $$
+CREATE DEFINER=`sagebrus_007`@`%` PROCEDURE `add_to_cart`(
+IN _user_id VARCHAR(36),
+IN _product_id VARCHAR(36)
+)
+BEGIN
+	INSERT INTO `shopping_cart`
+	(`id`,
+	`user_id`,
+	`product_id`)
+	VALUES
+	(null,
+	_user_id,
+	_product_id);
+    
+    SELECT "Item Added" as `status`;
+END$$
+DELIMITER ;
